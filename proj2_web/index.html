@@ -1,0 +1,694 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS180 Project 2: Fun with Filters and Frequencies!</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="50abe8af-1504-41f3-b87e-2b73e64bbbc2" class="page sans"><header><img class="page-cover-image" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_orange_cat.jpggolden_gate_hd.webp%202.png" style="object-position:center 41.669999999999995%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🐈</span></div><h1 class="page-title">CS180 Project 2: <strong>Fun with Filters and Frequencies!</strong></h1><p class="page-description"></p></header><div class="page-body"><h3 id="460f9a4a-5e99-4780-959f-2b99a55c927a" class="">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</h3><div id="e1dd4ebe-9bf1-49f6-bb2b-1fb672d98a9b" class="column-list"><div id="bb7b18a5-1264-4329-957e-0ef9218cff61" style="width:56.25%" class="column"><nav id="a64641f5-3c38-44a5-913b-6d6a76cac243" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#460f9a4a-5e99-4780-959f-2b99a55c927a">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c83fb00f-6ca1-4504-a9fe-ce795c948366">Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#877dd497-0a3a-44a7-b3ff-814090fe5b59"><strong>Part 1: Fun with Filters</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1034d556-e62b-80b6-b284-f1e40152ff54"><strong>Part 1.1: Finite Difference Operator</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a288ff26-0f5b-4702-9d59-f64263f7c724">Part 1.2: Derivative of Gaussian (DoG) Filter</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1034d556-e62b-8078-9b80-d24596e313be"><strong>Part 2: Fun with Frequencies!</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1034d556-e62b-8069-adeb-cbb5eaf26822"><strong>Part 2.1: Image &quot;Sharpening&quot;</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1074d556-e62b-8004-bd67-d0dafef4fc49">Part 2.1: Derivation of Unsharp Mask Filter</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7b69073d-bf64-4c46-9985-db2202924b36">Sharpen, Blur, then Sharpen again</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1034d556-e62b-80f9-b1dd-cda1458cb955"><strong>Part 2.2: Hybrid Images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1094d556-e62b-8065-9b6f-cf3bc841a894">Hybrid Input Images</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1034d556-e62b-8096-acc1-df0b7202f5b4"><strong>Part 2.3: Gaussian and Laplacian Stacks</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1034d556-e62b-8081-9ba8-da3c746fc2a9"><strong>Part 2.4: Multi-resolution Blending</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1094d556-e62b-80bf-9585-dda68b14a9d3">Blending Input Images</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#04c53cc9-4938-4626-91e6-590584d5dc1d">Blending with Irregular Masks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#85567541-6217-4779-a953-5e941298e23a"><mark class="highlight-orange">Golden Gate Tabby</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1034d556-e62b-807c-ba94-c09d46afc26b">Step 1: Select and Preprocess Images</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1094d556-e62b-80cf-892a-ef1f1f5ad962">Step 2: Create a Mask</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1094d556-e62b-807a-a52a-c556f87f6df6">Step 3: Multi-resolution Blending</a></div></nav></div><div id="1084d556-e62b-8094-87d2-e28b49c59985" style="width:43.75%" class="column"><figure id="9b97bea2-f91f-4067-9486-96503292afe8" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_shocked_cat.jpgmoon.webp.png"><img style="width:289.6158752441406px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_shocked_cat.jpgmoon.webp.png"/></a></figure><figure id="1094d556-e62b-80cf-b4fa-fedf30a23588" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer_blended.png"><img style="width:1223px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer_blended.png"/></a></figure><p id="ee63f7fb-7c98-4495-b214-1c3349ecc97e" class="">
+</p></div></div><p id="0d65e1a3-e594-4e90-bedc-df1019122e6b" class="">Credit to Notion for this template.</p><h1 id="c83fb00f-6ca1-4504-a9fe-ce795c948366" class="">Introduction</h1><h1 id="877dd497-0a3a-44a7-b3ff-814090fe5b59" class=""><strong>Part 1: Fun with Filters</strong></h1><figure id="1074d556-e62b-8066-a234-d7461a43d545" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/cameraman.png"><img style="width:240px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/cameraman.png"/></a></figure><h2 id="1034d556-e62b-80b6-b284-f1e40152ff54" class=""><strong>Part 1.1: Finite Difference Operator</strong></h2><figure id="1074d556-e62b-807f-a8cd-dd2c30310392" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>D</mi><mi>x</mi></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo separator="true">,</mo><mtext> </mtext><msub><mi>D</mi><mi>y</mi></msub><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">D_x = \begin{bmatrix}1&amp;-1\end{bmatrix},\ D_y = \begin{bmatrix}1\\-1\end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span></span></div></figure><figure id="1074d556-e62b-8011-8004-e91b0a6d7f53" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-1.png"><img style="width:707.9752197265625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-1.png"/></a></figure><h2 id="a288ff26-0f5b-4702-9d59-f64263f7c724" class="">Part 1.2: Derivative of Gaussian (DoG) Filter</h2><figure id="1074d556-e62b-801f-8d18-fe2859e29495" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2a.png"><img style="width:4359px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2a.png"/></a></figure><figure id="1074d556-e62b-8076-9041-e184fb313148" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2c.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2c.png"/></a></figure><figure id="1074d556-e62b-8009-b036-d9af5140abb7" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2b.png"><img style="width:2370px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2_1-2b.png"/></a></figure><p id="0699dcca-b243-4deb-a67d-20f5a840b6ea" class=""><br/>• What differences do you see?<br/><div class="indented"><ul id="1094d556-e62b-80fa-b403-c038b03a2a2d" class="bulleted-list"><li style="list-style-type:disc">The derivatives are less noisy.</li></ul><ul id="72497d1d-f5ff-46a8-a772-552c403a6221" class="bulleted-list"><li style="list-style-type:disc">The edge detections are less localized and smeared out. </li></ul></div></p><p id="1074d556-e62b-802c-969c-ded27990d460" class="">
+</p><p id="1074d556-e62b-80b9-9673-e953f5e08ed8" class=""><br/>• Verify that you get the same result as before.<br/></p><h1 id="1034d556-e62b-8078-9b80-d24596e313be" class=""><strong>Part 2: Fun with Frequencies!</strong></h1><h1 id="1034d556-e62b-8069-adeb-cbb5eaf26822" class=""><strong>Part 2.1: Image &quot;Sharpening&quot;</strong></h1><h1 id="1074d556-e62b-8004-bd67-d0dafef4fc49" class="">Part 2.1: Derivation of Unsharp Mask Filter</h1><figure id="1094d556-e62b-8033-aa2e-dceb8651b91e" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-7.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-7.png"/></a></figure><p id="1074d556-e62b-806b-9806-e21e90595609" class="">Let <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi></mrow><annotation encoding="application/x-tex">\ell</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">ℓ</span></span></span></span></span><span>﻿</span></span> denote a given grayscale 2d image, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span><span>﻿</span></span> denote the sharpening parameter, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span></span></span></span><span>﻿</span></span> denote a gaussian filter, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span></span><span>﻿</span></span> denote the unit impulse.</p><p id="1074d556-e62b-8023-8b35-e3e31559a5d7" class="">Starting from the given definition of the unsharp procedure, we apply the properties of convolution to simplify:</p><figure id="a347b35e-484a-461e-abf9-4e7ad2463eb2" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi mathvariant="normal">ℓ</mi><mo>+</mo><mi>α</mi><mo stretchy="false">(</mo><mi mathvariant="normal">ℓ</mi><mo>−</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>g</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>δ</mi><mo>+</mo><mi>α</mi><mo stretchy="false">(</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>δ</mi><mo>−</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>g</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>δ</mi><mo>+</mo><mi>α</mi><mo stretchy="false">(</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>δ</mi><mo stretchy="false">)</mo><mo>−</mo><mi>α</mi><mo stretchy="false">(</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>g</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>δ</mi><mo>+</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>α</mi><mi>δ</mi><mo stretchy="false">)</mo><mo>−</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mo stretchy="false">(</mo><mi>α</mi><mi>g</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr><mtr><mtd class ="mtr-glue"></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mo stretchy="false">(</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>α</mi><mo stretchy="false">)</mo><mi>δ</mi><mo>−</mo><mi>α</mi><mi>g</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd class ="mtr-glue"></mtd><mtd class ="mml-eqn-num"></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align}
+\ell + \alpha(\ell - \ell * g)
+&amp;= \ell*\delta + \alpha(\ell*\delta - \ell * g) \\
+&amp;= \ell*\delta + \alpha(\ell*\delta) - \alpha(\ell * g) \\
+&amp;= \ell*\delta + \ell*(\alpha \delta) - \ell * (\alpha g) \\
+&amp;= \ell*((1 + \alpha)\delta - \alpha g)
+\end{align}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:6em;vertical-align:-2.75em;"></span><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.25em;"><span style="top:-5.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"></span></span><span style="top:-0.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.75em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.25em;"><span style="top:-5.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">αg</span><span class="mclose">)</span></span></span><span style="top:-0.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">((</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">αg</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.75em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.25em;"><span style="top:-5.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="eqn-num"></span></span><span style="top:-3.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="eqn-num"></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="eqn-num"></span></span><span style="top:-0.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="eqn-num"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.75em;"><span></span></span></span></span></span></span></span></span></div></figure><p id="1074d556-e62b-807f-b222-c86c38b8dfae" class="">Hence, the unsharp filter <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>α</mi><mo stretchy="false">)</mo><mi>δ</mi><mo>−</mo><mi>α</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">h \equiv (1 + \alpha)\delta - \alpha g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">αg</span></span></span></span></span><span>﻿</span></span> can be applied with single convolution:<br/><br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi><mo>∗</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">\ell * h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">ℓ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span></span><span>﻿</span></span></p><figure id="1094d556-e62b-806a-a666-c17d16236cdc" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_taj.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_taj.png"/></a></figure><figure id="c34cf890-3cf9-474e-b4a2-750b241e6d9d" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_chime.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_chime.png"/></a></figure><figure id="1094d556-e62b-80f3-9fb7-fa8a7be46342" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_govt2.png"><img style="width:707.9752197265625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_govt2.png"/></a></figure><figure id="1094d556-e62b-809f-923c-d824c79dc099" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_space_laser.png"><img style="width:707.9752197265625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharpened_space_laser.png"/></a></figure><h3 id="7b69073d-bf64-4c46-9985-db2202924b36" class="">Sharpen, Blur, then Sharpen again</h3><figure id="1084d556-e62b-8042-b260-f2fdb3c30ec4" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharp_blur_sharp_baby_sheep.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-1sharp_blur_sharp_baby_sheep.png"/></a></figure><p id="1094d556-e62b-8055-ad42-d625a9e31b62" class="">Compare the original and the sharpened image and report your observations.</p><ul id="1094d556-e62b-80ef-9e00-fbe0c5526513" class="bulleted-list"><li style="list-style-type:disc"></li></ul><h1 id="1034d556-e62b-80f9-b1dd-cda1458cb955" class=""><strong>Part 2.2: Hybrid Images</strong></h1><div id="1084d556-e62b-80b1-a2d6-c600d8afba1c" class="column-list"><div id="1084d556-e62b-8020-a967-d5689060e372" style="width:50%" class="column"><figure id="1084d556-e62b-80e5-bf14-e119806f4eef" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowstrangelovehighmuffley_blended.png"><img style="width:550.9895629882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowstrangelovehighmuffley_blended.png"/></a><figcaption>Dr. Strangelove and President Muffley</figcaption></figure><figure id="5d800d26-316e-4419-a57a-ce99af2bc17e" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmehighsavannah5_blended.png"><img style="width:330.98956298828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmehighsavannah5_blended.png"/></a><figcaption>Me + Savannah</figcaption></figure><figure id="1084d556-e62b-8034-8779-c2be8954df53" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmassive_sheephighhappy_ewe_blended.png"><img style="width:288px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmassive_sheephighhappy_ewe_blended.png"/></a><figcaption>Alter Ego</figcaption></figure></div><div id="1084d556-e62b-806b-aac6-c9ea676accd7" style="width:49.99999999999997%" class="column"><figure id="1084d556-e62b-8022-974b-d500f86fde07" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbig_boomhighquote_blended.png"><img style="width:330.98956298828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbig_boomhighquote_blended.png"/></a></figure><figure id="1084d556-e62b-8024-b12d-ffcc3cd12979" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowoppenheimerhighbarbie_blended.png"><img style="width:707.98828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowoppenheimerhighbarbie_blended.png"/></a><figcaption>Barbenheimer 1</figcaption></figure><figure id="5712e6c3-a20f-451b-8e4d-6a23e389f4af" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer_blended%201.png"><img style="width:1223px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer_blended%201.png"/></a><figcaption>Barbenheimer 2</figcaption></figure><figure id="1084d556-e62b-80a2-b65f-fdbc6e550564" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lownot_stonkshighstonks_blended.png"><img style="width:330.9830627441406px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lownot_stonkshighstonks_blended.png"/></a><figcaption>Stonks, Not Stonks</figcaption></figure></div></div><p id="80d34048-0fe4-4c62-8da7-547491ecb10e" class="">
+</p><p id="1084d556-e62b-80ca-a09a-da0c0ebde486" class="">Try using color to enhance the effect. Does it work better to use color for the high-frequency component, the low-frequency component, or both? <strong>(0.07 cookie points)</strong><div class="indented"><ul id="1084d556-e62b-80d1-84e5-d0c74dcaff81" class="bulleted-list"><li style="list-style-type:disc">The color appears to be most visible in the low-frequency component.</li></ul></div></p><h3 id="1094d556-e62b-8065-9b6f-cf3bc841a894" class="">Hybrid Input Images</h3><figure id="1084d556-e62b-809f-a0bd-e54e796adbdc" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowstrangelovehighmuffley_with-intermediates.png"><img style="width:2449px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowstrangelovehighmuffley_with-intermediates.png"/></a></figure><figure id="1bfc2f03-f6fc-4e39-82d4-9de86b0b2942" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowoppenheimerhighbarbie.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowoppenheimerhighbarbie.png"/></a></figure><figure id="1094d556-e62b-8059-846e-d3f388ed3ccf" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer.png"/></a></figure><figure id="1084d556-e62b-8022-ab34-fe43a4a7167a" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmassive_sheephighhappy_ewe.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmassive_sheephighhappy_ewe.png"/></a></figure><figure id="1074d556-e62b-800a-9ebe-e653b6176c2e" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbig_boomhighquote.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbig_boomhighquote.png"/></a></figure><figure id="1094d556-e62b-800b-9b07-cecab570476e" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmehighsavannah5.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowmehighsavannah5.png"/></a></figure><figure id="1084d556-e62b-8037-933f-fed3aef7a3f7" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lownot_stonkshighstonks.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lownot_stonkshighstonks.png"/></a></figure><h1 id="1034d556-e62b-8096-acc1-df0b7202f5b4" class=""><strong>Part 2.3: Gaussian and Laplacian Stacks</strong></h1><figure id="1094d556-e62b-8073-86ef-f790c38eaf90" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-3orapple_input.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-3orapple_input.png"/></a></figure><figure id="1094d556-e62b-8009-9c41-f70122a86ecd" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-3orapple_fig.png"><img style="width:707.9947509765625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-3orapple_fig.png"/></a></figure><h1 id="1034d556-e62b-8081-9ba8-da3c746fc2a9" class=""><strong>Part 2.4: Multi-resolution Blending</strong></h1><div id="1094d556-e62b-80e9-88e8-d52ecb7bfd6b" class="column-list"><div id="1094d556-e62b-802e-9acf-f0be91b92df2" style="width:50%" class="column"><figure id="1094d556-e62b-808f-87fe-c67935747947" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_barbie.pngoppenheimer.jpg.png"><img style="width:707.98828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_barbie.pngoppenheimer.jpg.png"/></a><figcaption>Barbenheimer </figcaption></figure><figure id="1094d556-e62b-806e-a491-f52869dd1bb4" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_orange_cat.jpggolden_gate_hd.webp.png"><img style="width:707.9947509765625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_orange_cat.jpggolden_gate_hd.webp.png"/></a><figcaption>Golden Gate Tabby</figcaption></figure><figure id="1094d556-e62b-80e9-a233-cd5ae91b13ce" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4orapple.png"><img style="width:300px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4orapple.png"/></a><figcaption>Orapple</figcaption></figure></div><div id="1094d556-e62b-805f-a73c-e747adc2111e" style="width:50%" class="column"><figure id="1094d556-e62b-8080-b586-ff92a0fba01e" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_earth.jpgvenus.webp.png"><img style="width:707.9817504882812px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_earth.jpgvenus.webp.png"/></a><figcaption>Venus on Earth, Brought to You by Climate Change</figcaption></figure><figure id="0b16031f-e5ef-4ef5-acaf-22b0f91281ee" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_shocked_cat.jpgmoon.webp%201.png"><img style="width:685.99609375px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_shocked_cat.jpgmoon.webp%201.png"/></a><figcaption>Moon Cat Discovers Earth</figcaption></figure></div></div><h2 id="1094d556-e62b-80bf-9585-dda68b14a9d3" class="">Blending Input Images</h2><figure id="1094d556-e62b-80ce-89cb-cb2867f51b2d" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_shocked_cat.jpgmoon.webp.png"><img style="width:707.98828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_shocked_cat.jpgmoon.webp.png"/></a></figure><figure id="1094d556-e62b-80b1-85e7-d82106c3d716" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_orange_cat.jpggolden_gate_hd.webp.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_orange_cat.jpggolden_gate_hd.webp.png"/></a></figure><figure id="1094d556-e62b-8050-b560-e5eb46fd19ba" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_earth.jpgvenus.webp.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_earth.jpgvenus.webp.png"/></a></figure><figure id="1094d556-e62b-80f8-b0ec-dcf5aa3aa2ae" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_barbie.pngoppenheimer.jpg.png"><img style="width:2379px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-4blending-inputs_barbie.pngoppenheimer.jpg.png"/></a></figure><h1 id="04c53cc9-4938-4626-91e6-590584d5dc1d" class="">Blending with Irregular Masks</h1><h2 id="85567541-6217-4779-a953-5e941298e23a" class=""><mark class="highlight-orange">Golden Gate Tabby</mark></h2><figure id="1094d556-e62b-8087-99cb-f5007154d2c0" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_orange_cat.jpggolden_gate_hd.webp%201.png"><img style="width:707.9947509765625px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4multires_orange_cat.jpggolden_gate_hd.webp%201.png"/></a><figcaption>The output of our multi-resolution blending procedure.</figcaption></figure><p id="1084d556-e62b-80f1-9a4c-ea92e9336d89" class="">In this section, we’ll add an orange tabby cat to the Golden Gate Bridge to illustrate our process of blending two images together with an irregular mask.</p><h3 id="1034d556-e62b-807c-ba94-c09d46afc26b" class="">Step 1: Select and Preprocess Images</h3><div id="92618f28-1142-41a7-9b51-32dc35b8f970" class="column-list"><div id="deb81ae7-65d7-4961-8b4a-145f0e206cc2" style="width:62.5%" class="column"><figure id="1084d556-e62b-80c1-8837-d999d1a68cb6" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/Golden-Gate-Bridge-San-Francisco.webp"><img style="width:336px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/Golden-Gate-Bridge-San-Francisco.webp"/></a><figcaption>Image A serves as the background</figcaption></figure></div><div id="231697f6-ff18-4e3f-9f22-487edc83ca1a" style="width:37.5%" class="column"><figure id="2cec522a-ee48-4ef8-bc38-37657083f29b" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/image.png"><img style="width:565.99609375px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/image.png"/></a><figcaption>Image B contains the subject to be blended into Image A.</figcaption></figure></div></div><ol type="1" id="1084d556-e62b-80c4-bcf3-e6b35adc6671" class="numbered-list" start="1"><li>Select a large image A to serve as the scene. In this case, A is a photo of the Golden Gate Bridge.</li></ol><ol type="1" id="1084d556-e62b-80aa-85f6-dd5687acf0f4" class="numbered-list" start="2"><li>Find a smaller image B satisfying the following conditions:<ol type="a" id="1094d556-e62b-80db-beae-d62fe8681cff" class="numbered-list" start="1"><li>B has dimensions no larger than A. (Cropping may be needed.)</li></ol><ol type="a" id="1094d556-e62b-8099-a053-e4b746d24737" class="numbered-list" start="2"><li>The subject in B can be easily separated from the background. </li></ol></li></ol><ol type="1" id="1094d556-e62b-806c-b016-d5e4cc194f2d" class="numbered-list" start="3"><li>Optionally crop or scale images A and B.</li></ol><ol type="1" id="1084d556-e62b-8062-9ebe-fde0ff3ff84f" class="numbered-list" start="4"><li>Zero pad B to the dimensions of A.</li></ol><ol type="1" id="1084d556-e62b-80e6-8220-e8ba5fe661cd" class="numbered-list" start="5"><li>Use <code>np.roll</code> to adjust the position of B on A until a good alignment is achieved.<figure id="1084d556-e62b-8036-8574-cf04dd844f68" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-6.png"><img style="width:330.98956298828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-6.png"/></a></figure><ol type="1" id="1094d556-e62b-808b-bc31-ca6450ef58b9" class="numbered-list" start="1"><li>These adjustments can be fine-tuned by plotting <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><msup><mi>B</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">A + B^\prime</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>, where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>B</mi><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">B^\prime</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is B after rolling.</li></ol><ol type="1" id="1084d556-e62b-80b4-8d43-fd4b2f2e8cd1" class="numbered-list" start="2"><li>There will likely be an ugly rectangle around the object in image B that we will next remove in the next step.</li></ol></li></ol><h3 id="1094d556-e62b-80cf-892a-ef1f1f5ad962" class="">Step 2: Create a Mask</h3><ul id="1094d556-e62b-809c-a98e-f5bb1946504f" class="bulleted-list"><li style="list-style-type:disc">In this step, we’ll make a mask to extract the subject in B from its background.</li></ul><ol type="1" id="1094d556-e62b-807b-9c87-d789894b80f8" class="numbered-list" start="1"><li>Select a threshold<ol type="a" id="1094d556-e62b-8098-a50d-fb679d3276d6" class="numbered-list" start="1"><li>Our method for computing a good threshold involves computing statistics the maximum, minimum, sum, or mean of the color channel values at each pixel <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(i,j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>, then choosing a percentile cutoff of these values to serve as a binary threshold. </li></ol><div id="1094d556-e62b-8078-a7e3-d1255b3e12f2" class="column-list"><div id="03fe496d-f6f4-4163-bf2c-b8869ef7ee99" style="width:33.33333333333333%" class="column"><figure id="04f666d6-7f9b-4636-9eb9-68993c26ffd0" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-6%201.png"><img style="width:240px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-6%201.png"/></a><figcaption>Mask with threshold set to 3 (pure white).</figcaption></figure></div><div id="11cc67bf-25cd-4636-937d-1f4c6d57ffec" style="width:33.33333333333333%" class="column"><figure id="1084d556-e62b-80a6-89f7-f4adc5b37502" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-12.png"><img style="width:288px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-12.png"/></a><figcaption>Mask with threshold <code>2.94</code>determined the 23rd percentile of color channel sums.</figcaption></figure></div><div id="4bf12ce3-ddd8-4bf0-944b-6fe38b4ed750" style="width:33.33333333333333%" class="column"><figure id="1084d556-e62b-807a-abec-f61f1aa4f63b" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-1.png"><img style="width:397.98828125px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/download-1.png"/></a><figcaption>Mask with threshold <code>2.847</code>determined the 23rd percentile of color channel maximums.</figcaption></figure></div></div></li></ol><ol type="1" id="1094d556-e62b-805f-98ab-f5f7aafb8584" class="numbered-list" start="2"><li>Zero-pad the mask to the dimensions of A.</li></ol><ol type="1" id="59fd51be-0536-4a23-85ab-ff61473bdd48" class="numbered-list" start="3"><li>Apply the same displacement found in step 1e to this mask.<figure id="1094d556-e62b-80c6-84d6-e1f6839d3354" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4golden_cat_masks.png"><img style="width:480px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4golden_cat_masks.png"/></a></figure></li></ol><h3 id="1094d556-e62b-807a-a52a-c556f87f6df6" class="">Step 3: Multi-resolution Blending</h3><ul id="1094d556-e62b-8041-9173-ed6b4f09d849" class="toggle"><li><details open=""><summary>Apply the Laplacian blending method to blend Images A and B with our mask.</summary><ol type="1" id="69f2bcc4-02d4-4f96-b8ad-6ec47611cbd1" class="numbered-list" start="1"><li>Some experimentation is needed to find good parameters for the Gaussian smoothing  and the depth of the Laplacian stack / pyramid.</li></ol><figure id="1094d556-e62b-807e-8d38-d4fca7be6a2b" class="image"><a href="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4golden_gate_tabby_pyramid.png"><img style="width:2400px" src="CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/proj2-4golden_gate_tabby_pyramid.png"/></a></figure></details></li></ul><p id="a66b30b1-322b-4966-9bc4-faaaaa9c535f" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
