@@ -1,24 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolas Rault-Wang | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        .project-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
-<body>
-    <h1>Welcome to my CS 180 Portfolio!</h1>
-    Author: Nicolas Rault-Wang (github: <a href="https://github.com/nraultwang">nraultwang</a>)<br>
-    Below you can find my project writeups for UC Berkeley's CS 180 (<a href="https://www2.eecs.berkeley.edu/Courses/CS180/">Intro to Computer Vision and Computational Photography</a>). <br>
-    <a href="./proj1_web/index.html">Project 1: Images of the Russian Empire -- Colorizing the Prokudin-Gorskii Photo Collection</a> <br>
-    <a href="./proj2_web/index.html">Project 2: Fun with Filters and Frequencies</a> <br>
-    <a href="./proj3_web/index.html">Project 3: Face Morphing and Modelling a Photo Collection</a> <br>
-    <!-- <a href="./proj4a_web/index.html">Project 4: (Auto)stitching and photo mosaics</a> <br> -->
-    <a href="./proj4ab_web/index.html">Project 4: (Auto)stitching and photo mosaics</a> <br>
-    <a href="./proj5_web/index.html">Project 5: Fun with Diffusion Models</a> <br>
-    <a href="./final_proj_web/index.html">Final Projects: (1) Neural Radiance Fields and (2) Facial Keypoint Detection via Neural Networks</a> <br>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto max-w-4xl px-4 py-12">
+
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-slate-900">Nicolas Rault-Wang</h1>
+            <p class="text-xl text-slate-600 mt-2">Applied Mathematics & Computer Science at UC Berkeley</p>
+            <div class="mt-6 flex justify-center gap-6 text-sm">
+                <a href="https://drive.google.com/file/d/1DscXdmrnUY5cKPE5OF_c_DEvqWti1Gks/view?usp=drive_link" class="font-medium text-sky-600 hover:text-sky-800 transition-colors">CV / Resume</a>
+                <a href="https://github.com/nraultwang" target="_blank" class="font-medium text-sky-600 hover:text-sky-800 transition-colors">GitHub</a>
+                <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank" class="font-medium text-sky-600 hover:text-sky-800 transition-colors">LinkedIn</a>
+            </div>
+        </header>
+
+        <!-- PANOSETI Research Projects Section -->
+        <section>
+            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Research Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Project 1: CV Pipeline -->
+                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900">Pioneering Deep Learning for PANOSETI</h3>
+                    <p class="text-slate-600 mt-2 text-sm leading-6">Developed the collaboration's first CV pipeline to prove the feasibility of automated interference detection in high-speed optical data, setting the standard for future ML filtering efforts.</p>
+                    <a href="https://deeply-alpaca-50c.notion.site/Panoseti-Cloud-Detection-2-0-8f3538417b6143339fd03fa62e552b68?source=copy_link" class="text-sky-600 font-medium text-sm mt-4 inline-block">View Write-up &rarr;</a>
+                </div>
+
+                <!-- Project 2: C++ Pipeline -->
+                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900">C++ Data Acquisition Core Overhaul</h3>
+                    <p class="text-slate-600 mt-2 text-sm leading-6">Re-architected the core C++ data pipeline to resolve critical data-corruption bugs, guaranteeing >99.99% data integrity and engineering the system for scalability and future data products.</p>
+                    <!-- <a href="#" class="text-sky-600 font-medium text-sm mt-4 inline-block">View Write-up &rarr;</a> -->
+                </div>
+
+                <!-- Project 3: Large-Scale Data Processing -->
+                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900">Large-Scale Scientific Data Pipeline</h3>
+                    <p class="text-slate-600 mt-2 text-sm leading-6">Co-designed a scalable data reduction pipeline with (TensorStore, Zarr, Dask) on an in-house cluster setup. Currently refining it to run on the San Diego Supercomputer Center.</p>
+                    <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" class="text-sky-600 font-medium text-sm mt-4 inline-block">View Write-up &rarr;</a>
+                </div>
+
+                <!-- Project 4: Anomaly Detection -->
+                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-900">Unsupervised Anomaly Detection</h3>
+                    <p class="text-slate-600 mt-2 text-sm leading-6">Independently investigated and prototyped a novel anomaly detector using a domain-specific Variational Autoencoder (VAE) to cluster pulse-height events.</p>
+                    <a href="https://deeply-alpaca-50c.notion.site/Pulse-Height-Anomaly-Detection-V1-0-17b4d556e62b80499992ffb6592860fb?source=copy_link" class="text-sky-600 font-medium text-sm mt-4 inline-block">View Write-up &rarr;</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Coursework Projects Section -->
+        <section class="mt-16">
+            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Coursework & Technical Projects</h2>
+            <div class="bg-white p-6 rounded-lg border border-slate-200">
+                <h3 class="font-bold text-lg text-slate-900">CS 180: Intro to Computer Vision</h3>
+                <p class="text-slate-600 mt-2 text-sm">Project write-ups from UC Berkeley's course on computer vision and computational photography.</p>
+                <ul class="list-disc list-inside mt-4 text-sm text-slate-700 space-y-2">
+                    <li><a href="./proj1_web/index.html" class="text-sky-600 hover:underline">Project 1: Colorizing the Prokudin-Gorskii Photo Collection</a></li>
+                    <li><a href="./proj2_web/index.html" class="text-sky-600 hover:underline">Project 2: Fun with Filters and Frequencies</a></li>
+                    <li><a href="./proj3_web/index.html" class="text-sky-600 hover:underline">Project 3: Face Morphing and Modelling a Photo Collection</a></li>
+                    <li><a href="./proj4ab_web/index.html" class="text-sky-600 hover:underline">Project 4: (Auto)stitching and Photo Mosaics</a></li>
+                    <li><a href="./proj5_web/index.html" class="text-sky-600 hover:underline">Project 5: Fun with Diffusion Models</a></li>
+                    <li><a href="./final_proj_web/index.html" class="text-sky-600 hover:underline">Final Project: Neural Radiance Fields (NeRF)</a></li>
+                </ul>
+            </div>
+             <!-- Add more course project containers here as needed -->
+        </section>
+
+    </div>
+
 </body>
 </html>
+
