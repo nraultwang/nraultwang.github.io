@@ -87,7 +87,7 @@
             <div class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-100">
                 <!-- Add publications here following this template -->
                 <div class="p-6">
-                    <h3 class="font-bold text-slate-900">Nanosecond differential timing using inexpensive differential GNSS receivers (DRAFT)</h3>
+                    <h3 class="font-bold text-slate-900">Nanosecond differential timing using inexpensive differential GNSS receivers (in preparation)</h3>
                     <p class="text-slate-600 text-sm mt-1">B. Godfrey, W. Liu, <strong>N. Rault-Wang</strong>, J. Kocz, D. Werthimer</p>
                     <p class="text-slate-500 text-sm mt-1">2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM), Jan. 2025, 431–431.</p>
                     <a href="https://doi.org/10.23919/USNC-URSINRSM66067.2025.10906985" class="text-sky-600 text-sm mt-2 inline-block">DOI: 10.23919/USNC-URSINRSM66067.2025.10906985</a>
@@ -260,16 +260,31 @@ of clustering Cherenkov events, noise, and stellar signals based on low-dimensio
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-lg border border-slate-200">
-                <h3 class="font-bold text-lg text-slate-900 mb-4">Apple-Sponsored CPU Design Contest Winner</h3>
-                <p class="text-slate-600 text-sm mb-4">Awarded 1st Place in a Spring 2025 Apple-sponsored RISC-V CPU design contest in a team with Neel Gajare, out of 18 two-person teams.
-                  We achieved the highest figure-of-merit in the FPGA category over the past 2 years with a compact design featuring a 1.06 CPI and 125 MHz clock frequency on a Xilinx 7 Series FPGA.<br>
-                I led the design of advanced optimizations and Verilog implementation, resulting in a fully bypassed, 5-stage RISC-V pipeline with speculative execution provided by a branch target buffer. See our write-up at the link below!
-                </p>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Optimization Write-Up</a>
-                </div>
-            </div>
+						<div class="bg-white p-6 rounded-lg border border-slate-200">
+							<h3 class="font-bold text-lg text-slate-900 mb-4">Apple-Sponsored CPU Design Contest Winner</h3>
+							
+							<p class="text-slate-600 text-sm mb-2">
+								Awarded 1st Place (out of 18 two-person teams) in a Spring 2025 Apple-sponsored RISC-V CPU design contest in a team with Neel Gajare.
+							</p>
+
+							<ul class="list-disc pl-5 text-slate-600 text-sm mb-4 space-y-1">
+								<li>
+									We achieved the contest's best PPA (Power, Performance, Area) metrics over the past two years: lowest resource utilization, 1.06 CPI, and 125 MHz clock frequency.
+								</li>
+								<li>
+									Led the microarchitecture and engineering workflow (Git feature-branching, regression testing) to design a fully bypassed, 5-stage RISC-V pipeline in <strong>Verilog RTL</strong>, including speculative execution via a branch target buffer.
+								</li>
+								<li>
+									Synthesized the core entirely on the Programmable Logic (PL) fabric of a Xilinx Zynq-7000 (XC7Z020), validating the design with a custom SystemVerilog verification suite.
+								</li>
+							</ul>
+
+							<p class="text-slate-600 text-sm mb-2">See my write-up at the link below!</p>
+							<div class="grid md:grid-cols-2 gap-4">
+									<a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Optimization Write-Up</a>
+							</div>
+						</div>
+
         </section>
 
         <!-- Contact Section -->
