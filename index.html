@@ -1,329 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas Rault-Wang | Computational Imaging & ML Research</title>
+---
+layout: default
+title: Home
+---
 
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+<div class="profile-section">
+  <img src="images/nicolas_rault-wang.png" alt="Nicolas Rault-Wang" class="profile-img">
+  <div class="profile-bio">
+    <h1 class="profile-name">Nicolas Rault-Wang</h1>
+    <p>Incoming PhD Student at MIT EECS, joining <a href="https://www.media.mit.edu/groups/signal-kinetics/overview/" target="_blank">Signal Kinetics</a> with Prof. Fadel Adib.</p>
+    <p>My research interests lie at the intersection of signals, systems, and physics-informed machine learning. I previously studied Applied Mathematics and Computer Science at UC Berkeley, where I developed machine learning systems and computational methods for scientific instrumentation.</p>
+    <p class="links">
+      <a href="https://drive.google.com/file/d/1DscXdmrnUY5cKPE5OF_c_DEvqWti1Gks/view?usp=drive_link" target="_blank">[CV]</a>
+      <a href="https://github.com/nraultwang" target="_blank">[GitHub]</a>
+      <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank">[LinkedIn]</a>
+    </p>
+  </div>
+</div>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .project-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .research-statement {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800">
-
-    <div class="container mx-auto max-w-5xl px-4 py-12">
-
-        <!-- Header with Research Focus -->
-        <header class="text-center mb-16">
-            <!-- Add professional headshot here -->
-            <!-- <img src="path/to/headshot.jpg" alt="Nicolas Rault-Wang" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg"> -->
-            <img src="images/nicolas_rault-wang.png" alt="Nicolas Rault-Wang" class="w-32 h-36 rounded-full mx-auto mb-6 border-4 border-white shadow-lg">
-            
-            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Nicolas Rault-Wang</h1>
-            <p class="text-lg md:text-xl text-slate-600 mt-3 max-w-2xl mx-auto">
-                UC Berkeley Applied Math & CS undergraduate researching computational imaging, machine learning for scientific instrumentation, and large-scale data systems at the Space Sciences Laboratory.
-            </p>
-            
-            <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-                <a href="https://drive.google.com/file/d/1DscXdmrnUY5cKPE5OF_c_DEvqWti1Gks/view?usp=drive_link" 
-                   class="px-4 py-2 bg-sky-600 text-white rounded-lg font-medium hover:bg-sky-700 transition-colors">
-                   CV
-                </a>
-                <a href="https://github.com/nraultwang" target="_blank" 
-                   class="px-4 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-white transition-colors">
-                   GitHub
-                </a>
-                <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank" 
-                   class="px-4 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-white transition-colors">
-                   LinkedIn
-                </a>
-                <a href="mailto:nraultwang [at] berkeley.edu" 
-                   class="px-4 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-white transition-colors">
-                   Contact
-                </a>
-            </div>
-        </header>
-
-        <!-- Research Statement -->
-        <section class="research-statement rounded-2xl p-8 mb-16 border border-slate-200">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">Research Focus</h2>
-            <p class="text-slate-700 leading-relaxed">
-                I develop machine learning systems and computational methods for scientific instrumentation, with expertise spanning 
-                computer vision, distributed systems, and hardware-software co-design. My research bridges theoretical mathematics 
-                with practical implementation to solve challenging problems in astronomical data analysis and real-time transient detection.
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-full text-sm">Computational Imaging</span>
-                <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-full text-sm">Machine Learning Systems</span>
-                <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-full text-sm">Scientific Instrumentation</span>
-                <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-full text-sm">Large-Scale Data Systems</span>
-            </div>
-        </section>
-
-        <!-- Publications Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Publications & Presentations</h2>
-            
-            <div class="bg-white rounded-lg border border-slate-200 divide-y divide-slate-100">
-                <!-- Add publications here following this template -->
-                <div class="p-6">
-                    <h3 class="font-bold text-slate-900">Nanosecond differential timing using inexpensive differential GNSS receivers (conference abstract)</h3>
-                    <p class="text-slate-600 text-sm mt-1">B. Godfrey, W. Liu, <strong>N. Rault-Wang</strong>, J. Kocz, D. Werthimer</p>
-                    <p class="text-slate-500 text-sm mt-1">2025 United States National Committee of URSI National Radio Science Meeting (USNC-URSI NRSM), Jan. 2025, 431–431.</p>
-                    <a href="https://doi.org/10.23919/USNC-URSINRSM66067.2025.10906985" class="text-sky-600 text-sm mt-2 inline-block">DOI: 10.23919/USNC-URSINRSM66067.2025.10906985</a>
-                </div>
-                
-                <!-- Add more publications following the same structure -->
-                <div class="p-6">
-                    <h3 class="font-bold text-slate-900">Machine learning applications for anomaly and interference detection on PANOSETI data</h3>
-                    <p class="text-slate-600 text-sm mt-1"><strong>N. Rault-Wang</strong>, Y. Dong, W. Liu, D. Werthimer, J. Maire, and S. Wright</p>
-                    <p class="text-slate-500 text-sm mt-1">PANOSETI Collaboration Meeting (Plenary Talk), San Diego, CA, United States, Jan. 2025.</p>
-                    <a href="https://doi.org/10.5281/zenodo.17388495" class="text-sky-600 text-sm mt-2 inline-block">DOI: 10.5281/zenodo.17388495</a>
-                </div>
-
-                <!-- Add more publications following the same structure -->
-                <div class="p-6">
-                    <h3 class="font-bold text-slate-900">Identifying clouds in panoramic SETI data with machine learning</h3>
-                    <p class="text-slate-600 text-sm mt-1"><strong>N. Rault-Wang</strong>, et al.</p>
-                    <p class="text-slate-500 text-sm mt-1">2024 Assembly of the Order of the Octopus (Poster Presentation), Green Bank, WV, United States, Aug. 2024.</p>
-                    <a href="https://doi.org/10.5281/zenodo.14590904" class="text-sky-600 text-sm mt-2 inline-block">DOI 10.5281/zenodo.14590904</a>
-                </div>
-                
-                <!-- Additional publications can be added here -->
-            </div>
-            
-            <div class="text-center mt-6">
-                <a href="#" class="text-sky-600 font-medium hover:text-sky-800 transition-colors">
-                    View all publications and presentations (todo: make this page) &rarr;
-                </a>
-            </div>
-        </section>
-
-        <!-- Research Projects Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Research Projects</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                
-                <!-- Project 1: CV Pipeline -->
-                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-lg text-slate-900">Deep Learning for PANOSETI</h3>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Computer Vision</span>
-                    </div>
-                    <p class="text-slate-600 text-sm leading-6">
-                    Designed and implemented the first deep learning pipeline for the PANOSETI collaboration, achieving
-                    95% classification accuracy and 0.97 average precision in automated interference detection for the
-                    project’s daily terabyte-scale datasets of wide-field, 20μs-integration optical/near-IR images.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">PyTorch</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Computer Vision</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Real-time Systems</span>
-                    </div>
-                    View &rarr;
-                    <a href="https://doi.org/10.5281/zenodo.14590904" 
-                       class="text-sky-600 font-medium text-sm mt-4 inline-block">Conference Poster</a> or 
-                    <a href="https://deeply-alpaca-50c.notion.site/Panoseti-Cloud-Detection-2-0-8f3538417b6143339fd03fa62e552b68?source=copy_link" 
-                       class="text-sky-600 font-medium text-sm mt-4 inline-block">Technical Summary</a>
-                </div>
-
-                <!-- Project 2: C++ Pipeline -->
-                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-lg text-slate-900">High-speed Data Acquisition System</h3>
-                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Systems</span>
-                    </div>
-                    <p class="text-slate-600 text-sm leading-6">
-                    <!-- Architected and developed an ultra-high data rate, real-time C++ acquisition pipeline for high-speed imaging, achieving 200k frames/sec with zero packet loss.  -->
-                      Developed and maintained an ultra-high data rate (100k frames/sec) C++ acquisition pipeline, integrating an asynchronous gRPC API, leading several extensibility-focused refactors, and establishing a full GitHub Actions CI pipeline to validate fault-tolerance and >99.99% data integrity.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">C++</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">HASHPIPE</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">High-performance</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">gRPC</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">CI Testing</span>
-                    </div>
-                    View
-                    <a href="https://github.com/panoseti/panoseti/wiki/daq-system-overview" class="text-sky-600 font-medium text-sm mt-4 inline-block">System Overview</a>, 
-                    <a href="https://github.com/panoseti/panoseti_grpc" class="text-sky-600 font-medium text-sm mt-4 inline-block">gRPC API</a>, or
-                    <a href="https://casper.astro.berkeley.edu/wiki/HASHPIPE" class="text-sky-600 font-medium text-sm mt-4 inline-block">HASHPIPE</a>
-                </div>
-
-                <!-- Project 3: Large-Scale Data Processing -->
-                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-lg text-slate-900">Terabyte-scale Data Pipeline</h3>
-                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Distributed Systems</span>
-                    </div>
-                    <p class="text-slate-600 text-sm leading-6">
-                        Co-designed and implemented a scalable data reduction pipeline (TensorStore, Zarr, Dask) for 
-                        terabyte-scale datasets, leading technical prototyping from a self-administered 12TiB BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">BeeGFS</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Dask</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">HPC</span>
-                    </div>
-                    <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" 
-                       class="text-sky-600 font-medium text-sm mt-4 inline-block">View Cluster Setup &rarr;</a>
-                </div>
-
-                <!-- Project 4: Anomaly Detection -->
-                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-lg text-slate-900">Unsupervised Anomaly Detection</h3>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Computer Vision</span>
-                    </div>
-                    <p class="text-slate-600 text-sm leading-6">
-                    Proposed and prototyped an unsupervised anomaly detector using a β-Variational Autoencoder, capable
-of clustering Cherenkov events, noise, and stellar signals based on low-dimensional latent embeddings.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">PyTorch</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">VAE</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Anomaly Detection</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Clustering</span>
-                    </div>
-                    <a href="https://deeply-alpaca-50c.notion.site/Pulse-Height-Anomaly-Detection-V1-0-17b4d556e62b80499992ffb6592860fb?source=copy_link" 
-                       class="text-sky-600 font-medium text-sm mt-4 inline-block">View Write-up &rarr;</a>
-                </div>
-
-
-                <!-- Project 5: Polar Express Study -->
-                <div class="project-card bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-lg text-slate-900"> Characterizing Polar Express</h3>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Optimization</span>
-                    </div>
-                    <p class="text-slate-600 text-sm leading-6">
-                      Empirically characterized the Polar Express Muon variant, evaluating its sensitivity to key hyperparameters and the extent to which it stablizes the attention mechanism in Transformer architectures.
-                    </p>
-                    <div class="mt-4 flex gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Muon</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Modern Optimizers</span>
-                    </div>
-                    <a href="./docs/CS182_riding-the-polar-express-to-convergence[v3].pdf" 
-                       class="text-sky-600 font-medium text-sm mt-4 inline-block">View Paper &rarr;</a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Education</h2>
-            
-            <div class="bg-white rounded-lg border border-slate-200 p-6 mb-6">
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="font-bold text-lg text-slate-900">University of California, Berkeley</h3>
-                    <span class="text-slate-600 text-sm">Aug 2021 – Dec 2025</span>
-                </div>
-                <p class="text-slate-700">Bachelor of Arts, double major in <strong>Applied Mathematics</strong> and <strong>Computer Science</strong></p>
-                <p class="text-slate-600 text-sm mt-1">GPA: 3.88</p>
-                
-                <div class="mt-4">
-                    <h4 class="font-medium text-slate-900 mb-2">Relevant Coursework:</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Deep Neural Networks (CS 182)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Machine Learning (CS 189)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Computer Vision (CS 180)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Optimization Models (EECS 127)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Probability Theory (DATA 140)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Real Analysis (MATH 104)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Complex Analysis (MATH H185)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Digital Signal Processing (EE 123)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Operating Systems (CS 162)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Computer Architecture (CS 152)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Digital Design and Integrated Circuits (EECS 151)</span>
-                        <span class="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded">Quantum Mechanics (PHYSICS 137A)</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 border-b-2 border-slate-200 pb-2 mb-8">Advanced Coursework and Projects</h2>
-            <!-- Course Projects -->
-            <div class="bg-white p-6 rounded-lg border border-slate-200 p-6 mb-6">
-                <h3 class="font-bold text-lg text-slate-900 mb-4">CS 180: Computer Vision & Computational Photography</h3>
-                <p class="text-slate-600 text-sm mb-4">The following are write-ups from my CS 180 projects, each of which reproduces results from key papers in computer vision.</p>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <a href="./final_proj_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Neural Radiance Fields (NeRF)</a>
-                    <a href="./proj4ab_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Auto-stitching and Photo Mosaics</a>
-                    <a href="./proj1_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Prokudin-Gorskii Photo Colorization</a>
-                    <a href="./proj2_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Filters and Frequencies</a>
-                    <a href="./proj3_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Face Morphing and Modeling</a>
-                    <a href="./proj5_web/index.html" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Diffusion Models</a>
-                </div>
-            </div>
-
-						<div class="bg-white p-6 rounded-lg border border-slate-200">
-							<h3 class="font-bold text-lg text-slate-900 mb-4">Apple-Sponsored CPU Design Contest Winner</h3>
-							
-							<p class="text-slate-600 text-sm mb-2">
-								Awarded 1st Place (out of 18 two-person teams) in a Spring 2025 Apple-sponsored RISC-V CPU design contest in a team with Neel Gajare.
-							</p>
-
-							<ul class="list-disc pl-5 text-slate-600 text-sm mb-4 space-y-1">
-								<li>
-									We achieved the contest's best PPA (Power, Performance, Area) metrics over the past two years: lowest resource utilization, 1.06 CPI, and 125 MHz clock frequency.
-								</li>
-								<li>
-									Led the microarchitecture and engineering workflow (Git feature-branching, regression testing) to design a fully bypassed, 5-stage RISC-V pipeline in <strong>Verilog RTL</strong>, including speculative execution via a branch target buffer.
-								</li>
-								<li>
-									Synthesized the core entirely on the Programmable Logic (PL) fabric of a Xilinx Zynq-7000 (XC7Z020), validating the design with a custom SystemVerilog verification suite.
-								</li>
-							</ul>
-
-							<p class="text-slate-600 text-sm mb-2">See my write-up at the link below!</p>
-							<div class="grid md:grid-cols-2 gap-4">
-									<a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" class="text-sky-600 hover:text-sky-800 text-sm py-1 hover:underline">Optimization Write-Up</a>
-							</div>
-						</div>
-
-        </section>
-
-        <!-- Contact Section -->
-        <section class="text-center border-t border-slate-200 pt-12">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">Get In Touch</h2>
-            <p class="text-slate-600 max-w-2xl mx-auto mb-6">
-                I'm currently exploring PhD opportunities in computational imaging and machine learning systems. 
-                Feel free to reach out if you're interested in collaboration or discussion.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="mailto:nraultwang [at] berkeley.edu" class="px-6 py-2 bg-sky-600 text-white rounded-lg font-medium hover:bg-sky-700 transition-colors">
-                    Email Me
-                </a>
-                <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank" 
-                   class="px-6 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-white transition-colors">
-                    Connect on LinkedIn
-                </a>
-            </div>
-        </section>
-
+<h2>Research Projects</h2>
+<ul class="item-list">
+  <li>
+    <div class="item-title">Deep Learning for PANOSETI</div>
+    <div class="item-meta">Computer Vision / PyTorch / Real-time Systems</div>
+    <div class="item-desc">
+      Designed and implemented the first deep learning pipeline for the PANOSETI collaboration, achieving 95% classification accuracy and 0.97 average precision in automated interference detection for daily terabyte-scale datasets of wide-field, 20μs-integration optical/near-IR images.
     </div>
+    <div class="item-tags">
+      <a href="https://doi.org/10.5281/zenodo.14590904" target="_blank">[Conference Poster]</a> 
+      <a href="https://deeply-alpaca-50c.notion.site/Panoseti-Cloud-Detection-2-0-8f3538417b6143339fd03fa62e552b68?source=copy_link" target="_blank">[Technical Summary]</a>
+    </div>
+  </li>
 
-</body>
-</html>
+  <li>
+    <div class="item-title">High-speed Data Acquisition System</div>
+    <div class="item-meta">Systems / C++ / HASHPIPE / gRPC</div>
+    <div class="item-desc">
+      Developed and maintained an ultra-high data rate (100k frames/sec) C++ acquisition pipeline, integrating an asynchronous gRPC API, leading several extensibility-focused refactors, and establishing a full GitHub Actions CI pipeline to validate fault-tolerance and >99.99% data integrity.
+    </div>
+    <div class="item-tags">
+      <a href="https://github.com/panoseti/panoseti/wiki/daq-system-overview" target="_blank">[System Overview]</a>
+      <a href="https://github.com/panoseti/panoseti_grpc" target="_blank">[gRPC API]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Terabyte-scale Data Pipeline</div>
+    <div class="item-meta">Distributed Systems / BeeGFS / Dask / HPC</div>
+    <div class="item-desc">
+      Co-designed and implemented a scalable data reduction pipeline (TensorStore, Zarr, Dask) for terabyte-scale datasets, leading technical prototyping from a self-administered 12TiB BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
+    </div>
+    <div class="item-tags">
+      <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" target="_blank">[Cluster Setup]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Unsupervised Anomaly Detection</div>
+    <div class="item-meta">Computer Vision / PyTorch / VAE</div>
+    <div class="item-desc">
+      Proposed and prototyped an unsupervised anomaly detector using a β-Variational Autoencoder, capable of clustering Cherenkov events, noise, and stellar signals based on low-dimensional latent embeddings.
+    </div>
+    <div class="item-tags">
+      <a href="https://deeply-alpaca-50c.notion.site/Pulse-Height-Anomaly-Detection-V1-0-17b4d556e62b80499992ffb6592860fb?source=copy_link" target="_blank">[Write-up]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Characterizing Polar Express</div>
+    <div class="item-meta">Optimization / Muon Optimizer</div>
+    <div class="item-desc">
+      Empirically characterized the Polar Express Muon variant, evaluating its sensitivity to key hyperparameters and the extent to which it stablizes the attention mechanism in Transformer architectures.
+    </div>
+    <div class="item-tags">
+      <a href="./docs/CS182_riding-the-polar-express-to-convergence[v3].pdf" target="_blank">[View Paper]</a>
+    </div>
+  </li>
+</ul>
+
+<h2>Publications & Presentations</h2>
+<ul class="item-list">
+  <li>
+    <div class="item-title">Nanosecond differential timing using inexpensive differential GNSS receivers</div>
+    <div class="item-meta">B. Godfrey, W. Liu, <strong>N. Rault-Wang</strong>, J. Kocz, D. Werthimer. USNC-URSI NRSM, Jan 2025.</div>
+    <div class="item-tags">
+      <a href="https://doi.org/10.23919/USNC-URSINRSM66067.2025.10906985" target="_blank">[DOI: 10.23919]</a>
+    </div>
+  </li>
+  <li>
+    <div class="item-title">Machine learning applications for anomaly and interference detection on PANOSETI data</div>
+    <div class="item-meta"><strong>N. Rault-Wang</strong>, Y. Dong, W. Liu, D. Werthimer, J. Maire, S. Wright. PANOSETI Collaboration Meeting (Plenary), Jan 2025.</div>
+    <div class="item-tags">
+      <a href="https://doi.org/10.5281/zenodo.17388495" target="_blank">[DOI: 10.5281]</a>
+    </div>
+  </li>
+  <li>
+    <div class="item-title">Identifying clouds in panoramic SETI data with machine learning</div>
+    <div class="item-meta"><strong>N. Rault-Wang</strong>, et al. Order of the Octopus, Green Bank, Aug 2024.</div>
+    <div class="item-tags">
+      <a href="https://doi.org/10.5281/zenodo.14590904" target="_blank">[DOI: 10.5281]</a>
+    </div>
+  </li>
+</ul>
+
+<h2>Advanced Coursework & Projects</h2>
+<ul class="item-list">
+  <li>
+    <div class="item-title">Apple-Sponsored RISC-V CPU Design Contest</div>
+    <div class="item-meta">1st Place Winner / Verilog / Computer Architecture</div>
+    <div class="item-desc">
+      Awarded 1st Place out of 18 teams in a Spring 2025 contest. Achieved the best PPA metrics over two years. Led microarchitecture for a fully bypassed, 5-stage RISC-V pipeline with speculative execution, synthesized on a Xilinx Zynq-7000.
+    </div>
+    <div class="item-tags">
+      <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" target="_blank">[Optimization Write-Up]</a>
+    </div>
+  </li>
+  <li>
+    <div class="item-title">Computer Vision & Computational Photography</div>
+    <div class="item-meta">CS 180 Write-ups</div>
+    <div class="item-desc">
+      Reproductions of key papers in computer vision.
+    </div>
+    <div class="item-tags">
+      <a href="./final_proj_web/index.html">[Neural Radiance Fields]</a>
+      <a href="./proj5_web/index.html">[Diffusion Models]</a>
+      <a href="./proj4ab_web/index.html">[Auto-stitching]</a>
+      <a href="./proj3_web/index.html">[Face Morphing]</a>
+      <a href="./proj2_web/index.html">[Filters & Freqs]</a>
+      <a href="./proj1_web/index.html">[Photo Colorization]</a>
+    </div>
+  </li>
+</ul>

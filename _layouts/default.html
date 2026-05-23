@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
+    <!-- Fonts: Clean Serif for body, Sans for headings, Mono for code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <!-- MathJax 3 for LaTeX support with copy-tex -->
+    <script>
+    MathJax = {
+      loader: {load: ['[tex]/copy-tex']},
+      tex: {
+        packages: {'[+]': ['copy-tex']},
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      chtml: {
+        fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    
+    <!-- Simple Jekyll Search -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script>
+</head>
+<body>
+    <div class="layout-wrapper">
+        
+        <!-- Left Navigation Sidebar -->
+        <aside class="sidebar-left">
+            <div class="site-title-box">
+                <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+            </div>
+            
+            <!-- Search Bar -->
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search site...">
+                <ul id="results-container"></ul>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-group">
+                    <span class="nav-heading">Main</span>
+                    <a href="{{ '/' | relative_url }}" class="nav-link">Home / Profile</a>
+                    <a href="{{ '/posts' | relative_url }}" class="nav-link">Writing & Notes</a>
+                </div>
+            </nav>
+
+            <div class="nav-footer">
+                <a href="mailto:nraultwang [at] berkeley.edu">Email</a><br>
+                <a href="https://github.com/nraultwang">GitHub</a><br>
+                <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/">LinkedIn</a>
+                <p>&copy; {{ site.time | date: '%Y' }}</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {{ content }}
+        </main>
+        
+        <!-- Right Sidebar (Empty in default layout, filled in post layout) -->
+        <aside class="sidebar-right">
+            {% if page.layout == 'post' %}
+                <div class="toc-container">
+                    <span class="toc-heading">On this page</span>
+                    <div id="toc"></div>
+                </div>
+            {% endif %}
+        </aside>
+
+    </div>
+
+    <!-- Initialize Search -->
+    <script>
+      var sjs = SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '{{ site.baseurl }}/search.json',
+        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+        noResultsText: '<li>No results found</li>'
+      });
+    </script>
+</body>
+</html>

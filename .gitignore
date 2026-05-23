@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# zip files
+*.zip
+
 # Distribution / packaging
 .Python
 build/
@@ -163,3 +166,10 @@ cython_debug/
 
 # Mac 
 .DS_Store
+
+# Jekyll
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+vendor/

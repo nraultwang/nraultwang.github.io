@@ -1,0 +1,7 @@
+title: Nicolas Rault-Wang
+description: Nicolas Rault-Wang | Computational Imaging & ML Research
+url: "https://nraultwang.github.io"
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+
