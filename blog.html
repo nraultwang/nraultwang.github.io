@@ -1,0 +1,28 @@
+---
+layout: default
+title: Writing & Notes
+---
+
+<h1>Writing &amp; Notes</h1>
+<p>Short explainers, research notes, and thoughts. Expect posts on signals &amp; sensing,
+physics-informed ML, and computational imaging.</p>
+
+<ul class="post-list">
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}" class="post-list-item">
+        <span class="post-list-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="post-list-body">
+          <span class="post-list-title">{{ post.title }}</span>
+          {% if post.excerpt %}
+            <span class="post-list-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</span>
+          {% endif %}
+        </span>
+      </a>
+    </li>
+  {% else %}
+    <li style="padding: 20px 0; color: var(--text-muted); font-size: 0.93rem;">
+      No posts yet &mdash; check back soon.
+    </li>
+  {% endfor %}
+</ul>

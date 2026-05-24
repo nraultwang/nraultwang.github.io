@@ -1,0 +1,35 @@
+{% comment %}
+  Plotly chart embed — loads Plotly from CDN (once per page) and renders a chart
+  from a JSON spec or an inline data script.
+
+  Quick path — embed a pre-exported HTML snippet from Python:
+    In Python: fig.to_html(full_html=False, include_plotlyjs=False)
+    Then paste the output directly into your .md file (no include needed).
+    Plotly is already loaded by this include or by having one chart on the page.
+
+  Include path — for a chart defined by a JSON file or an inline script block:
+    {% include plotly.html div_id="my-chart" height="450px" %}
+    <script>
+      // your Plotly.newPlot('my-chart', data, layout) call goes here
+    </script>
+
+  Parameters:
+    div_id  — the HTML id for the chart container (default: "plotly-chart")
+    width   — CSS width  (default: "100%")
+    height  — CSS height (default: "450px")
+    wide    — true → wide breakout
+{% endcomment %}
+
+{% assign _id     = include.div_id | default: "plotly-chart" %}
+{% assign _width  = include.width  | default: "100%" %}
+{% assign _height = include.height | default: "450px" %}
+
+<!-- Load Plotly once per page -->
+{% unless page.plotly_loaded %}
+  {% assign page.plotly_loaded = true %}
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+{% endunless %}
+
+<div{% if include.wide %} class="wide"{% endif %}>
+  <div id="{{ _id }}" style="width:{{ _width }}; height:{{ _height }}; margin: 1.5em 0;"></div>
+</div>

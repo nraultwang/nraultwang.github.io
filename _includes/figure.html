@@ -1,0 +1,30 @@
+{% comment %}
+  Figure include with optional caption and wide/full-bleed breakout.
+
+  Usage:
+    {% include figure.html src="/assets/posts/my-post/fig1.png" caption="Caption text." %}
+    {% include figure.html src="/assets/posts/my-post/fig1.png" caption="Wide figure." wide=true %}
+    {% include figure.html src="/assets/posts/my-post/fig1.png" caption="Full bleed." full_bleed=true %}
+
+  Parameters:
+    src         — image path (required)
+    caption     — figcaption text (optional)
+    alt         — alt text (defaults to caption or empty)
+    wide        — true → breaks out of content column on both sides
+    full_bleed  — true → even wider breakout
+    loading     — "lazy" (default) or "eager"
+{% endcomment %}
+
+{% assign _loading = include.loading | default: "lazy" %}
+{% assign _class = "" %}
+{% if include.full_bleed %}{% assign _class = "full-bleed" %}{% elsif include.wide %}{% assign _class = "wide" %}{% endif %}
+
+<figure{% if _class != "" %} class="{{ _class }}"{% endif %}>
+  <img src="{{ include.src | relative_url }}"
+       alt="{{ include.alt | default: include.caption | default: "" }}"
+       loading="{{ _loading }}"
+       decoding="async">
+  {% if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>

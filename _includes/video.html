@@ -1,0 +1,38 @@
+{% comment %}
+  Video embed — for animated content (e.g., converted GIFs) and interactive demos.
+  Renders as an autoplaying, looped, muted video (like an animated GIF, but ~10x smaller).
+  Use the wide or full_bleed options to break out of the text column.
+
+  Usage:
+    {% include video.html src="/assets/posts/my-post/demo.mp4" caption="Optional caption." %}
+    {% include video.html src="/assets/posts/my-post/demo.mp4" wide=true %}
+
+  Parameters:
+    src         — .mp4 path (required); provide webm_src for a WebM source as well
+    webm_src    — optional .webm source (listed first for better compression)
+    caption     — figcaption text (optional)
+    wide        — true → wide breakout
+    full_bleed  — true → full-bleed
+    autoplay    — default true (set to false for click-to-play)
+    loop        — default true
+{% endcomment %}
+
+{% assign _autoplay = include.autoplay | default: true %}
+{% assign _loop     = include.loop     | default: true %}
+{% assign _class    = "" %}
+{% if include.full_bleed %}{% assign _class = "full-bleed" %}{% elsif include.wide %}{% assign _class = "wide" %}{% endif %}
+
+<figure{% if _class != "" %} class="{{ _class }}"{% endif %}>
+  <video
+    {% if _autoplay %}autoplay{% endif %}
+    {% if _loop %}loop{% endif %}
+    muted
+    playsinline
+    style="width:100%; border-radius:4px;">
+    {% if include.webm_src %}<source src="{{ include.webm_src | relative_url }}" type="video/webm">{% endif %}
+    <source src="{{ include.src | relative_url }}" type="video/mp4">
+  </video>
+  {% if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {% endif %}
+</figure>

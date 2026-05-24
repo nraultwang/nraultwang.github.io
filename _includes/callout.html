@@ -1,0 +1,21 @@
+{% comment %}
+  Callout / aside box with an optional title and variant.
+
+  Usage:
+    {% capture _body %}
+    Your callout text, possibly with **markdown**.
+    {% endcapture %}
+    {% include callout.html body=_body %}
+    {% include callout.html title="Note" body=_body %}
+    {% include callout.html title="Warning" body=_body type="warning" %}
+
+  Parameters:
+    body    — content string (required; use capture for multiline)
+    title   — optional bold heading inside the callout
+    type    — "" (default blue) | "warning" (amber) | "danger" (red) | "success" (green)
+{% endcomment %}
+
+<div class="callout{% if include.type %} {{ include.type }}{% endif %}">
+  {% if include.title %}<div class="callout-title">{{ include.title }}</div>{% endif %}
+  {{ include.body | markdownify }}
+</div>

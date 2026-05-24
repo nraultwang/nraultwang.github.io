@@ -4,129 +4,85 @@ title: Home
 ---
 
 <div class="profile-section">
-  <img src="images/nicolas_rault-wang.png" alt="Nicolas Rault-Wang" class="profile-img">
+  <img src="/images/nicolas_rault-wang.png" alt="Nicolas Rault-Wang" class="profile-img">
   <div class="profile-bio">
     <h1 class="profile-name">Nicolas Rault-Wang</h1>
-    <p>Post-Baccalaureate Researcher at Caltech & Incoming MIT EECS PhD student.</p>
-    <p>I am a recent UC Berkeley graduate (Dec '25, Applied Mathematics & Computer Science). I am passionate about engineering the next generation of large-scale instrument systems for scientific discovery, with a focus on systems, computational imaging, and computer vision. I currently work as a Post-Baccalaureate Researcher at Caltech with Prof. Andrew W. Howard building data-intensive systems for state-of-the-art astronomical instrumentation.</p>
-    <p class="links">
-      <a href="https://drive.google.com/file/d/1DscXdmrnUY5cKPE5OF_c_DEvqWti1Gks/view?usp=drive_link" target="_blank">[CV]</a>
-      <a href="https://github.com/nraultwang" target="_blank">[GitHub]</a>
-      <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank">[LinkedIn]</a>
+    <p class="profile-tagline">
+      Previously: BS Applied Math &amp; CS, UC Berkeley (Space Sciences Laboratory) &mdash;
+      Currently: Post-Baccalaureate Researcher, Caltech &mdash;
+      <em>Fall 2026:</em> PhD in Electrical Engineering &amp; Computer Science, MIT
     </p>
+    <p class="profile-statement">
+      I build machine-learning systems and computational methods for scientific instruments &mdash;
+      the pipelines, imaging, and models that turn raw sensor data into discovery.
+      My interests span <strong>computational imaging</strong>,
+      <strong>physical-layer &amp; distributed systems</strong>,
+      and <strong>applied ML for the sciences</strong>.
+      I came to these problems at Berkeley's
+      <a href="https://www.ssl.berkeley.edu/" target="_blank" rel="noopener">Space Sciences Laboratory</a>,
+      designing terabyte-scale data pipelines and ML tools for wide-field optical SETI &mdash;
+      work that pulled me toward the signals and systems questions I&rsquo;ll pursue in my PhD.
+    </p>
+    <div class="profile-links">
+      <a href="{{ site.cv_url }}" target="_blank" rel="noopener">CV</a>
+      <a href="https://github.com/nraultwang" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" id="email-link-profile">Email</a>
+      <script>
+        (function () {
+          var a = document.getElementById('email-link-profile');
+          a.href = 'mailto:nraultwang@berkeley.edu';
+          a.textContent = 'Email';
+        })();
+      </script>
+    </div>
   </div>
 </div>
 
-<h2>Research Projects</h2>
+<h2>Selected Work</h2>
+
 <ul class="item-list">
   <li>
     <div class="item-title">Deep Learning for PANOSETI</div>
-    <div class="item-meta">Computer Vision / PyTorch / Real-time Systems</div>
+    <div class="item-meta">Computer Vision &middot; PyTorch &middot; Real-time Systems &middot; UC Berkeley SSL</div>
     <div class="item-desc">
-      Designed and implemented the first deep learning pipeline for the PANOSETI collaboration, achieving 95% classification accuracy and 0.97 average precision in automated interference detection for daily terabyte-scale datasets of wide-field, 20μs-integration optical/near-IR images.
+      Designed and implemented the first deep-learning pipeline for the PANOSETI collaboration,
+      achieving 95% classification accuracy and 0.97 average precision in automated interference
+      detection for daily terabyte-scale datasets of wide-field, 20&thinsp;&mu;s-integration optical/near-IR images.
     </div>
     <div class="item-tags">
-      <a href="https://doi.org/10.5281/zenodo.14590904" target="_blank">[Conference Poster]</a> 
-      <a href="https://deeply-alpaca-50c.notion.site/Panoseti-Cloud-Detection-2-0-8f3538417b6143339fd03fa62e552b68?source=copy_link" target="_blank">[Technical Summary]</a>
-    </div>
-  </li>
-
-  <li>
-    <div class="item-title">High-speed Data Acquisition System</div>
-    <div class="item-meta">Systems / C++ / HASHPIPE / gRPC</div>
-    <div class="item-desc">
-      Developed and maintained an ultra-high data rate (100k frames/sec) C++ acquisition pipeline, integrating an asynchronous gRPC API, leading several extensibility-focused refactors, and establishing a full GitHub Actions CI pipeline to validate fault-tolerance and >99.99% data integrity.
-    </div>
-    <div class="item-tags">
-      <a href="https://github.com/panoseti/panoseti/wiki/daq-system-overview" target="_blank">[System Overview]</a>
-      <a href="https://github.com/panoseti/panoseti_grpc" target="_blank">[gRPC API]</a>
+      <a href="https://doi.org/10.5281/zenodo.14590904" target="_blank" rel="noopener">[Conference Poster]</a>
+      <a href="https://deeply-alpaca-50c.notion.site/Panoseti-Cloud-Detection-2-0-8f3538417b6143339fd03fa62e552b68?source=copy_link" target="_blank" rel="noopener">[Technical Summary]</a>
     </div>
   </li>
 
   <li>
     <div class="item-title">Terabyte-scale Data Pipeline</div>
-    <div class="item-meta">Distributed Systems / BeeGFS / Dask / HPC</div>
+    <div class="item-meta">Distributed Systems &middot; BeeGFS &middot; Dask &middot; HPC &middot; UC Berkeley SSL</div>
     <div class="item-desc">
-      Co-designed and implemented a scalable data reduction pipeline (TensorStore, Zarr, Dask) for terabyte-scale datasets, leading technical prototyping from a self-administered 12TiB BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
+      Co-designed and implemented a scalable data-reduction pipeline (TensorStore, Zarr, Dask)
+      for terabyte-scale datasets, leading technical prototyping from a self-administered 12&thinsp;TiB
+      BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
     </div>
     <div class="item-tags">
-      <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" target="_blank">[Cluster Setup]</a>
+      <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" target="_blank" rel="noopener">[Cluster Setup]</a>
     </div>
   </li>
 
   <li>
-    <div class="item-title">Unsupervised Anomaly Detection</div>
-    <div class="item-meta">Computer Vision / PyTorch / VAE</div>
+    <div class="item-title">Apple-Sponsored RISC-V CPU Design Contest &mdash; 1st Place</div>
+    <div class="item-meta">Computer Architecture &middot; Verilog RTL &middot; Xilinx Zynq-7000</div>
     <div class="item-desc">
-      Proposed and prototyped an unsupervised anomaly detector using a β-Variational Autoencoder, capable of clustering Cherenkov events, noise, and stellar signals based on low-dimensional latent embeddings.
+      Awarded 1st place (of 18 teams) in a Spring 2025 Apple-sponsored contest with the best
+      PPA metrics over two years: lowest resource utilization, 1.06 CPI, 125&thinsp;MHz clock.
+      Led microarchitecture of a fully bypassed, 5-stage RISC-V pipeline with speculative execution.
     </div>
     <div class="item-tags">
-      <a href="https://deeply-alpaca-50c.notion.site/Pulse-Height-Anomaly-Detection-V1-0-17b4d556e62b80499992ffb6592860fb?source=copy_link" target="_blank">[Write-up]</a>
-    </div>
-  </li>
-
-  <li>
-    <div class="item-title">Characterizing Polar Express</div>
-    <div class="item-meta">Optimization / Muon Optimizer</div>
-    <div class="item-desc">
-      Empirically characterized the Polar Express Muon variant, evaluating its sensitivity to key hyperparameters and the extent to which it stablizes the attention mechanism in Transformer architectures.
-    </div>
-    <div class="item-tags">
-      <a href="./docs/CS182_riding-the-polar-express-to-convergence[v3].pdf" target="_blank">[View Paper]</a>
+      <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" target="_blank" rel="noopener">[Optimization Write-Up]</a>
     </div>
   </li>
 </ul>
 
-<h2>Publications & Presentations</h2>
-<ul class="item-list">
-  <li>
-    <div class="item-title">Nanosecond differential timing using inexpensive differential GNSS receivers</div>
-    <div class="item-meta">B. Godfrey, W. Liu, <strong>N. Rault-Wang</strong>, J. Kocz, D. Werthimer. USNC-URSI NRSM, Jan 2025.</div>
-    <div class="item-tags">
-      <a href="https://doi.org/10.23919/USNC-URSINRSM66067.2025.10906985" target="_blank">[DOI: 10.23919]</a>
-    </div>
-  </li>
-  <li>
-    <div class="item-title">Machine learning applications for anomaly and interference detection on PANOSETI data</div>
-    <div class="item-meta"><strong>N. Rault-Wang</strong>, Y. Dong, W. Liu, D. Werthimer, J. Maire, S. Wright. PANOSETI Collaboration Meeting (Plenary), Jan 2025.</div>
-    <div class="item-tags">
-      <a href="https://doi.org/10.5281/zenodo.17388495" target="_blank">[DOI: 10.5281]</a>
-    </div>
-  </li>
-  <li>
-    <div class="item-title">Identifying clouds in panoramic SETI data with machine learning</div>
-    <div class="item-meta"><strong>N. Rault-Wang</strong>, et al. Order of the Octopus, Green Bank, Aug 2024.</div>
-    <div class="item-tags">
-      <a href="https://doi.org/10.5281/zenodo.14590904" target="_blank">[DOI: 10.5281]</a>
-    </div>
-  </li>
-</ul>
-
-<h2>Advanced Coursework & Projects</h2>
-<ul class="item-list">
-  <li>
-    <div class="item-title">Apple-Sponsored RISC-V CPU Design Contest</div>
-    <div class="item-meta">1st Place Winner / Verilog / Computer Architecture</div>
-    <div class="item-desc">
-      Awarded 1st Place out of 18 teams in a Spring 2025 contest. Achieved the best PPA metrics over two years. Led microarchitecture for a fully bypassed, 5-stage RISC-V pipeline with speculative execution, synthesized on a Xilinx Zynq-7000.
-    </div>
-    <div class="item-tags">
-      <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" target="_blank">[Optimization Write-Up]</a>
-    </div>
-  </li>
-  <li>
-    <div class="item-title">Computer Vision & Computational Photography</div>
-    <div class="item-meta">CS 180 Write-ups</div>
-    <div class="item-desc">
-      Reproductions of key papers in computer vision.
-    </div>
-    <div class="item-tags">
-      <a href="./final_proj_web/index.html">[Neural Radiance Fields]</a>
-      <a href="./proj5_web/index.html">[Diffusion Models]</a>
-      <a href="./proj4ab_web/index.html">[Auto-stitching]</a>
-      <a href="./proj3_web/index.html">[Face Morphing]</a>
-      <a href="./proj2_web/index.html">[Filters & Freqs]</a>
-      <a href="./proj1_web/index.html">[Photo Colorization]</a>
-    </div>
-  </li>
-</ul>
+<p style="margin-top: 8px;">
+  <a href="{{ '/research' | relative_url }}">Full research record &rarr;</a>
+</p>

@@ -3,348 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    
-    <!-- Dark Mode Init script (must be in head to prevent FOUC) -->
+    <title>{% if page.title and page.title != 'Home' %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+    <!-- Dark Mode Init — must run before paint to prevent flash -->
     <script>
-        (function() {
-            var theme = localStorage.getItem('theme');
-            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        (function () {
+            var t = localStorage.getItem('theme');
+            if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         })();
     </script>
 
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    
-    <!-- Fonts -->
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Fonts: Inter (body + UI) + Fira Code (mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 
-    <!-- Highlight.js -->
+    <!-- Highlight.js (code syntax) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>document.addEventListener('DOMContentLoaded', function () { hljs.highlightAll(); });</script>
 
-    <!-- MathJax 3 -->
+    <!-- MathJax 3 — renders $…$ and $$…$$ LaTeX -->
     <script>
     MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true
-      },
-      chtml: {
-        fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2'
-      }
+        tex: {
+            inlineMath:  [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        }
     };
     </script>
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-    </script>
-    
-    <!-- Fuse.js for Fuzzy Search -->
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <!-- Fuse.js — client-side fuzzy search -->
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        
-        <!-- Top Global Header -->
-        <header class="top-header">
-            <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
-            <nav class="header-nav">
-                <a href="{{ '/' | relative_url }}" class="header-link">Home</a>
-                <a href="{{ '/posts' | relative_url }}" class="header-link">Writing & Notes</a>
-                <a href="{{ '/projects' | relative_url }}" class="header-link">Projects</a>
-            </nav>
-            
-            <div class="header-actions">
-                <button id="search-trigger" class="search-trigger">
-                    <span class="search-icon">🔍</span>
-                    <span class="search-text">Search...</span>
-                    <kbd class="search-kbd">⌘K</kbd>
-                </button>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <span class="sun-icon">☀️</span>
-                    <span class="moon-icon">🌙</span>
-                </button>
-            </div>
-        </header>
+<div class="app-container">
 
-        <div class="layout-wrapper">
-            
-            <!-- Left Contextual Sidebar -->
-            <aside class="sidebar-left">
-                <nav class="nav-menu">
-                    <!-- Global Navigation Always Visible -->
-                    <span class="nav-heading">Global Navigation</span>
-                    <div class="nav-group">
-                        <a href="{{ '/' | relative_url }}" class="nav-link sub-link {% if page.url == '/' %}active{% endif %}">Home</a>
-                        <a href="{{ '/posts' | relative_url }}" class="nav-link sub-link {% if page.url == '/posts.html' or page.layout == 'post' %}active{% endif %}">Writing & Notes</a>
-                        <a href="{{ '/projects' | relative_url }}" class="nav-link sub-link {% if page.url == '/projects.html' or page.category == 'projects' %}active{% endif %}">Projects</a>
-                    </div>
+    <!-- ── Navigation ──────────────────────────────────────── -->
+    <header class="top-header">
+        <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
 
-                    <!-- Contextual Navigation underneath -->
-                    {% if page.layout == 'post' or page.title == 'Writing & Notes' %}
-                        <span class="nav-heading">Writing Context</span>
-                        <div class="nav-group">
-                            {% for post in site.posts %}
-                                <a href="{{ post.url | relative_url }}" class="nav-link sub-link {% if page.url == post.url %}active{% endif %}">{{ post.title }}</a>
-                            {% endfor %}
-                        </div>
-                    {% elsif page.title == 'Projects' or page.category == 'projects' %}
-                        <span class="nav-heading">CS180 (Computer Vision)</span>
-                        <div class="nav-group">
-                            <a href="{{ '/final_proj_web/' | relative_url }}" class="nav-link sub-link">Neural Radiance Fields</a>
-                            <a href="{{ '/proj5_web/' | relative_url }}" class="nav-link sub-link">Diffusion Models</a>
-                            <a href="{{ '/proj4ab_web/' | relative_url }}" class="nav-link sub-link">Auto-stitching</a>
-                            <a href="{{ '/proj3_web/' | relative_url }}" class="nav-link sub-link">Face Morphing</a>
-                            <a href="{{ '/proj2_web/' | relative_url }}" class="nav-link sub-link">Filters & Freqs</a>
-                            <a href="{{ '/proj1_web/' | relative_url }}" class="nav-link sub-link">Photo Colorization</a>
-                        </div>
-                        <span class="nav-heading">Computer Architecture</span>
-                        <div class="nav-group">
-                            <a href="{{ '/apple_cpu.html' | relative_url }}" class="nav-link sub-link">Apple CPU</a>
-                        </div>
-                    {% else %}
-                        <span class="nav-heading">Quick Links</span>
-                        <div class="nav-group">
-                            <a href="https://github.com/nraultwang" class="nav-link sub-link" target="_blank">GitHub Profile</a>
-                            <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" class="nav-link sub-link" target="_blank">LinkedIn</a>
-                        </div>
-                    {% endif %}
-                </nav>
-            </aside>
+        <nav class="header-nav" aria-label="Main navigation">
+            <a href="{{ '/' | relative_url }}"
+               class="header-link{% if page.url == '/' %} active{% endif %}">Home</a>
+            <a href="{{ '/posts' | relative_url }}"
+               class="header-link{% if page.url == '/posts.html' or page.layout == 'post' %} active{% endif %}">Writing</a>
+            <a href="{{ '/research' | relative_url }}"
+               class="header-link{% if page.url == '/research.html' or page.category == 'research' %} active{% endif %}">Research</a>
+        </nav>
 
-            <!-- Main Content -->
-            <main class="main-content">
-                {{ content }}
-                
-                <!-- Footer -->
-                <footer class="site-footer">
-                    <div class="footer-content">
-                        <p>&copy; 2025-2026 Nicolas Rault-Wang. Licensed under the <a href="{{ '/license.html' | relative_url }}">MIT License</a>.</p>
-                        <p>Contact: <a href="#" id="contact-link">Enable JavaScript to view email</a></p>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const e = "nraultwang";
-                                const d = "berkeley.edu";
-                                const a = document.getElementById("contact-link");
-                                a.href = "mailto:" + e + "@" + d;
-                                a.textContent = e + " [at] " + d;
-                            });
-                        </script>
-                    </div>
-                </footer>
-            </main>
-            
-            <!-- Right Global ToC -->
-            <aside class="sidebar-right">
-                <div class="toc-container">
-                    <span class="toc-heading">On this page</span>
-                    <div id="toc"></div>
-                </div>
-            </aside>
-
+        <div class="header-actions">
+            {% if site.cv_url %}
+            <a href="{{ site.cv_url }}" class="cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
+            {% endif %}
+            <button id="search-trigger" class="search-trigger" aria-label="Open search">
+                <span class="search-icon">⌕</span>
+                <span class="search-text">Search</span>
+                <kbd class="search-kbd">⌘K</kbd>
+            </button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <span class="sun-icon">☀</span>
+                <span class="moon-icon">☾</span>
+            </button>
         </div>
+    </header>
+
+    <!-- ── Content ─────────────────────────────────────────── -->
+    <div class="layout-wrapper{% if page.layout == 'post' or page.toc %} has-toc{% endif %}">
+
+        <main class="main-content" id="main-content">
+            {{ content }}
+
+            <footer class="site-footer">
+                <p>&copy; {{ 'now' | date: '%Y' }} Nicolas Rault-Wang &mdash;
+                   <a href="{{ '/license.html' | relative_url }}">MIT License</a></p>
+                <p id="contact-footer"></p>
+                <script>
+                    (function () {
+                        var e = "nraultwang", d = "berkeley.edu";
+                        var p = document.getElementById('contact-footer');
+                        var a = document.createElement('a');
+                        a.href = 'mailto:' + e + '@' + d;
+                        a.textContent = e + ' [at] ' + d;
+                        p.appendChild(a);
+                    })();
+                </script>
+            </footer>
+        </main>
+
+        {% if page.layout == 'post' or page.toc %}
+        <aside class="sidebar-right" aria-label="Table of contents">
+            <div class="toc-container">
+                <span class="toc-heading">On this page</span>
+                <nav id="toc" aria-label="Page sections"></nav>
+            </div>
+        </aside>
+        {% endif %}
+
     </div>
 
-    <!-- Cmd+K Search Modal -->
-    <div id="search-modal" class="search-modal">
-        <div class="search-modal-content">
-            <div class="search-modal-header">
-                <span class="search-modal-icon">🔍</span>
-                <input type="text" id="search-input" placeholder="Search docs..." autocomplete="off">
-            </div>
-            <ul id="results-container"></ul>
-            <div class="search-modal-footer">
-                <span><kbd>esc</kbd> to close</span>
-                <span><kbd>↑↓</kbd> to navigate</span>
-            </div>
+</div><!-- .app-container -->
+
+<!-- ── Search Modal ──────────────────────────────────────── -->
+<div id="search-modal" class="search-modal" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-modal-content">
+        <div class="search-modal-header">
+            <span class="search-modal-icon" aria-hidden="true">⌕</span>
+            <input type="text" id="search-input"
+                   placeholder="Search posts and pages…"
+                   autocomplete="off" spellcheck="false"
+                   aria-label="Search query">
+        </div>
+        <ul id="results-container" role="listbox" aria-label="Search results"></ul>
+        <div class="search-modal-footer" aria-hidden="true">
+            <span><kbd>Esc</kbd> close</span>
+            <span><kbd>↑↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> open</span>
         </div>
     </div>
+</div>
 
-    <!-- Generate ToC for ALL pages -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const content = document.querySelector('.main-content');
-        const tocContainer = document.getElementById('toc');
-        if (!content || !tocContainer) return;
+<!-- ── Scripts ────────────────────────────────────────────── -->
 
-        const headings = Array.from(content.querySelectorAll('h2, h3')).filter(h => !h.closest('.site-footer'));
-        
-        if (headings.length === 0) {
-            document.querySelector('.sidebar-right').style.display = 'none';
-            return;
-        }
+<!-- ToC auto-generator -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var toc = document.getElementById('toc');
+    if (!toc) return;
 
-        const ul = document.createElement('ul');
-        let currentH2_ul = null;
+    var content = document.getElementById('main-content');
+    if (!content) return;
 
-        headings.forEach((heading, index) => {
-            if (!heading.id) {
-                heading.id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-                if (!heading.id) heading.id = 'heading-' + index;
-            }
-
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = '#' + heading.id;
-            a.textContent = heading.textContent;
-            li.appendChild(a);
-
-            if (heading.tagName.toLowerCase() === 'h2') {
-                ul.appendChild(li);
-                currentH2_ul = document.createElement('ul');
-                li.appendChild(currentH2_ul);
-            } else if (heading.tagName.toLowerCase() === 'h3') {
-                if (currentH2_ul) {
-                    currentH2_ul.appendChild(li);
-                } else {
-                    ul.appendChild(li);
-                }
-            }
-        });
-
-        tocContainer.appendChild(ul);
+    var headings = Array.from(content.querySelectorAll('h2, h3')).filter(function (h) {
+        return !h.closest('.site-footer') && !h.closest('.post-header');
     });
-    </script>
 
-    <!-- Dark Mode Toggle Logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggleBtn = document.getElementById('theme-toggle');
-            toggleBtn.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
-        });
-    </script>
+    if (headings.length === 0) {
+        var aside = document.querySelector('.sidebar-right');
+        if (aside) aside.style.display = 'none';
+        return;
+    }
 
-    <!-- Search Modal Logic -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const modal = document.getElementById('search-modal');
-        const searchInput = document.getElementById('search-input');
-        const triggerBtn = document.getElementById('search-trigger');
-        const resultsContainer = document.getElementById('results-container');
-        let isModalOpen = false;
+    var ul = document.createElement('ul');
+    var currentH2ul = null;
 
-        // Change Mac cmd to Ctrl on Windows
-        if (navigator.platform.indexOf('Mac') === -1) {
-            document.querySelector('.search-kbd').textContent = 'Ctrl K';
+    headings.forEach(function (h, i) {
+        if (!h.id) {
+            h.id = h.textContent.toLowerCase()
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/(^-|-$)/g, '') || ('sec-' + i);
         }
+        var li = document.createElement('li');
+        var a  = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
 
-        const openModal = () => {
-            modal.classList.add('active');
-            searchInput.focus();
-            isModalOpen = true;
-            document.body.style.overflow = 'hidden'; 
-        };
+        if (h.tagName === 'H2') {
+            ul.appendChild(li);
+            currentH2ul = document.createElement('ul');
+            li.appendChild(currentH2ul);
+        } else {
+            (currentH2ul || ul).appendChild(li);
+        }
+    });
 
-        const closeModal = () => {
-            modal.classList.remove('active');
-            searchInput.value = '';
-            resultsContainer.innerHTML = '';
-            isModalOpen = false;
-            document.body.style.overflow = '';
-        };
+    toc.appendChild(ul);
+});
+</script>
 
-        triggerBtn.addEventListener('click', openModal);
+<!-- Dark mode toggle -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    });
+});
+</script>
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal(); 
-        });
+<!-- Search -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var modal   = document.getElementById('search-modal');
+    var input   = document.getElementById('search-input');
+    var trigger = document.getElementById('search-trigger');
+    var results = document.getElementById('results-container');
+    var isOpen  = false;
 
-        document.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                isModalOpen ? closeModal() : openModal();
-            }
-            if (e.key === 'Escape' && isModalOpen) {
-                closeModal();
-            }
-        });
+    /* Keyboard hint: Cmd on Mac, Ctrl elsewhere */
+    if (navigator.platform.indexOf('Mac') === -1) {
+        var kbd = trigger.querySelector('.search-kbd');
+        if (kbd) kbd.textContent = 'Ctrl K';
+    }
 
-        fetch('{{ site.baseurl }}/search.json')
-            .then(res => res.json())
-            .then(data => {
-                const options = {
-                    keys: ['title', 'content'],
-                    threshold: 0.4,
-                    ignoreLocation: true,
-                    minMatchCharLength: 3,
-                    includeScore: true,
-                    includeMatches: true
-                };
-                const fuse = new Fuse(data, options);
+    function openModal() {
+        modal.classList.add('active');
+        input.focus();
+        isOpen = true;
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        modal.classList.remove('active');
+        input.value = '';
+        results.innerHTML = '';
+        isOpen = false;
+        document.body.style.overflow = '';
+    }
 
-                searchInput.addEventListener('input', function() {
-                    const query = this.value;
-                    if (query.length < 2) {
-                        resultsContainer.innerHTML = '';
-                        return;
+    trigger.addEventListener('click', openModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); isOpen ? closeModal() : openModal(); }
+        if (e.key === 'Escape' && isOpen) closeModal();
+    });
+
+    fetch('{{ site.baseurl }}/search.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            var fuse = new Fuse(data, {
+                keys: ['title', 'content'],
+                threshold: 0.4,
+                ignoreLocation: true,
+                minMatchCharLength: 3,
+                includeScore: true,
+                includeMatches: true
+            });
+
+            input.addEventListener('input', function () {
+                var q = this.value;
+                results.innerHTML = '';
+                if (q.length < 2) return;
+
+                var hits = fuse.search(q).slice(0, 8);
+                if (hits.length === 0) {
+                    var li = document.createElement('li');
+                    li.style.padding = '14px 20px';
+                    li.innerHTML = '<span class="no-results">No results found</span>';
+                    results.appendChild(li);
+                    return;
+                }
+
+                hits.forEach(function (r) {
+                    var item = r.item;
+                    var li   = document.createElement('li');
+                    var a    = document.createElement('a');
+                    a.href   = item.url;
+
+                    var titleEl = document.createElement('div');
+                    titleEl.className = 'search-result-title';
+                    titleEl.textContent = item.title;
+                    a.appendChild(titleEl);
+
+                    /* Snippet extraction */
+                    var snippet = '';
+                    if (r.matches && r.matches.length) {
+                        var m = r.matches.find(function (x) { return x.key === 'content'; }) || r.matches[0];
+                        if (m && m.indices && m.indices.length) {
+                            var s   = m.indices[0][0];
+                            var txt = m.value || item[m.key] || '';
+                            var start = Math.max(0, s - 40);
+                            var end   = Math.min(txt.length, s + 80);
+                            snippet   = txt.substring(start, end).trim();
+                            if (start > 0)         snippet = '…' + snippet;
+                            if (end < txt.length)  snippet += '…';
+                        }
                     }
-                    
-                    const results = fuse.search(query);
-                    resultsContainer.innerHTML = '';
-                    
-                    if (results.length === 0) {
-                        resultsContainer.innerHTML = '<li><span class="no-results">No results found</span></li>';
-                        return;
+                    if (!snippet && item.content) snippet = item.content.substring(0, 120).trim() + '…';
+
+                    if (snippet) {
+                        var snipEl = document.createElement('div');
+                        snipEl.className = 'search-result-snippet';
+                        snipEl.textContent = snippet;
+                        a.appendChild(snipEl);
                     }
 
-                    results.slice(0, 8).forEach(result => {
-                        const item = result.item;
-                        const li = document.createElement('li');
-                        const a = document.createElement('a');
-                        a.href = item.url;
-                        
-                        // Main title
-                        const titleSpan = document.createElement('div');
-                        titleSpan.className = 'search-result-title';
-                        titleSpan.textContent = item.title;
-                        a.appendChild(titleSpan);
-
-                        // Snippet extraction
-                        let snippet = '';
-                        if (result.matches && result.matches.length > 0) {
-                            const match = result.matches.find(m => m.key === 'content') || result.matches[0];
-                            if (match && match.indices && match.indices.length > 0) {
-                                const startIdx = match.indices[0][0];
-                                const fullText = match.value || item[match.key] || "";
-                                const snippetStart = Math.max(0, startIdx - 40);
-                                const snippetEnd = Math.min(fullText.length, startIdx + 80);
-                                snippet = fullText.substring(snippetStart, snippetEnd).trim();
-                                if (snippetStart > 0) snippet = '...' + snippet;
-                                if (snippetEnd < fullText.length) snippet = snippet + '...';
-                            }
-                        }
-                        if (!snippet && item.content) {
-                            snippet = item.content.substring(0, 120).trim() + '...';
-                        }
-                        
-                        if (snippet) {
-                            const snippetSpan = document.createElement('div');
-                            snippetSpan.className = 'search-result-snippet';
-                            snippetSpan.textContent = snippet;
-                            a.appendChild(snippetSpan);
-                        }
-
-                        li.appendChild(a);
-                        resultsContainer.appendChild(li);
-                    });
+                    li.appendChild(a);
+                    results.appendChild(li);
                 });
             });
-    });
-    </script>
+        });
+});
+</script>
+
+<!-- Code copy buttons + figure utilities (loaded from assets/js/figures.js) -->
+<script src="{{ '/assets/js/figures.js' | relative_url }}"></script>
+
 </body>
 </html>

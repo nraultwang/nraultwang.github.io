@@ -4,17 +4,19 @@ title: "Welcome to my Research Notes"
 date: 2026-05-23
 ---
 
-Welcome to my academic website and research notes! 
+Welcome to my academic website and research notes!
 
-As an incoming EECS PhD student at MIT joining the Signal Kinetics lab with Prof. Fadel Adib, I'll be using this space to write short explainers, document my progress, and share thoughts on physics-informed machine learning and signals systems.
+I'll use this space to write short explainers, document ideas, and share thoughts on topics I'm working through.
+The goal is posts in the spirit of [distill.pub](https://distill.pub) or a good course lecture note — clear, honest, and interactive where it helps.
 
-## Purpose of this Space
+## What to expect
 
-Research is often non-linear and messy. I plan to use these pages to distill complex concepts into clean, accessible explainers, much like the reading materials you'd find in a graduate-level statistics or machine learning course.
+Expect posts on things I'm actively learning or thinking about:
 
-I firmly believe that explaining a concept clearly to others is the absolute best way to solidify one's own understanding. You can expect posts on:
-- RF systems and wireless sensing
-- Physics-informed neural networks
-- Optimization and statistical learning theory
+- **Signals and sensing** — RF systems, phased arrays, radar, sub-THz, the physics of how we measure the world
+- **Physics-informed ML** — incorporating physical priors into neural networks, operator learning, simulation surrogates
+- **Computational imaging** — image formation, inverse problems, the math of turning measurements into pictures
+- **Distributed systems for science** — the pipeline and data engineering side of large scientific instruments
 
-If you're interested in similar topics, feel free to explore! You can use the left sidebar to navigate around the site, and the search bar to find specific keywords across all my posts.
+If you're interested in similar things, feel free to explore.
+The search bar (⌘K) indexes the full text of every post.

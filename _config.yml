@@ -1,7 +1,22 @@
 title: Nicolas Rault-Wang
 description: Nicolas Rault-Wang | Computational Imaging & ML Research
 url: "https://nraultwang.github.io"
+
+cv_url: "https://drive.google.com/file/d/1DscXdmrnUY5cKPE5OF_c_DEvqWti1Gks/view?usp=drive_link"
+
+exclude:
+  - package.json
+  - package-lock.json
+  - eslint.config.js
+  - node_modules/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - CLAUDE.md
+  - docs/
+  - _templates/
+  - "*.py"
+
 markdown: kramdown
 kramdown:
   math_engine: mathjax
-
