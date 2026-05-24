@@ -8,7 +8,7 @@ This post serves as a demonstration of the interactive capabilities of this webs
 
 ## Copyable LaTeX
 
-MathJax 3 is configured to use CommonHTML and the `copy-tex` extension. This means that if you highlight the equation below and copy it (Cmd+C / Ctrl+C), your clipboard will capture the raw LaTeX string, not the rendered unicode symbols.
+MathJax 3 has built-in support for copying raw LaTeX. To copy the equation below, simply **Right-Click the equation &rarr; Copy to Clipboard &rarr; TeX Commands**. Your clipboard will capture the exact `$\LaTeX$` string used to generate the math.
 
 Here is the objective function for a Variational Autoencoder:
 
@@ -51,30 +51,28 @@ Below is an embedded Plotly chart with a built-in interactive slider. You can ge
     x_values.push(i * 0.1);
   }
   
-  var traces = [];
+  // Create a single trace
+  var trace = {
+    x: x_values,
+    y: x_values.map(x => Math.sin(0.5 * x)),
+    mode: 'lines',
+    name: 'Sine Wave',
+    line: {color: '#0366d6', width: 3}
+  };
+  
   var steps = [];
   
-  // Create 10 different frequencies
+  // Create 10 different frequencies for the slider steps
   for (var i = 0; i < 10; i++) {
     var freq = 0.5 + (i * 0.2);
     var y_values = x_values.map(x => Math.sin(freq * x));
     
-    var trace = {
-      x: x_values,
-      y: y_values,
-      mode: 'lines',
-      name: 'Freq ' + freq.toFixed(1),
-      visible: i === 0, // Only first is visible initially
-      line: {color: '#0366d6', width: 3}
-    };
-    traces.push(trace);
-    
-    // Create the slider step for this trace
+    // Create the slider step to update the y-data of the single trace
     var step = {
       label: freq.toFixed(1),
       method: 'update',
       args: [
-        {'visible': traces.map((_, index) => index === i)},
+        {'y': [y_values]}, 
         {'title': 'Sine Wave (Frequency = ' + freq.toFixed(1) + ')'}
       ]
     };
@@ -95,5 +93,5 @@ Below is an embedded Plotly chart with a built-in interactive slider. You can ge
     }]
   };
   
-  Plotly.newPlot('slider-plot', traces, layout);
+  Plotly.newPlot('slider-plot', [trace], layout);
 </script>

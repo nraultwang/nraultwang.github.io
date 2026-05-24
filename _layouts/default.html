@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
     
+    <!-- Dark Mode Init script (must be in head to prevent FOUC) -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     
-    <!-- Fonts: Clean Serif for body, Sans for headings, Mono for code -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -17,17 +27,15 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 
-    <!-- Highlight.js for code syntax highlighting -->
+    <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
-    <!-- MathJax 3 for LaTeX support with copy-tex -->
+    <!-- MathJax 3 -->
     <script>
     MathJax = {
-      loader: {load: ['[tex]/copy-tex']},
       tex: {
-        packages: {'[+]': ['copy-tex']},
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true
@@ -41,66 +49,302 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
     </script>
     
-    <!-- Simple Jekyll Search -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script>
+    <!-- Fuse.js for Fuzzy Search -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
 </head>
 <body>
-    <div class="layout-wrapper">
+    <div class="app-container">
         
-        <!-- Left Navigation Sidebar -->
-        <aside class="sidebar-left">
-            <div class="site-title-box">
-                <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
-            </div>
-            
-            <!-- Search Bar -->
-            <div id="search-container">
-                <input type="text" id="search-input" placeholder="Search site...">
-                <ul id="results-container"></ul>
-            </div>
-
-            <nav class="nav-menu">
-                <div class="nav-group">
-                    <span class="nav-heading">Main</span>
-                    <a href="{{ '/' | relative_url }}" class="nav-link">Home / Profile</a>
-                    <a href="{{ '/posts' | relative_url }}" class="nav-link">Writing & Notes</a>
-                </div>
+        <!-- Top Global Header -->
+        <header class="top-header">
+            <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+            <nav class="header-nav">
+                <a href="{{ '/' | relative_url }}" class="header-link">Home</a>
+                <a href="{{ '/posts' | relative_url }}" class="header-link">Writing & Notes</a>
+                <a href="{{ '/projects' | relative_url }}" class="header-link">Projects</a>
             </nav>
-
-            <div class="nav-footer">
-                <a href="mailto:nraultwang [at] berkeley.edu">Email</a><br>
-                <a href="https://github.com/nraultwang">GitHub</a><br>
-                <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/">LinkedIn</a>
-                <p>&copy; {{ site.time | date: '%Y' }}</p>
+            
+            <div class="header-actions">
+                <button id="search-trigger" class="search-trigger">
+                    <span class="search-icon">🔍</span>
+                    <span class="search-text">Search...</span>
+                    <kbd class="search-kbd">⌘K</kbd>
+                </button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
             </div>
-        </aside>
+        </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            {{ content }}
-        </main>
-        
-        <!-- Right Sidebar (Empty in default layout, filled in post layout) -->
-        <aside class="sidebar-right">
-            {% if page.layout == 'post' %}
+        <div class="layout-wrapper">
+            
+            <!-- Left Contextual Sidebar -->
+            <aside class="sidebar-left">
+                <nav class="nav-menu">
+                    <!-- Global Navigation Always Visible -->
+                    <span class="nav-heading">Global Navigation</span>
+                    <div class="nav-group">
+                        <a href="{{ '/' | relative_url }}" class="nav-link sub-link {% if page.url == '/' %}active{% endif %}">Home</a>
+                        <a href="{{ '/posts' | relative_url }}" class="nav-link sub-link {% if page.url == '/posts.html' or page.layout == 'post' %}active{% endif %}">Writing & Notes</a>
+                        <a href="{{ '/projects' | relative_url }}" class="nav-link sub-link {% if page.url == '/projects.html' or page.category == 'projects' %}active{% endif %}">Projects</a>
+                    </div>
+
+                    <!-- Contextual Navigation underneath -->
+                    {% if page.layout == 'post' or page.title == 'Writing & Notes' %}
+                        <span class="nav-heading">Writing Context</span>
+                        <div class="nav-group">
+                            {% for post in site.posts %}
+                                <a href="{{ post.url | relative_url }}" class="nav-link sub-link {% if page.url == post.url %}active{% endif %}">{{ post.title }}</a>
+                            {% endfor %}
+                        </div>
+                    {% elsif page.title == 'Projects' or page.category == 'projects' %}
+                        <span class="nav-heading">CS180 (Computer Vision)</span>
+                        <div class="nav-group">
+                            <a href="{{ '/final_proj_web/' | relative_url }}" class="nav-link sub-link">Neural Radiance Fields</a>
+                            <a href="{{ '/proj5_web/' | relative_url }}" class="nav-link sub-link">Diffusion Models</a>
+                            <a href="{{ '/proj4ab_web/' | relative_url }}" class="nav-link sub-link">Auto-stitching</a>
+                            <a href="{{ '/proj3_web/' | relative_url }}" class="nav-link sub-link">Face Morphing</a>
+                            <a href="{{ '/proj2_web/' | relative_url }}" class="nav-link sub-link">Filters & Freqs</a>
+                            <a href="{{ '/proj1_web/' | relative_url }}" class="nav-link sub-link">Photo Colorization</a>
+                        </div>
+                        <span class="nav-heading">Computer Architecture</span>
+                        <div class="nav-group">
+                            <a href="{{ '/apple_cpu.html' | relative_url }}" class="nav-link sub-link">Apple CPU</a>
+                        </div>
+                    {% else %}
+                        <span class="nav-heading">Quick Links</span>
+                        <div class="nav-group">
+                            <a href="https://github.com/nraultwang" class="nav-link sub-link" target="_blank">GitHub Profile</a>
+                            <a href="https://linkedin.com/in/nicolas-rault-wang-144746227/" class="nav-link sub-link" target="_blank">LinkedIn</a>
+                        </div>
+                    {% endif %}
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                {{ content }}
+                
+                <!-- Footer -->
+                <footer class="site-footer">
+                    <div class="footer-content">
+                        <p>&copy; 2025-2026 Nicolas Rault-Wang. Licensed under the <a href="{{ '/license.html' | relative_url }}">MIT License</a>.</p>
+                        <p>Contact: <a href="#" id="contact-link">Enable JavaScript to view email</a></p>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const e = "nraultwang";
+                                const d = "berkeley.edu";
+                                const a = document.getElementById("contact-link");
+                                a.href = "mailto:" + e + "@" + d;
+                                a.textContent = e + " [at] " + d;
+                            });
+                        </script>
+                    </div>
+                </footer>
+            </main>
+            
+            <!-- Right Global ToC -->
+            <aside class="sidebar-right">
                 <div class="toc-container">
                     <span class="toc-heading">On this page</span>
                     <div id="toc"></div>
                 </div>
-            {% endif %}
-        </aside>
+            </aside>
 
+        </div>
     </div>
 
-    <!-- Initialize Search -->
+    <!-- Cmd+K Search Modal -->
+    <div id="search-modal" class="search-modal">
+        <div class="search-modal-content">
+            <div class="search-modal-header">
+                <span class="search-modal-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Search docs..." autocomplete="off">
+            </div>
+            <ul id="results-container"></ul>
+            <div class="search-modal-footer">
+                <span><kbd>esc</kbd> to close</span>
+                <span><kbd>↑↓</kbd> to navigate</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate ToC for ALL pages -->
     <script>
-      var sjs = SimpleJekyllSearch({
-        searchInput: document.getElementById('search-input'),
-        resultsContainer: document.getElementById('results-container'),
-        json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
-        noResultsText: '<li>No results found</li>'
-      });
+    document.addEventListener("DOMContentLoaded", function() {
+        const content = document.querySelector('.main-content');
+        const tocContainer = document.getElementById('toc');
+        if (!content || !tocContainer) return;
+
+        const headings = Array.from(content.querySelectorAll('h2, h3')).filter(h => !h.closest('.site-footer'));
+        
+        if (headings.length === 0) {
+            document.querySelector('.sidebar-right').style.display = 'none';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        let currentH2_ul = null;
+
+        headings.forEach((heading, index) => {
+            if (!heading.id) {
+                heading.id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                if (!heading.id) heading.id = 'heading-' + index;
+            }
+
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#' + heading.id;
+            a.textContent = heading.textContent;
+            li.appendChild(a);
+
+            if (heading.tagName.toLowerCase() === 'h2') {
+                ul.appendChild(li);
+                currentH2_ul = document.createElement('ul');
+                li.appendChild(currentH2_ul);
+            } else if (heading.tagName.toLowerCase() === 'h3') {
+                if (currentH2_ul) {
+                    currentH2_ul.appendChild(li);
+                } else {
+                    ul.appendChild(li);
+                }
+            }
+        });
+
+        tocContainer.appendChild(ul);
+    });
+    </script>
+
+    <!-- Dark Mode Toggle Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('theme-toggle');
+            toggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
+
+    <!-- Search Modal Logic -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById('search-modal');
+        const searchInput = document.getElementById('search-input');
+        const triggerBtn = document.getElementById('search-trigger');
+        const resultsContainer = document.getElementById('results-container');
+        let isModalOpen = false;
+
+        // Change Mac cmd to Ctrl on Windows
+        if (navigator.platform.indexOf('Mac') === -1) {
+            document.querySelector('.search-kbd').textContent = 'Ctrl K';
+        }
+
+        const openModal = () => {
+            modal.classList.add('active');
+            searchInput.focus();
+            isModalOpen = true;
+            document.body.style.overflow = 'hidden'; 
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('active');
+            searchInput.value = '';
+            resultsContainer.innerHTML = '';
+            isModalOpen = false;
+            document.body.style.overflow = '';
+        };
+
+        triggerBtn.addEventListener('click', openModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(); 
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                isModalOpen ? closeModal() : openModal();
+            }
+            if (e.key === 'Escape' && isModalOpen) {
+                closeModal();
+            }
+        });
+
+        fetch('{{ site.baseurl }}/search.json')
+            .then(res => res.json())
+            .then(data => {
+                const options = {
+                    keys: ['title', 'content'],
+                    threshold: 0.4,
+                    ignoreLocation: true,
+                    minMatchCharLength: 3,
+                    includeScore: true,
+                    includeMatches: true
+                };
+                const fuse = new Fuse(data, options);
+
+                searchInput.addEventListener('input', function() {
+                    const query = this.value;
+                    if (query.length < 2) {
+                        resultsContainer.innerHTML = '';
+                        return;
+                    }
+                    
+                    const results = fuse.search(query);
+                    resultsContainer.innerHTML = '';
+                    
+                    if (results.length === 0) {
+                        resultsContainer.innerHTML = '<li><span class="no-results">No results found</span></li>';
+                        return;
+                    }
+
+                    results.slice(0, 8).forEach(result => {
+                        const item = result.item;
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = item.url;
+                        
+                        // Main title
+                        const titleSpan = document.createElement('div');
+                        titleSpan.className = 'search-result-title';
+                        titleSpan.textContent = item.title;
+                        a.appendChild(titleSpan);
+
+                        // Snippet extraction
+                        let snippet = '';
+                        if (result.matches && result.matches.length > 0) {
+                            const match = result.matches.find(m => m.key === 'content') || result.matches[0];
+                            if (match && match.indices && match.indices.length > 0) {
+                                const startIdx = match.indices[0][0];
+                                const fullText = match.value || item[match.key] || "";
+                                const snippetStart = Math.max(0, startIdx - 40);
+                                const snippetEnd = Math.min(fullText.length, startIdx + 80);
+                                snippet = fullText.substring(snippetStart, snippetEnd).trim();
+                                if (snippetStart > 0) snippet = '...' + snippet;
+                                if (snippetEnd < fullText.length) snippet = snippet + '...';
+                            }
+                        }
+                        if (!snippet && item.content) {
+                            snippet = item.content.substring(0, 120).trim() + '...';
+                        }
+                        
+                        if (snippet) {
+                            const snippetSpan = document.createElement('div');
+                            snippetSpan.className = 'search-result-snippet';
+                            snippetSpan.textContent = snippet;
+                            a.appendChild(snippetSpan);
+                        }
+
+                        li.appendChild(a);
+                        resultsContainer.appendChild(li);
+                    });
+                });
+            });
+    });
     </script>
 </body>
 </html>

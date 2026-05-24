@@ -7,14 +7,21 @@ title: Writing & Notes
 
 <p>A collection of short explainer posts, research notes, and thoughts.</p>
 
-<ul class="item-list">
+<div class="post-feed">
   {% for post in site.posts %}
-    <li>
-      <div class="item-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></div>
-      <div class="item-meta">{{ post.date | date: "%B %-d, %Y" }}</div>
-      {% if post.excerpt %}
-        <div class="item-desc">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+    <a href="{{ post.url | relative_url }}" class="post-card">
+      {% if post.image %}
+        <div class="post-card-image" style="background-image: url('{{ post.image | relative_url }}');"></div>
+      {% else %}
+        <div class="post-card-image placeholder-image">📝</div>
       {% endif %}
-    </li>
+      <div class="post-card-content">
+        <h3 class="post-card-title">{{ post.title }}</h3>
+        <div class="post-card-meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+        {% if post.excerpt %}
+          <div class="post-card-desc">{{ post.excerpt | strip_html | truncatewords: 25 }}</div>
+        {% endif %}
+      </div>
+    </a>
   {% endfor %}
-</ul>
+</div>

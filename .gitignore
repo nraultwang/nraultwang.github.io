@@ -173,3 +173,6 @@ _site/
 .jekyll-metadata
 .sass-cache/
 vendor/
+
+# pages
+final_proj_web_old/

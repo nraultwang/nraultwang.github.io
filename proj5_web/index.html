@@ -1,106 +1,67 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS180 Project 5: The Power of Diffusion Models!</title><style>
-/* cspell:disable-file */
+---
+layout: default
+title: Proj5
+category: projects
+---
+
+<div class="legacy-project">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><style>.legacy-project /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
+
 * {
 	box-sizing: border-box;
 	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
+}.legacy-project html, 
+.legacy-project @media only screen {
+	
+}.legacy-project a, 
+.legacy-project a.visited {
 	color: inherit;
 	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
+}.legacy-project .pdf-relative-link-path {
 	font-size: 80%;
 	color: #444;
-}
-
-h1,
-h2,
-h3 {
+}.legacy-project h1, 
+.legacy-project h2, 
+.legacy-project h3 {
 	letter-spacing: -0.01em;
 	line-height: 1.2;
 	font-weight: 600;
 	margin-bottom: 0;
-}
-
-.page-title {
+}.legacy-project .page-title {
 	font-size: 2.5rem;
 	font-weight: 700;
 	margin-top: 0;
 	margin-bottom: 0.75em;
-}
-
-h1 {
+}.legacy-project h1 {
 	font-size: 1.875rem;
 	margin-top: 1.875rem;
-}
-
-h2 {
+}.legacy-project h2 {
 	font-size: 1.5rem;
 	margin-top: 1.5rem;
-}
-
-h3 {
+}.legacy-project h3 {
 	font-size: 1.25rem;
 	margin-top: 1.25rem;
-}
-
-.source {
+}.legacy-project .source {
 	border: 1px solid #ddd;
 	border-radius: 3px;
 	padding: 1.5em;
 	word-break: break-all;
-}
-
-.callout {
+}.legacy-project .callout {
 	border-radius: 3px;
 	padding: 1rem;
-}
-
-figure {
+}.legacy-project figure {
 	margin: 1.25em 0;
 	page-break-inside: avoid;
-}
-
-figcaption {
+}.legacy-project figcaption {
 	opacity: 0.5;
 	font-size: 85%;
 	margin-top: 0.5em;
-}
-
-mark {
+}.legacy-project mark {
 	background-color: transparent;
-}
-
-.indented {
+}.legacy-project .indented {
 	padding-left: 1.5em;
-}
-
-hr {
+}.legacy-project hr {
 	background: transparent;
 	display: block;
 	width: 100%;
@@ -108,166 +69,97 @@ hr {
 	visibility: visible;
 	border: none;
 	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
+}.legacy-project img {
 	max-width: 100%;
 }
 
-@media only print {
-	img {
+@media only print {.legacy-project img {
 		max-height: 100vh;
 		object-fit: contain;
 	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
+}.legacy-project .collection-content {
 	font-size: 0.875rem;
-}
-
-.column-list {
+}.legacy-project .column-list {
 	display: flex;
 	justify-content: space-between;
-}
-
-.column {
+}.legacy-project .column {
 	padding: 0 1em;
-}
-
-.column:first-child {
+}.legacy-project .column:first-child {
 	padding-left: 0;
-}
-
-.column:last-child {
+}.legacy-project .column:last-child {
 	padding-right: 0;
-}
-
-.table_of_contents-item {
+}.legacy-project .table_of_contents-item {
 	display: block;
 	font-size: 0.875rem;
 	line-height: 1.3;
 	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
+}.legacy-project .table_of_contents-indent-1 {
 	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
+}.legacy-project .table_of_contents-indent-2 {
 	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
+}.legacy-project .table_of_contents-indent-3 {
 	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
+}.legacy-project .table_of_contents-link {
 	text-decoration: none;
 	opacity: 0.7;
 	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
+}.legacy-project table, 
+.legacy-project th, 
+.legacy-project td {
 	border: 1px solid rgba(55, 53, 47, 0.09);
 	border-collapse: collapse;
-}
-
-table {
+}.legacy-project table {
 	border-left: none;
 	border-right: none;
-}
-
-th,
-td {
+}.legacy-project th, 
+.legacy-project td {
 	font-weight: normal;
 	padding: 0.25em 0.5em;
 	line-height: 1.5;
 	min-height: 1.5em;
 	text-align: left;
-}
-
-th {
+}.legacy-project th {
 	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
+}.legacy-project ol, 
+.legacy-project ul {
 	margin: 0;
 	margin-block-start: 0.6em;
 	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
+}.legacy-project li > ol:first-child, 
+.legacy-project li > ul:first-child {
 	margin-block-start: 0.6em;
-}
-
-ul > li {
+}.legacy-project ul > li {
 	list-style: disc;
-}
-
-ul.to-do-list {
+}.legacy-project ul.to-do-list {
 	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
+}.legacy-project ul.to-do-list > li {
 	list-style: none;
-}
-
-.to-do-children-checked {
+}.legacy-project .to-do-children-checked {
 	text-decoration: line-through;
 	opacity: 0.375;
-}
-
-ul.toggle > li {
+}.legacy-project ul.toggle > li {
 	list-style: none;
-}
-
-ul {
+}.legacy-project ul {
 	padding-inline-start: 1.7em;
-}
-
-ul > li {
+}.legacy-project ul > li {
 	padding-left: 0.1em;
-}
-
-ol {
+}.legacy-project ol {
 	padding-inline-start: 1.6em;
-}
-
-ol > li {
+}.legacy-project ol > li {
 	padding-left: 0.2em;
-}
-
-.mono ol {
+}.legacy-project .mono ol {
 	padding-inline-start: 2em;
-}
-
-.mono ol > li {
+}.legacy-project .mono ol > li {
 	text-indent: -0.4em;
-}
-
-.toggle {
+}.legacy-project .toggle {
 	padding-inline-start: 0em;
 	list-style-type: none;
-}
-
-/* Indent toggle children */
+}.legacy-project /* Indent toggle children */
 .toggle > li > details {
 	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
+}.legacy-project .toggle > li > details > summary {
 	margin-left: -1.1em;
-}
-
-.selected-value {
+}.legacy-project .selected-value {
 	display: inline-block;
 	padding: 0 0.5em;
 	background: rgba(206, 205, 202, 0.5);
@@ -276,394 +168,247 @@ ol > li {
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
 	white-space: nowrap;
-}
-
-.collection-title {
+}.legacy-project .collection-title {
 	display: inline-block;
 	margin-right: 1em;
-}
-
-.page-description {
+}.legacy-project .page-description {
     margin-bottom: 2em;
-}
-
-.simple-table {
+}.legacy-project .simple-table {
 	margin-top: 1em;
 	font-size: 0.875rem;
 	empty-cells: show;
-}
-.simple-table td {
+}.legacy-project .simple-table td {
 	height: 29px;
 	min-width: 120px;
-}
-
-.simple-table th {
+}.legacy-project .simple-table th {
 	height: 29px;
 	min-width: 120px;
-}
-
-.simple-table-header-color {
+}.legacy-project .simple-table-header-color {
 	background: rgb(247, 246, 243);
 	color: black;
-}
-.simple-table-header {
+}.legacy-project .simple-table-header {
 	font-weight: 500;
-}
-
-time {
+}.legacy-project time {
 	opacity: 0.5;
-}
-
-.icon {
+}.legacy-project .icon {
 	display: inline-block;
 	max-width: 1.2em;
 	max-height: 1.2em;
 	text-decoration: none;
 	vertical-align: text-bottom;
 	margin-right: 0.5em;
-}
-
-img.icon {
+}.legacy-project img.icon {
 	border-radius: 3px;
-}
-
-.user-icon {
+}.legacy-project .user-icon {
 	width: 1.5em;
 	height: 1.5em;
 	border-radius: 100%;
 	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
+}.legacy-project .user-icon-inner {
 	font-size: 0.8em;
-}
-
-.text-icon {
+}.legacy-project .text-icon {
 	border: 1px solid #000;
 	text-align: center;
-}
-
-.page-cover-image {
+}.legacy-project .page-cover-image {
 	display: block;
 	object-fit: cover;
 	width: 100%;
 	max-height: 30vh;
-}
-
-.page-header-icon {
+}.legacy-project .page-header-icon {
 	font-size: 3rem;
 	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
+}.legacy-project .page-header-icon-with-cover {
 	margin-top: -0.72em;
 	margin-left: 0.07em;
-}
-
-.page-header-icon img {
+}.legacy-project .page-header-icon img {
 	border-radius: 3px;
-}
-
-.link-to-page {
+}.legacy-project .link-to-page {
 	margin: 1em 0;
 	padding: 0;
 	border: none;
 	font-weight: 500;
-}
-
-p > .user {
+}.legacy-project p > .user {
 	opacity: 0.5;
-}
-
-td > .user,
-td > time {
+}.legacy-project td > .user, 
+.legacy-project td > time {
 	white-space: nowrap;
-}
-
-input[type="checkbox"] {
+}.legacy-project input[type="checkbox"] {
 	transform: scale(1.5);
 	margin-right: 0.6em;
 	vertical-align: middle;
-}
-
-p {
+}.legacy-project p {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
-}
-
-.image {
+}.legacy-project .image {
 	border: none;
 	margin: 1.5em 0;
 	padding: 0;
 	border-radius: 0;
 	text-align: center;
-}
-
-.code,
-code {
+}.legacy-project .code, 
+.legacy-project code {
 	background: rgba(135, 131, 120, 0.15);
 	border-radius: 3px;
 	padding: 0.2em 0.4em;
 	border-radius: 3px;
 	font-size: 85%;
 	tab-size: 2;
-}
-
-code {
+}.legacy-project code {
 	color: #eb5757;
-}
-
-.code {
+}.legacy-project .code {
 	padding: 1.5em 1em;
-}
-
-.code-wrap {
+}.legacy-project .code-wrap {
 	white-space: pre-wrap;
 	word-break: break-all;
-}
-
-.code > code {
+}.legacy-project .code > code {
 	background: none;
 	padding: 0;
 	font-size: 100%;
 	color: inherit;
-}
-
-blockquote {
+}.legacy-project blockquote {
 	font-size: 1.25em;
 	margin: 1em 0;
 	padding-left: 1em;
 	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
+}.legacy-project .bookmark {
 	text-decoration: none;
 	max-height: 8em;
 	padding: 0;
 	display: flex;
 	width: 100%;
 	align-items: stretch;
-}
-
-.bookmark-title {
+}.legacy-project .bookmark-title {
 	font-size: 0.85em;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	height: 1.75em;
 	white-space: nowrap;
-}
-
-.bookmark-text {
+}.legacy-project .bookmark-text {
 	display: flex;
 	flex-direction: column;
-}
-
-.bookmark-info {
+}.legacy-project .bookmark-info {
 	flex: 4 1 180px;
 	padding: 12px 14px 14px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-}
-
-.bookmark-image {
+}.legacy-project .bookmark-image {
 	width: 33%;
 	flex: 1 1 180px;
 	display: block;
 	position: relative;
 	object-fit: cover;
 	border-radius: 1px;
-}
-
-.bookmark-description {
+}.legacy-project .bookmark-description {
 	color: rgba(55, 53, 47, 0.6);
 	font-size: 0.75em;
 	overflow: hidden;
 	max-height: 4.5em;
 	word-break: break-word;
-}
-
-.bookmark-href {
+}.legacy-project .bookmark-href {
 	font-size: 0.75em;
 	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
+}.legacy-project .sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }.legacy-project .code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }.legacy-project .serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }.legacy-project .mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }.legacy-project .pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }.legacy-project .pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }.legacy-project .pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }.legacy-project .pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }.legacy-project .pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }.legacy-project .pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }.legacy-project .pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }.legacy-project .pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }.legacy-project .pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }.legacy-project .pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }.legacy-project .pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }.legacy-project .pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }.legacy-project .pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }.legacy-project .pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }.legacy-project .pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }.legacy-project .pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }.legacy-project .highlight-default {
 	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
+}.legacy-project .highlight-gray {
 	color: rgba(120, 119, 116, 1);
 	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
+}.legacy-project .highlight-brown {
 	color: rgba(159, 107, 83, 1);
 	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
+}.legacy-project .highlight-orange {
 	color: rgba(217, 115, 13, 1);
 	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
+}.legacy-project .highlight-yellow {
 	color: rgba(203, 145, 47, 1);
 	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
+}.legacy-project .highlight-teal {
 	color: rgba(68, 131, 97, 1);
 	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
+}.legacy-project .highlight-blue {
 	color: rgba(51, 126, 169, 1);
 	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
+}.legacy-project .highlight-purple {
 	color: rgba(144, 101, 176, 1);
 	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
+}.legacy-project .highlight-pink {
 	color: rgba(193, 76, 138, 1);
 	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
+}.legacy-project .highlight-red {
 	color: rgba(212, 76, 71, 1);
 	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
+}.legacy-project .highlight-default_background {
 	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
+}.legacy-project .highlight-gray_background {
 	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
+}.legacy-project .highlight-brown_background {
 	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
+}.legacy-project .highlight-orange_background {
 	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
+}.legacy-project .highlight-yellow_background {
 	background: rgba(251, 243, 219, 1);
-}
-.highlight-teal_background {
+}.legacy-project .highlight-teal_background {
 	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
+}.legacy-project .highlight-blue_background {
 	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
+}.legacy-project .highlight-purple_background {
 	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
+}.legacy-project .highlight-pink_background {
 	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
+}.legacy-project .highlight-red_background {
 	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
+}.legacy-project .block-color-default {
 	color: inherit;
 	fill: inherit;
-}
-.block-color-gray {
+}.legacy-project .block-color-gray {
 	color: rgba(120, 119, 116, 1);
 	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
+}.legacy-project .block-color-brown {
 	color: rgba(159, 107, 83, 1);
 	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
+}.legacy-project .block-color-orange {
 	color: rgba(217, 115, 13, 1);
 	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
+}.legacy-project .block-color-yellow {
 	color: rgba(203, 145, 47, 1);
 	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
+}.legacy-project .block-color-teal {
 	color: rgba(68, 131, 97, 1);
 	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
+}.legacy-project .block-color-blue {
 	color: rgba(51, 126, 169, 1);
 	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
+}.legacy-project .block-color-purple {
 	color: rgba(144, 101, 176, 1);
 	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
+}.legacy-project .block-color-pink {
 	color: rgba(193, 76, 138, 1);
 	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
+}.legacy-project .block-color-red {
 	color: rgba(212, 76, 71, 1);
 	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
+}.legacy-project .block-color-default_background {
 	color: inherit;
 	fill: inherit;
-}
-.block-color-gray_background {
+}.legacy-project .block-color-gray_background {
 	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
+}.legacy-project .block-color-brown_background {
 	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
+}.legacy-project .block-color-orange_background {
 	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
+}.legacy-project .block-color-yellow_background {
 	background: rgba(251, 243, 219, 1);
-}
-.block-color-teal_background {
+}.legacy-project .block-color-teal_background {
 	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
+}.legacy-project .block-color-blue_background {
 	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
+}.legacy-project .block-color-purple_background {
 	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
+}.legacy-project .block-color-pink_background {
 	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
+}.legacy-project .block-color-red_background {
 	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
+}.legacy-project .select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }.legacy-project .select-value-color-pink { background-color: rgba(245, 224, 233, 1); }.legacy-project .select-value-color-purple { background-color: rgba(232, 222, 238, 1); }.legacy-project .select-value-color-green { background-color: rgba(219, 237, 219, 1); }.legacy-project .select-value-color-gray { background-color: rgba(227, 226, 224, 1); }.legacy-project .select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }.legacy-project .select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }.legacy-project .select-value-color-orange { background-color: rgba(250, 222, 201, 1); }.legacy-project .select-value-color-brown { background-color: rgba(238, 224, 218, 1); }.legacy-project .select-value-color-red { background-color: rgba(255, 226, 221, 1); }.legacy-project .select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }.legacy-project .select-value-color-blue { background-color: rgba(211, 229, 239, 1); }.legacy-project .select-value-color-pageGlass { background-color: undefined; }.legacy-project .select-value-color-washGlass { background-color: undefined; }.legacy-project .checkbox {
 	display: inline-flex;
 	vertical-align: text-bottom;
 	width: 16;
@@ -671,17 +416,14 @@ blockquote {
 	background-size: 16px;
 	margin-left: 2px;
 	margin-right: 5px;
-}
-
-.checkbox-on {
+}.legacy-project .checkbox-on {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
+}.legacy-project .checkbox-off {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="12f4d556-e62b-80a8-90d1-c56db1b6caf4" class="page sans"><header><img class="page-cover-image" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-2%201.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔢</span></div><h1 class="page-title">CS180 Project 5<strong>: The Power of Diffusion Models!</strong></h1><p class="page-description"></p></header><div class="page-body"><h3 id="12f4d556-e62b-818b-95fd-c8ea47f935f0" class="">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</h3><nav id="12f4d556-e62b-813b-afa1-fc4f2a96bead" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#12f4d556-e62b-818b-95fd-c8ea47f935f0">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-8075-981f-e44fd6a48bc9"><strong>Part A: The Power of Diffusion Models!</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-8021-99ef-e4870ae83a7a"><strong>Part A0: Setup</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13f4d556-e62b-8012-8e1b-e4993f9e6b91">0.1 Random seed</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-802c-a4ca-eecdadd72088"><strong>Part A1: Sampling Loops</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-807c-9999-d3fc420fa871"><strong>1.1 Implementing the Forward Process</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80e6-8e09-d20058aa362f"><strong>1.2 Classical Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8071-8a33-d0a6debb78e3"><strong>1.3 One-Step Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8076-b1c9-e7c05f296297"><strong>1.4 Iterative Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8042-b486-c4bf6a7dcd04"><strong>1.5 Diffusion Model Sampling</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-809a-806e-d129bde87fe3"><strong>1.6 Classifier-Free Guidance (CFG)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80bc-b891-eaaa041be209"><strong>1.7 Image-to-Image Translation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-8020-a52e-c2c371fd2a3b"><strong>1.7.1 Editing Hand-Drawn and Web Images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-804e-be16-e036e1d16094"><strong>1.7.2 Inpainting</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-80bb-988c-cc4f2a75e958"><strong>1.7.3 Text-Conditioned Image-to-Image Translation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8021-8e87-f0364849e074"><strong>1.8 Visual Anagrams</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80da-9011-d5b7f71b42a9"><strong>1.9 Hybrid Images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1434d556-e62b-8094-8ee8-e0e2d4aa500c">Part A Bells &amp; Whistles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-800a-87c2-d2491cc663a5">Recursive Text-Conditioned Image-To-Image Translations</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1444d556-e62b-80f7-a8a6-d745d7920d54">Starting_idx ≥ 15</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1444d556-e62b-8012-89d2-e9298d5e68ad">10 ≤ Starting_idx &lt; 15 </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13b4d556-e62b-805a-b016-f824ed710449"><strong>Part B: Diffusion Models from Scratch!</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13b4d556-e62b-805f-a3ee-fdaf4df6454a"><strong>Part 1: Training a Single-Step Denoising UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-80dc-a137-e09825544dfa"><strong>1.2 Using the UNet to Train a Denoiser</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-807a-a304-e53aa760702a"><strong>1.2.1 Training</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13c4d556-e62b-80a6-adbf-d2f4ab17dbb2"><strong>Part 2: Training a Diffusion Model</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-8024-8c4f-deca98b97f40"><strong>2.1 Adding Time Conditioning to UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-8045-b502-ef03f4f9b365"><strong>2.2 Adding Class-Conditioning to UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1424d556-e62b-8024-ad4a-d7646d805fe3">Part B Bells &amp; Whistles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-8062-a6be-e4ddbed563c1">Sampling Gif</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-802f-b003-f90654bef5ec">Skip Connections in the Time-Conditioned Model</a></div></nav><p id="12f4d556-e62b-819e-b36e-dfb1e890085e" class="">Credit to Notion for this template.</p><h1 id="1324d556-e62b-8075-981f-e44fd6a48bc9" class=""><strong>Part A: The Power of Diffusion Models!</strong></h1><h1 id="1324d556-e62b-8021-99ef-e4870ae83a7a" class=""><strong>Part A0: Setup</strong></h1><div id="13f4d556-e62b-8050-b713-ca594ada8c72" class="column-list"><div id="13f4d556-e62b-80fb-90e5-cb78cf93b148" style="width:50%" class="column"><figure id="1324d556-e62b-8053-a63e-c1d728f27c59" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.41.43.png"><img style="width:707.9817504882812px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.41.43.png"/></a><figcaption>5 iterations</figcaption></figure></div><div id="13f4d556-e62b-8054-8681-e7696a6e3b3c" style="width:50%" class="column"><figure id="1324d556-e62b-80bd-a8ff-c7db215025f3" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.46.43.png"><img style="width:707.98828125px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.46.43.png"/></a><figcaption>50 iterations</figcaption></figure></div></div><div id="13f4d556-e62b-80d1-bda2-fd0f41a002a6" class="column-list"><div id="13f4d556-e62b-80e3-91bc-f0d42eba329d" style="width:50.000000000000014%" class="column"><figure id="1324d556-e62b-8094-bffc-e95b5fe13ec1" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.38.53.png"><img style="width:707.9817504882812px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.38.53.png"/></a><figcaption>100 iterations</figcaption></figure></div><div id="1434d556-e62b-8030-8c32-cb8c1a0820ee" style="width:50%" class="column"><figure id="1334d556-e62b-8037-bdcc-fe93669eecd0" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-03_a_01.50.57.png"><img style="width:707.98828125px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-03_a_01.50.57.png"/></a><figcaption>500 iterations</figcaption></figure></div></div><p id="1334d556-e62b-80a6-b578-eac070132748" class=""><code>“an oil painting of a snowy mountain village”</code>: In general, the outputs are consistent with the prompt but have some details that seem wrong. For example, the building roofs are covered with snow but, except for the 500-iteration output, the trees are not covered with snow. Unless the village people like to shake off snow from their trees, those trees should be covered with snow.</p><p id="1324d556-e62b-803b-a941-e5ffc125aaad" class=""><code>&quot;a man wearing a hat”</code>: The diffusion model seemed to think “a man” means “a middle aged or old white man in formal clothes”.</p><p id="1334d556-e62b-8024-965f-c0a122ba7284" class=""><code>“a rocket ship”</code>: These were all cartoonish rockets with a single circular window, torpedo shape and sharp rounded fins just taking off from the ground. None of them look very realistic.</p><h3 id="13f4d556-e62b-8012-8e1b-e4993f9e6b91" class="">0.1 Random seed</h3><p id="13f4d556-e62b-802a-9378-c90c19e54bc3" class="">I seeded all of my work with <code>YOUR_SEED = 180</code></p><h1 id="1324d556-e62b-802c-a4ca-eecdadd72088" class=""><strong>Part A1: Sampling Loops</strong></h1><h2 id="1324d556-e62b-807c-9999-d3fc420fa871" class=""><strong>1.1 Implementing the Forward Process</strong></h2><p id="1434d556-e62b-80fc-85ba-dd71a59a77ac" class="">The forward process traces out a path from a clean image (<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">t=0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> to a purely noisy image (<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">t=T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> in a given number of time steps <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span>. Below we visualize the original clean image and some noisy images along this path. A diffusion model is given many of these paths played in reverse to learn how to iteratively denoise a purely noisy image into a clean image.</p><figure id="1324d556-e62b-80d2-a010-d12566fd395a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.32.png"><img style="width:2152px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.32.png"/></a></figure><h2 id="1324d556-e62b-80e6-8e09-d20058aa362f" class=""><strong>1.2 Classical Denoising</strong></h2><p id="1434d556-e62b-8006-bd4e-d3d699303e93" class="">Since an independent identically distributed gaussian noise image has no correlation between neighboring pixels, it consists of lots of high frequency information. Classical denoising techniques suggest that low-passing the noise-degraded image can help clean the image. One problem with this method is that it is indiscriminate: It removes the highest frequencies of both image and noise, resulting in a less-noisy but blurry image.</p><figure id="1324d556-e62b-8093-9f79-da9a8a4bb920" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.18.png"><img style="width:707.9927978515625px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.18.png"/></a></figure><h2 id="1324d556-e62b-8071-8a33-d0a6debb78e3" class=""><strong>1.3 One-Step Denoising</strong></h2><p id="1434d556-e62b-8066-b203-e1fbbcee57fb" class="">The <code>DeepFloyd</code> model is a diffusion model that has been trained to estimate the noise component added to a clean image. Then, given a noisy image we can use the <code>DeepFloyd</code>&#x27;s estimate of the noise to recover a noise-free image. Notice that at lower noise levels the recovered image is quite close to the input and is free of noise. However, at higher noise levels, the recovered image is both more different from the original image and lacks realistic high-frequency details.</p><div id="13f4d556-e62b-801a-b533-de4348a781e2" class="column-list"><div id="13f4d556-e62b-8057-acc1-defbbb1afb98" style="width:25%" class="column"><p id="13f4d556-e62b-8019-ba61-f86807ebeaf0" class="">
+</style>
+<article id="12f4d556-e62b-80a8-90d1-c56db1b6caf4" class="page sans"><img class="page-cover-image" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-2%201.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔢</span></div><h1 class="page-title">CS180 Project 5<strong>: The Power of Diffusion Models!</strong></h1><p class="page-description"></p><div class="page-body"><h3 id="12f4d556-e62b-818b-95fd-c8ea47f935f0" class="">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</h3><nav id="12f4d556-e62b-813b-afa1-fc4f2a96bead" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#12f4d556-e62b-818b-95fd-c8ea47f935f0">Author: Nicolas Rault-Wang (nraultwang at berkeley.edu)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-8075-981f-e44fd6a48bc9"><strong>Part A: The Power of Diffusion Models!</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-8021-99ef-e4870ae83a7a"><strong>Part A0: Setup</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13f4d556-e62b-8012-8e1b-e4993f9e6b91">0.1 Random seed</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1324d556-e62b-802c-a4ca-eecdadd72088"><strong>Part A1: Sampling Loops</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-807c-9999-d3fc420fa871"><strong>1.1 Implementing the Forward Process</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80e6-8e09-d20058aa362f"><strong>1.2 Classical Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8071-8a33-d0a6debb78e3"><strong>1.3 One-Step Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8076-b1c9-e7c05f296297"><strong>1.4 Iterative Denoising</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8042-b486-c4bf6a7dcd04"><strong>1.5 Diffusion Model Sampling</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-809a-806e-d129bde87fe3"><strong>1.6 Classifier-Free Guidance (CFG)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80bc-b891-eaaa041be209"><strong>1.7 Image-to-Image Translation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-8020-a52e-c2c371fd2a3b"><strong>1.7.1 Editing Hand-Drawn and Web Images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-804e-be16-e036e1d16094"><strong>1.7.2 Inpainting</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1364d556-e62b-80bb-988c-cc4f2a75e958"><strong>1.7.3 Text-Conditioned Image-to-Image Translation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-8021-8e87-f0364849e074"><strong>1.8 Visual Anagrams</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1324d556-e62b-80da-9011-d5b7f71b42a9"><strong>1.9 Hybrid Images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1434d556-e62b-8094-8ee8-e0e2d4aa500c">Part A Bells &amp; Whistles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-800a-87c2-d2491cc663a5">Recursive Text-Conditioned Image-To-Image Translations</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1444d556-e62b-80f7-a8a6-d745d7920d54">Starting_idx ≥ 15</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1444d556-e62b-8012-89d2-e9298d5e68ad">10 ≤ Starting_idx &lt; 15 </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13b4d556-e62b-805a-b016-f824ed710449"><strong>Part B: Diffusion Models from Scratch!</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13b4d556-e62b-805f-a3ee-fdaf4df6454a"><strong>Part 1: Training a Single-Step Denoising UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-80dc-a137-e09825544dfa"><strong>1.2 Using the UNet to Train a Denoiser</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-807a-a304-e53aa760702a"><strong>1.2.1 Training</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13c4d556-e62b-80a6-adbf-d2f4ab17dbb2"><strong>Part 2: Training a Diffusion Model</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-8024-8c4f-deca98b97f40"><strong>2.1 Adding Time Conditioning to UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c4d556-e62b-8045-b502-ef03f4f9b365"><strong>2.2 Adding Class-Conditioning to UNet</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1424d556-e62b-8024-ad4a-d7646d805fe3">Part B Bells &amp; Whistles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-8062-a6be-e4ddbed563c1">Sampling Gif</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1434d556-e62b-802f-b003-f90654bef5ec">Skip Connections in the Time-Conditioned Model</a></div></nav><p id="12f4d556-e62b-819e-b36e-dfb1e890085e" class="">Credit to Notion for this template.</p><h1 id="1324d556-e62b-8075-981f-e44fd6a48bc9" class=""><strong>Part A: The Power of Diffusion Models!</strong></h1><h1 id="1324d556-e62b-8021-99ef-e4870ae83a7a" class=""><strong>Part A0: Setup</strong></h1><div id="13f4d556-e62b-8050-b713-ca594ada8c72" class="column-list"><div id="13f4d556-e62b-80fb-90e5-cb78cf93b148" style="width:50%" class="column"><figure id="1324d556-e62b-8053-a63e-c1d728f27c59" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.41.43.png"><img style="width:707.9817504882812px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.41.43.png"/></a><figcaption>5 iterations</figcaption></figure></div><div id="13f4d556-e62b-8054-8681-e7696a6e3b3c" style="width:50%" class="column"><figure id="1324d556-e62b-80bd-a8ff-c7db215025f3" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.46.43.png"><img style="width:707.98828125px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.46.43.png"/></a><figcaption>50 iterations</figcaption></figure></div></div><div id="13f4d556-e62b-80d1-bda2-fd0f41a002a6" class="column-list"><div id="13f4d556-e62b-80e3-91bc-f0d42eba329d" style="width:50.000000000000014%" class="column"><figure id="1324d556-e62b-8094-bffc-e95b5fe13ec1" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.38.53.png"><img style="width:707.9817504882812px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-02_a_02.38.53.png"/></a><figcaption>100 iterations</figcaption></figure></div><div id="1434d556-e62b-8030-8c32-cb8c1a0820ee" style="width:50%" class="column"><figure id="1334d556-e62b-8037-bdcc-fe93669eecd0" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-03_a_01.50.57.png"><img style="width:707.98828125px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-03_a_01.50.57.png"/></a><figcaption>500 iterations</figcaption></figure></div></div><p id="1334d556-e62b-80a6-b578-eac070132748" class=""><code>“an oil painting of a snowy mountain village”</code>: In general, the outputs are consistent with the prompt but have some details that seem wrong. For example, the building roofs are covered with snow but, except for the 500-iteration output, the trees are not covered with snow. Unless the village people like to shake off snow from their trees, those trees should be covered with snow.</p><p id="1324d556-e62b-803b-a941-e5ffc125aaad" class=""><code>&quot;a man wearing a hat”</code>: The diffusion model seemed to think “a man” means “a middle aged or old white man in formal clothes”.</p><p id="1334d556-e62b-8024-965f-c0a122ba7284" class=""><code>“a rocket ship”</code>: These were all cartoonish rockets with a single circular window, torpedo shape and sharp rounded fins just taking off from the ground. None of them look very realistic.</p><h3 id="13f4d556-e62b-8012-8e1b-e4993f9e6b91" class="">0.1 Random seed</h3><p id="13f4d556-e62b-802a-9378-c90c19e54bc3" class="">I seeded all of my work with <code>YOUR_SEED = 180</code></p><h1 id="1324d556-e62b-802c-a4ca-eecdadd72088" class=""><strong>Part A1: Sampling Loops</strong></h1><h2 id="1324d556-e62b-807c-9999-d3fc420fa871" class=""><strong>1.1 Implementing the Forward Process</strong></h2><p id="1434d556-e62b-80fc-85ba-dd71a59a77ac" class="">The forward process traces out a path from a clean image (<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">t=0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> to a purely noisy image (<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">t=T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> in a given number of time steps <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span>. Below we visualize the original clean image and some noisy images along this path. A diffusion model is given many of these paths played in reverse to learn how to iteratively denoise a purely noisy image into a clean image.</p><figure id="1324d556-e62b-80d2-a010-d12566fd395a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.32.png"><img style="width:2152px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.32.png"/></a></figure><h2 id="1324d556-e62b-80e6-8e09-d20058aa362f" class=""><strong>1.2 Classical Denoising</strong></h2><p id="1434d556-e62b-8006-bd4e-d3d699303e93" class="">Since an independent identically distributed gaussian noise image has no correlation between neighboring pixels, it consists of lots of high frequency information. Classical denoising techniques suggest that low-passing the noise-degraded image can help clean the image. One problem with this method is that it is indiscriminate: It removes the highest frequencies of both image and noise, resulting in a less-noisy but blurry image.</p><figure id="1324d556-e62b-8093-9f79-da9a8a4bb920" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.18.png"><img style="width:707.9927978515625px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-15_a_13.58.18.png"/></a></figure><h2 id="1324d556-e62b-8071-8a33-d0a6debb78e3" class=""><strong>1.3 One-Step Denoising</strong></h2><p id="1434d556-e62b-8066-b203-e1fbbcee57fb" class="">The <code>DeepFloyd</code> model is a diffusion model that has been trained to estimate the noise component added to a clean image. Then, given a noisy image we can use the <code>DeepFloyd</code>&#x27;s estimate of the noise to recover a noise-free image. Notice that at lower noise levels the recovered image is quite close to the input and is free of noise. However, at higher noise levels, the recovered image is both more different from the original image and lacks realistic high-frequency details.</p><div id="13f4d556-e62b-801a-b533-de4348a781e2" class="column-list"><div id="13f4d556-e62b-8057-acc1-defbbb1afb98" style="width:25%" class="column"><p id="13f4d556-e62b-8019-ba61-f86807ebeaf0" class="">
 </p><p id="1434d556-e62b-8050-8d75-d14894eed624" class="">
 </p><p id="1434d556-e62b-80a8-b5ed-cb00c5dd16c1" class="">
 </p><p id="1434d556-e62b-80c5-9f3d-e451960f1077" class="">
@@ -696,4 +438,5 @@ blockquote {
 </p></div><div id="1424d556-e62b-807d-bd5a-ed5d830a3155" style="width:45.83333333333333%" class="column"><figure id="1424d556-e62b-80b9-ab92-de909b5cd229" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-8%201.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-8%201.png"/></a></figure><figure id="1424d556-e62b-80e5-ae61-eae4e926c05b" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-8%201.png"><img style="width:288px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-8%201.png"/></a></figure><figure id="1434d556-e62b-8020-90a5-d228f32aaa66" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.04.png"><img style="width:60px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.04.png"/></a></figure><figure id="1434d556-e62b-8044-a551-e4171bc5fc49" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.04.png"><img style="width:707.9900512695312px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.04.png"/></a></figure><figure id="1434d556-e62b-80f9-b191-fb4f9d18f751" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.11.43.png"><img style="width:36px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.11.43.png"/></a></figure><figure id="1434d556-e62b-80a4-91d4-ed350f98505e" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.11.43.png"><img style="width:288px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.11.43.png"/></a></figure></div><div id="1424d556-e62b-80c8-ab2c-e19ef1b3dc5a" style="width:49.99999999999999%" class="column"><figure id="1424d556-e62b-80f5-8a92-ebfd230c6d7f" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.34.00.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.34.00.png"/></a></figure><figure id="1434d556-e62b-80ba-b56d-f38798b7ee31" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.34.00.png"><img style="width:1076px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.34.00.png"/></a></figure><figure id="1434d556-e62b-8014-a797-fc9ab8de2d7c" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.37.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.37.png"/></a></figure><figure id="1434d556-e62b-8031-88ee-dbfe174c9e17" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.37.png"><img style="width:1064px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.10.37.png"/></a></figure><figure id="1434d556-e62b-80d6-bd4c-c1af46f88dfa" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.13.43.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.13.43.png"/></a></figure><figure id="1434d556-e62b-80a2-8681-de37af2fb4d2" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.13.43.png"><img style="width:337.99005126953125px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.13.43.png"/></a></figure><figure id="1434d556-e62b-809d-b9d5-f81a25d05537" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.19.31.png"><img style="width:36px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.19.31.png"/></a></figure><figure id="1434d556-e62b-8088-a096-da3f3915917d" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.19.31.png"><img style="width:1076px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_15.19.31.png"/></a></figure></div></div><p id="1424d556-e62b-8092-9303-dbc8fff8c28d" class="">Low-pass:<code>&#x27;an oil painting of an old man’</code>, High-pass:  <code>&#x27;a lithograph of waterfalls’</code></p><div id="1424d556-e62b-806b-aa53-ceca6ce1940f" class="column-list"><div id="1424d556-e62b-80fa-9326-e49c88690670" style="width:50%" class="column"><figure id="1424d556-e62b-803b-b0b8-f53ec50fd858" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-7%201.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-7%201.png"/></a></figure><figure id="1424d556-e62b-8082-a41f-f3e66fef9948" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-7%201.png"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-7%201.png"/></a></figure></div><div id="1434d556-e62b-80ec-9ca5-f6a09d2d531e" style="width:50.00000000000004%" class="column"><figure id="1424d556-e62b-808e-8c54-e570e338070a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-10.png"><img style="width:48px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-10.png"/></a></figure><figure id="1424d556-e62b-809a-a758-df16efe63936" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-10.png"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-10.png"/></a></figure></div></div><p id="1424d556-e62b-80b8-94d8-d36ab2f96abb" class="">Low-pass:  <code>&#x27;a photo of a dog’</code>, High-pass: <code>&#x27;a lithograph of waterfalls’</code></p><div id="1424d556-e62b-8007-9bfe-ef5033edc8c6" class="column-list"><div id="1424d556-e62b-80b4-9981-f84e3752a5dd" style="width:50%" class="column"><figure id="1424d556-e62b-8009-96fc-faf8e1f63d13" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-23.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-23.png"/></a></figure><figure id="1424d556-e62b-8008-9c1e-d1c0207a3583" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.51.16.png"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.51.16.png"/></a></figure></div><div id="1424d556-e62b-80e9-ac59-c5f43a4d79d5" style="width:50%" class="column"><figure id="1424d556-e62b-80c7-87d5-e616bbff0e28" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.52.56.png"><img style="width:60px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.52.56.png"/></a></figure><figure id="1424d556-e62b-80cf-833a-dcca262d90ce" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.52.56.png"><img style="width:707.9927978515625px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-18_a_03.52.56.png"/></a></figure></div></div><div id="1424d556-e62b-806f-b7f7-cd35b5237367" class="column-list"><div id="1424d556-e62b-8058-a93e-d930a42344f0" style="width:16.666666666666668%" class="column"><figure id="1424d556-e62b-804b-b5de-cb941cc4a3d7" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-14.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-14.png"/></a></figure></div><div id="1424d556-e62b-804a-8d84-f0fe4c37e1ed" style="width:16.666666666666668%" class="column"><figure id="1424d556-e62b-8079-a3dd-c8e9c129af8d" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-13.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-13.png"/></a></figure></div><div id="1424d556-e62b-8097-946a-e445c52050ca" style="width:16.666666666666664%" class="column"><figure id="1424d556-e62b-80d3-a2ba-ff732ed8f00f" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-19.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-19.png"/></a></figure></div><div id="1424d556-e62b-80e3-b13e-ffcd1c62557b" style="width:16.666666666666668%" class="column"><figure id="1424d556-e62b-80f3-86de-fc17a1d7e510" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-18.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-18.png"/></a></figure></div><div id="1424d556-e62b-8013-961a-c5f545f66070" style="width:16.666666666666668%" class="column"><figure id="1424d556-e62b-8070-8a28-d7bd526ee741" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-15.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-15.png"/></a></figure></div><div id="1424d556-e62b-80aa-9c7a-e5a270f076dc" style="width:16.666666666666668%" class="column"><figure id="1424d556-e62b-802a-a032-d2126b210060" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-17.png"><img style="width:63.996395111083984px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-17.png"/></a></figure></div></div><h1 id="1434d556-e62b-8094-8ee8-e0e2d4aa500c" class="">Part A Bells &amp; Whistles</h1><h2 id="1434d556-e62b-800a-87c2-d2491cc663a5" class="">Recursive Text-Conditioned Image-To-Image Translations</h2><ul id="1434d556-e62b-8076-a453-d73c45e938cc" class="bulleted-list"><li style="list-style-type:disc">I wanted to see what happened if we recursively applied the SDEdit algorithm to an input image conditioned on a given prompt. This was motivated by the idea of exploring <code>DeepFloyd</code>&#x27;s image manifold in a neighborhood of an original clean image.</li></ul><ul id="1434d556-e62b-80b2-abf3-fe4a196c8e6f" class="bulleted-list"><li style="list-style-type:disc">My implementation feeds the output of the <code>iterative_denoise_cfg</code> back into itself using the same prompt and starting index in the <code>timesteps</code> array. To stay in the neighborhood of the clean image, I only added a small amount of noise to be denoised, encouraging the SDEdit process to make a series of generally small edits each iteration.</li></ul><ul id="1434d556-e62b-8041-a572-ff8e85084228" class="bulleted-list"><li style="list-style-type:disc">To display the sequence of changes, I created a looping gif with <code>mediapy</code>&#x27;s <code>show_video</code> function.</li></ul><ul id="1434d556-e62b-8021-bb7d-f1a2ecbe16f2" class="bulleted-list"><li style="list-style-type:disc">Below are some examples of the process. </li></ul><h3 id="1444d556-e62b-80f7-a8a6-d745d7920d54" class="">Starting_idx ≥ 15</h3><p id="1444d556-e62b-8023-97c8-d79bf6ac45ca" class="">For small initial times, the recursive edit procedure works well for a small number of iterations. However, the diffusion model’s outputs become less and less realistic for later iterations. In particular the outputs generally approach an image with rainbow colors and repeating patterns (the <mark class="highlight-red">ra</mark><mark class="highlight-teal">in</mark><mark class="highlight-yellow">bo</mark><mark class="highlight-blue">w d</mark><mark class="highlight-purple">im</mark><mark class="highlight-pink">en</mark><mark class="highlight-brown">si</mark><mark class="highlight-red">on</mark>)</p><ul id="1444d556-e62b-806a-9b71-cecd66372972" class="bulleted-list"><li style="list-style-type:disc">Decent examples<div id="1444d556-e62b-8083-8634-dc1c0503a67e" class="column-list"><div id="1444d556-e62b-8042-bec4-f6030e896b53" style="width:50.00000000000002%" class="column"><figure id="1444d556-e62b-8053-82c7-c266e74bb7ab" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_good2.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_good2.gif"/></a><figcaption>starting_idx=15,  prompt=&#x27;a lithograph of waterfalls’, scale=2</figcaption></figure><figure id="1444d556-e62b-8081-b6e9-f926e4e0a16e" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_3.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_3.gif"/></a><figcaption>starting_idx=25,  prompt=&#x27;a lithograph of waterfalls’, scale=2</figcaption></figure></div><div id="1444d556-e62b-80ec-ae55-fe97e8a5ca5f" style="width:50.00000000000002%" class="column"><figure id="1444d556-e62b-8089-8f0b-d298f5031967" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/docks.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/docks.gif"/></a><figcaption>starting_idx=15,  prompt=&quot;a high quality photo&quot;, scale=7</figcaption></figure><figure id="1444d556-e62b-802d-86e5-f6815fbc4f47" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-6.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-6.gif"/></a><figcaption>starting_idx=25,  prompt=&#x27;a lithograph of waterfalls’, scale=7</figcaption></figure></div></div></li></ul><ul id="1444d556-e62b-8041-a51a-e4cee0b5c874" class="bulleted-list"><li style="list-style-type:disc">The <mark class="highlight-red">Ra</mark><mark class="highlight-teal">in</mark><mark class="highlight-yellow">bo</mark><mark class="highlight-blue">w d</mark><mark class="highlight-purple">im</mark><mark class="highlight-pink">en</mark><mark class="highlight-brown">si</mark><mark class="highlight-red">on</mark></li></ul><div id="1444d556-e62b-805d-83d0-ce59e9465114" class="column-list"><div id="1444d556-e62b-8093-bd28-e941648d7198" style="width:25%" class="column"><figure id="1444d556-e62b-8072-8338-c9cf82f8670b" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-2.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-2.gif"/></a><figcaption>starting_idx=20,  prompt=&quot;a high quality photo&quot;, scale=7, niters=30</figcaption></figure></div><div id="1444d556-e62b-8039-8f48-e0fbce957c4b" style="width:25%" class="column"><figure id="1444d556-e62b-8070-bd16-caed3024a5ed" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_scale2.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_scale2.gif"/></a><figcaption> starting_idx=25,  prompt=&#x27;a lithograph of waterfalls’, guidance scale = 2</figcaption></figure></div><div id="1444d556-e62b-8008-9ea3-f2dfa8597f87" style="width:25%" class="column"><figure id="1444d556-e62b-805d-aac0-c63619dad71a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall.gif"/></a><figcaption> starting_idx=25,  prompt=&#x27;a lithograph of waterfalls’, guidance scale = 5</figcaption></figure></div><div id="1444d556-e62b-80c0-8db4-f92dd89cfa33" style="width:25%" class="column"><figure id="1444d556-e62b-8000-9184-c45b310c2855" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_good.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/waterfall_good.gif"/></a><figcaption>starting_idx=15,  prompt=&#x27;a lithograph of waterfalls’, scale=7,</figcaption></figure></div></div><h3 id="1444d556-e62b-8012-89d2-e9298d5e68ad" class="">10 ≤ Starting_idx &lt; 15 </h3><ul id="1444d556-e62b-80a6-9001-cb6ef309fc9e" class="bulleted-list"><li style="list-style-type:disc">For these range of starting indices, the model output remains consistently realistic, even for large number of iterations. While the generation process seems to jump away from the initial input image, it does seem to settle into a stable small-editing process after the first few iterations. This may be because the high initial noise level can allow the model to recover from built-up deviations from realism over successive iterations.</li></ul><div id="1444d556-e62b-80b5-88fb-d6b011d8c7af" class="column-list"><div id="1444d556-e62b-80d6-a66e-ea76a0128395" style="width:50%" class="column"><figure id="1444d556-e62b-8077-9745-eda444637e84" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/start_10_1.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/start_10_1.gif"/></a><figcaption>prompt=&#x27;a high quality photo&#x27;, niters=15, scale=7, start_idx=10</figcaption></figure></div><div id="1444d556-e62b-803e-996f-c819e9ead04f" style="width:50%" class="column"><figure id="1444d556-e62b-80d5-9c7e-f67c52da7386" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/start_13_2.gif"><img style="width:240px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/start_13_2.gif"/></a><figcaption>prompt=&#x27;a high quality photo&#x27;, niters=15, scale=7, start_idx=13</figcaption></figure></div></div><p id="1444d556-e62b-807c-bf4e-fac1d7cccca3" class="">
 </p><hr id="1434d556-e62b-808c-bc25-cfc6fe9f03a3"/><h1 id="13b4d556-e62b-805a-b016-f824ed710449" class=""><strong>Part B: Diffusion Models from Scratch!</strong></h1><h1 id="13b4d556-e62b-805f-a3ee-fdaf4df6454a" class=""><strong>Part 1: Training a Single-Step Denoising UNet</strong></h1><h3 id="13c4d556-e62b-80dc-a137-e09825544dfa" class=""><strong>1.2 Using the UNet to Train a Denoiser</strong></h3><p id="1434d556-e62b-807c-a381-f404c6bce55e" class="">The forward process is used to trace out trajectories from a clean digit to a noisy digit. We train our denoiser by giving it the reversed the trajectory so it can learn how to gradually remove noise from the image. In part 1, we start by training a single-step UNet. In part 2, we implement the iterative version using this forward process. </p><figure id="13c4d556-e62b-80cd-91b3-d43a5d26970f" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_04.51.10.png"><img style="width:707.9927978515625px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-19_a_04.51.10.png"/></a><figcaption>Figure 3: Varying levels of noise on MNIST digits</figcaption></figure><h3 id="13c4d556-e62b-807a-a304-e53aa760702a" class=""><strong>1.2.1 Training</strong></h3><figure id="13c4d556-e62b-80b9-8d0b-c56abde6cfab" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-19%201.png"><img style="width:681.9951782226562px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download-19%201.png"/></a></figure><div id="13c4d556-e62b-80bb-96f1-c6f3b1b30ac6" class="column-list"><div id="13c4d556-e62b-804a-b39c-db1c605de2c4" style="width:50%" class="column"><figure id="13c4d556-e62b-80fe-8602-fcb34f9aa75f" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.49.59.png"><img style="width:317.9927978515625px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.49.59.png"/></a></figure></div><div id="13c4d556-e62b-804a-a90d-c30ad013046e" style="width:50%" class="column"><figure id="13c4d556-e62b-8093-93eb-e344bf855580" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.50.20.png"><img style="width:317.9867858886719px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.50.20.png"/></a></figure></div></div><p id="13c4d556-e62b-8060-ae08-fc07ede9687b" class=""><strong>1.2.2 Out-of-Distribution Testing</strong></p><p id="1434d556-e62b-8052-9a74-d3af704f396f" class="">Our unconditional UNet was trained to noise at level <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\sigma = 0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.5</span></span></span></span></span><span>﻿</span></span>. The plots below show the model’s performance denoising images with noise levels it wasn’t trained to handle. As the image gets noisier beyond <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\sigma = 0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.5</span></span></span></span></span><span>﻿</span></span>, the model’s performance gets worse. </p><figure id="13c4d556-e62b-80f1-aed8-cfa2b695696e" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.51.16.png"><img style="width:681.9891967773438px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-11_a_20.51.16.png"/></a></figure><p id="13c4d556-e62b-80a3-869c-ed769edc860e" class="">
 </p><h1 id="13c4d556-e62b-80a6-adbf-d2f4ab17dbb2" class=""><strong>Part 2: Training a Diffusion Model</strong></h1><h2 id="13c4d556-e62b-8024-8c4f-deca98b97f40" class=""><strong>2.1 Adding Time Conditioning to UNet</strong></h2><div id="1434d556-e62b-800a-8462-f0a72e688ba0" class="column-list"><div id="1434d556-e62b-806f-904f-dc606e1366ad" style="width:50%" class="column"><p id="1434d556-e62b-80f1-a1e9-c19778281899" class="">Time-conditioning gives the UNet information about where along the reconstruction trajectory it is. This is useful for implementing a model to denoise a noisy image in small steps because the time-conditioning indicates how noisy the input image is and thus how much noise the model should try to remove in its next denoising step.</p></div><div id="1434d556-e62b-805a-a647-ef1a29b60e48" style="width:50%" class="column"><figure id="1434d556-e62b-805c-9766-f2beea9192f9" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%201.png"><img style="width:657.9988403320312px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%201.png"/></a><figcaption>Training loss plot for time-only conditioning</figcaption></figure></div></div><p id="13c4d556-e62b-80d8-b5cd-ca350e518bf8" class="">Below are samples from the time-conditioned UNet after training epochs 1, 5, 10, 15, and 20.</p><div id="1404d556-e62b-80a6-9892-d6fe7ebc67f5" class="column-list"><div id="1404d556-e62b-8029-8c5e-f65a0fdaf96b" style="width:50%" class="column"><figure id="1404d556-e62b-8009-a00f-c9f8430dda78" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1.gif"/></a><figcaption>Epoch 1</figcaption></figure><figure id="1404d556-e62b-80ec-a475-d93c1bf06383" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5.gif"/></a><figcaption>Epoch 5</figcaption></figure><figure id="1404d556-e62b-80c4-b496-df02005fb2bb" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10.gif"/></a><figcaption>Epoch 10</figcaption></figure></div><div id="1404d556-e62b-807d-9536-dcb182bc923d" style="width:50%" class="column"><figure id="1404d556-e62b-80f5-be43-d12128e833e2" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15.gif"><img style="width:384px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15.gif"/></a><figcaption>Epoch 15</figcaption></figure><figure id="1404d556-e62b-80c1-964c-e2613f1be8c4" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20.gif"/></a><figcaption>Epoch 20</figcaption></figure><p id="1434d556-e62b-800a-b88a-ca5f74fe9050" class="">
-</p></div></div><h2 id="13c4d556-e62b-8045-b502-ef03f4f9b365" class=""><strong>2.2 Adding Class-Conditioning to UNet</strong></h2><div id="1434d556-e62b-80ad-b3fc-ce36e610e48a" class="column-list"><div id="1434d556-e62b-80f7-93ec-eb51262f7955" style="width:50%" class="column"><p id="1434d556-e62b-802c-b89c-fc2819fa33be" class="">Class-conditioning enables our diffusion model to learn associations between digits <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">0, 1, \dots, 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span> and their handwritten image form. Then, during sampling, we can use classifier-free guidance (CFG) to steer the model’s path to the MNIST image manifold so that it arrives in the neighborhood of a specific digit rather than an arbitrary digit. As the samples below indicate using both time-conditioning and class-conditioning results in more realistic and higher-quality generated images than time-conditioning alone.</p></div><div id="1434d556-e62b-80d2-88a9-f80ad124cdbe" style="width:50%" class="column"><figure id="1404d556-e62b-807f-833a-eef3985e25ca" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%202.png"><img style="width:384px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%202.png"/></a><figcaption>Training loss plot for time and class conditioning.</figcaption></figure></div></div><p id="1434d556-e62b-8095-b16b-c2bdb97f7eb7" class="">Below are samples from the class-conditioned UNet at epochs 1, 5, 10, 15, and 20.</p><div id="13c4d556-e62b-8024-ac0a-d8ea26a7e438" class="column-list"><div id="13c4d556-e62b-809c-853b-e13687a89dd5" style="width:50%" class="column"><figure id="13c4d556-e62b-808a-9a11-c758301be22a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%201.gif"><img style="width:288px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%201.gif"/></a><figcaption>Epoch 1</figcaption></figure><figure id="13c4d556-e62b-80ba-8f17-dbe76b9ec9f3" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%201.gif"/></a><figcaption>Epoch 5</figcaption></figure><figure id="13c4d556-e62b-80b3-915c-ce9297b2120a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%201.gif"/></a><figcaption>Epoch 10</figcaption></figure></div><div id="13c4d556-e62b-80f2-b5ef-cd2a64fd3443" style="width:50%" class="column"><figure id="13c4d556-e62b-803d-a77d-dd6a631ca493" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%201.gif"/></a><figcaption>Epoch 15</figcaption></figure><figure id="13c4d556-e62b-8005-a3e1-c68a48d8fe35" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%201.gif"/></a><figcaption>Epoch 20</figcaption></figure></div></div><h1 id="1424d556-e62b-8024-ad4a-d7646d805fe3" class="">Part B Bells &amp; Whistles</h1><h3 id="1434d556-e62b-8062-a6be-e4ddbed563c1" class="">Sampling Gif</h3><ul id="1434d556-e62b-80fe-b23b-db9604fd9aa0" class="bulleted-list"><li style="list-style-type:disc">To create a sampling gif, we cache the intermediate denoising states of a mini batch from as the DDPM model denoises it. We get 4 samples of each digit <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">0, 1, 2, \dots, 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span> by conditioning the model on a four copies of each digit. Then, we use the <code>media.show_video</code> method from the <a href="https://google.github.io/mediapy/mediapy.html">mediapy</a> library to create the looping gifs shown above.</li></ul><h3 id="1434d556-e62b-802f-b003-f90654bef5ec" class="">Skip Connections in the Time-Conditioned Model</h3><div id="1434d556-e62b-802c-9229-dce25efc632b" class="column-list"><div id="1434d556-e62b-8023-b42d-e570b17a1608" style="width:50%" class="column"><ul id="1434d556-e62b-80d7-bdc1-d253b6155968" class="bulleted-list"><li style="list-style-type:disc">In deep networks, information from layers earlier in the network may be useful for layers later in the network. ResNets add “skip connections” which add the input of a layer to its output.</li></ul><ul id="1434d556-e62b-801b-9b3c-ee5839a21346" class="bulleted-list"><li style="list-style-type:disc">This gives a network the option to easily learn an identify transform for <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> if a layer is not needed, which can help the model learn a better fit to the data.</li></ul></div><div id="1434d556-e62b-8039-9555-d166622dd5f2" style="width:50%" class="column"><figure id="1434d556-e62b-80d8-94f2-d519b626b697" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/image.png"><img style="width:1652px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/image.png"/></a></figure></div></div><p id="1434d556-e62b-80e5-b3dc-e962d2120920" class="">Here are the results of using skip connections in the time-only conditioned DDPM model. These figures show a slightly better </p><div id="1434d556-e62b-8047-a9b3-efdb8f57efaa" class="column-list"><div id="009b6931-92f8-40bd-b629-17b36253ae91" style="width:50%" class="column"><figure id="52575884-98b6-48da-9ba6-cfefaf902378" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%202.gif"/></a><figcaption>Epoch 1</figcaption></figure><figure id="e37eb17e-4ef5-4420-8d61-a64ceda663db" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%202.gif"/></a><figcaption>Epoch 5</figcaption></figure><figure id="917a6a1b-d0ba-45ea-a400-0ec0fb0e7a73" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%202.gif"/></a><figcaption>Epoch 10</figcaption></figure></div><div id="975776bc-74ff-45c1-9d8b-8508d1c86b7e" style="width:50%" class="column"><figure id="67cb35d7-94fd-41c1-8d23-ca36a03c125b" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%202.gif"/></a><figcaption>Epoch 15</figcaption></figure><figure id="29cdd637-6d1b-424a-ad6b-4275ab400829" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%202.gif"/></a><figcaption>Epoch 20</figcaption></figure></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+</p></div></div><h2 id="13c4d556-e62b-8045-b502-ef03f4f9b365" class=""><strong>2.2 Adding Class-Conditioning to UNet</strong></h2><div id="1434d556-e62b-80ad-b3fc-ce36e610e48a" class="column-list"><div id="1434d556-e62b-80f7-93ec-eb51262f7955" style="width:50%" class="column"><p id="1434d556-e62b-802c-b89c-fc2819fa33be" class="">Class-conditioning enables our diffusion model to learn associations between digits <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">0, 1, \dots, 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span> and their handwritten image form. Then, during sampling, we can use classifier-free guidance (CFG) to steer the model’s path to the MNIST image manifold so that it arrives in the neighborhood of a specific digit rather than an arbitrary digit. As the samples below indicate using both time-conditioning and class-conditioning results in more realistic and higher-quality generated images than time-conditioning alone.</p></div><div id="1434d556-e62b-80d2-88a9-f80ad124cdbe" style="width:50%" class="column"><figure id="1404d556-e62b-807f-833a-eef3985e25ca" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%202.png"><img style="width:384px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/download%202.png"/></a><figcaption>Training loss plot for time and class conditioning.</figcaption></figure></div></div><p id="1434d556-e62b-8095-b16b-c2bdb97f7eb7" class="">Below are samples from the class-conditioned UNet at epochs 1, 5, 10, 15, and 20.</p><div id="13c4d556-e62b-8024-ac0a-d8ea26a7e438" class="column-list"><div id="13c4d556-e62b-809c-853b-e13687a89dd5" style="width:50%" class="column"><figure id="13c4d556-e62b-808a-9a11-c758301be22a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%201.gif"><img style="width:288px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%201.gif"/></a><figcaption>Epoch 1</figcaption></figure><figure id="13c4d556-e62b-80ba-8f17-dbe76b9ec9f3" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%201.gif"/></a><figcaption>Epoch 5</figcaption></figure><figure id="13c4d556-e62b-80b3-915c-ce9297b2120a" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%201.gif"/></a><figcaption>Epoch 10</figcaption></figure></div><div id="13c4d556-e62b-80f2-b5ef-cd2a64fd3443" style="width:50%" class="column"><figure id="13c4d556-e62b-803d-a77d-dd6a631ca493" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%201.gif"/></a><figcaption>Epoch 15</figcaption></figure><figure id="13c4d556-e62b-8005-a3e1-c68a48d8fe35" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%201.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%201.gif"/></a><figcaption>Epoch 20</figcaption></figure></div></div><h1 id="1424d556-e62b-8024-ad4a-d7646d805fe3" class="">Part B Bells &amp; Whistles</h1><h3 id="1434d556-e62b-8062-a6be-e4ddbed563c1" class="">Sampling Gif</h3><ul id="1434d556-e62b-80fe-b23b-db9604fd9aa0" class="bulleted-list"><li style="list-style-type:disc">To create a sampling gif, we cache the intermediate denoising states of a mini batch from as the DDPM model denoises it. We get 4 samples of each digit <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">0, 1, 2, \dots, 9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span></span></span></span></span><span>﻿</span></span> by conditioning the model on a four copies of each digit. Then, we use the <code>media.show_video</code> method from the <a href="https://google.github.io/mediapy/mediapy.html">mediapy</a> library to create the looping gifs shown above.</li></ul><h3 id="1434d556-e62b-802f-b003-f90654bef5ec" class="">Skip Connections in the Time-Conditioned Model</h3><div id="1434d556-e62b-802c-9229-dce25efc632b" class="column-list"><div id="1434d556-e62b-8023-b42d-e570b17a1608" style="width:50%" class="column"><ul id="1434d556-e62b-80d7-bdc1-d253b6155968" class="bulleted-list"><li style="list-style-type:disc">In deep networks, information from layers earlier in the network may be useful for layers later in the network. ResNets add “skip connections” which add the input of a layer to its output.</li></ul><ul id="1434d556-e62b-801b-9b3c-ee5839a21346" class="bulleted-list"><li style="list-style-type:disc">This gives a network the option to easily learn an identify transform for <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> if a layer is not needed, which can help the model learn a better fit to the data.</li></ul></div><div id="1434d556-e62b-8039-9555-d166622dd5f2" style="width:50%" class="column"><figure id="1434d556-e62b-80d8-94f2-d519b626b697" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/image.png"><img style="width:1652px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/image.png"/></a></figure></div></div><p id="1434d556-e62b-80e5-b3dc-e962d2120920" class="">Here are the results of using skip connections in the time-only conditioned DDPM model. These figures show a slightly better </p><div id="1434d556-e62b-8047-a9b3-efdb8f57efaa" class="column-list"><div id="009b6931-92f8-40bd-b629-17b36253ae91" style="width:50%" class="column"><figure id="52575884-98b6-48da-9ba6-cfefaf902378" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_1%202.gif"/></a><figcaption>Epoch 1</figcaption></figure><figure id="e37eb17e-4ef5-4420-8d61-a64ceda663db" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_5%202.gif"/></a><figcaption>Epoch 5</figcaption></figure><figure id="917a6a1b-d0ba-45ea-a400-0ec0fb0e7a73" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_10%202.gif"/></a><figcaption>Epoch 10</figcaption></figure></div><div id="975776bc-74ff-45c1-9d8b-8508d1c86b7e" style="width:50%" class="column"><figure id="67cb35d7-94fd-41c1-8d23-ca36a03c125b" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_15%202.gif"/></a><figcaption>Epoch 15</figcaption></figure><figure id="29cdd637-6d1b-424a-ad6b-4275ab400829" class="image"><a href="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%202.gif"><img style="width:336px" src="CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/epoch_20%202.gif"/></a><figcaption>Epoch 20</figcaption></figure></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</div>

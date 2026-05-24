@@ -15,31 +15,37 @@ I chose Jekyll for a few key reasons:
 2. **Markdown Support:** It natively converts my Markdown files (placed in `_posts/`) into styled blog pages.
 3. **Academic Standard:** It is the standard way to host simple, clean, academic websites on GitHub Pages.
 
+## VSCode-Style Layout Architecture
+
+The layout of this website is modeled heavily after highly-readable software documentation (like VSCode or Quarto), consisting of three primary columns:
+1. **Contextual Left Sidebar:** Managed by Liquid logic in `_layouts/default.html`. It dynamically changes its content based on the page's category (e.g., showing CS180 projects when in the Projects category, or blog posts when in the Writing category).
+2. **Main Content:** The center column holding the actual text/content.
+3. **Global Right ToC:** A Javascript function runs on page load, queries all `<h2>` and `<h3>` tags in the main content, and auto-generates a clickable Table of Contents on the right side.
+
 ## Directory Structure
 
 Here is how my repository is organized:
 
-- `_config.yml`: The central configuration file for Jekyll. It dictates site-wide variables, specifies the Markdown parser (kramdown), and configures MathJax.
+- `_config.yml`: The central configuration file for Jekyll.
 - `_layouts/`: Contains the HTML skeletons for my site.
-  - `default.html`: The master wrapper. It contains the `<head>` tags (with CSS, MathJax, and highlight.js imports), the navigation bar, and the footer.
-  - `post.html`: The template for individual blog posts. It inherits from `default.html` but adds formatting for the title and date.
+  - `default.html`: The master wrapper. It contains the `<head>` tags, the 3-column architecture, the Top Header (search bar + global nav), and the Left Sidebar Liquid logic.
+  - `post.html`: The template for individual blog posts. Inherits from `default.html`.
 - `_posts/`: Where my Markdown explainer posts live.
-- `assets/css/style.css`: The central stylesheet. It is entirely custom (no Tailwind) to ensure a premium, lightweight, academic aesthetic.
-- `images/`: The folder for my static assets and profile pictures.
-- `index.html`: The homepage. It uses HTML (instead of Markdown) to allow for complex layout structures (like the profile grid and curated project lists).
-- `posts.html`: The posts directory page. It loops through all files in `_posts/` and displays them as a list.
+- `_templates/`: Contains boilerplate templates (`post_template.md` and `project_template.md`) to make adding new content frictionless.
+- `assets/css/style.css`: The central stylesheet containing CSS Grid and Flexbox layouts. 
+- `search.json`: A Jekyll template that generates a JSON array of all site contents on build.
+- `projects.html`: The landing page for the Projects section.
 
 ### Legacy Project Folders
-There are several folders like `proj1_web/`, `proj2_web/`, `final_proj_web/`, etc. These are static HTML exports from my previous UC Berkeley class projects. Because they are not prefixed with an underscore (`_`), Jekyll simply copies them verbatim into the final `_site/` directory. This ensures that any old links I shared to those projects continue to work perfectly without requiring Jekyll to process them.
+There are several folders like `proj1_web/`, `proj2_web/`, `final_proj_web/`, etc. These are static HTML exports from my previous UC Berkeley class projects. Because they are not prefixed with an underscore (`_`), Jekyll simply copies them verbatim into the final `_site/` directory, ensuring old links never break.
 
 ## Third-Party Integrations
 
-I use a few lightweight client-side libraries to achieve the clean, "ML Paper" aesthetic:
+1. **Fuse.js (Fuzzy Search)**: We use Fuse.js to power the search bar in the Top Header. Upon page load, it fetches `search.json` (which contains the full text of all posts and pages) and executes client-side fuzzy searching. We use `ignoreLocation: true` so it successfully searches massive documents.
+2. **MathJax 3**: Injected via a CDN script in `_layouts/default.html`. It automatically scans the page for LaTeX symbols (`$` and `$$`) and renders them beautifully as SVG paths. It includes a copy-tex extension so users can right-click equations to copy raw LaTeX.
+3. **Highlight.js**: Also injected via CDN. It automatically detects `<code>` blocks and applies syntax highlighting mimicking GitHub's style.
+4. **Google Fonts**: I use **Inter** for crisp headings, **Lora** for academic body text, and **Fira Code** for monospaced elements.
 
-1. **MathJax**: Injected via a CDN script in `_layouts/default.html`. It automatically scans the page for LaTeX symbols (`$` and `$$`) and renders them beautifully as SVG paths.
-2. **Highlight.js**: Also injected via CDN. It automatically detects `<code>` blocks and applies syntax highlighting mimicking GitHub's style.
-3. **Google Fonts**: I use **Inter** for crisp, modern headings, **Lora** for a classic, readable academic body text, and **Fira Code** for monospaced elements.
+## Adding Javascript Frameworks (e.g., Plotly)
 
-## Adding Javascript Frameworks (e.g., Plotly, D3)
-
-Because the final product is just HTML, I can seamlessly embed interactive JavaScript visualizations directly into my Markdown files. If I generate a Plotly graph in Python, I can output it as raw HTML and paste it into a post. The browser will execute the Javascript, allowing for tooltips, zooming, and interactivity just like the Berkeley Stat210a reader pages.
+Because the final product is just HTML, I can seamlessly embed interactive JavaScript visualizations directly into my Markdown files. If I generate a Plotly graph in Python, I can output it as raw HTML (using `.to_html()`) and paste it directly into my `.md` files. The browser will execute the Javascript natively, allowing for sliders and interactivity.

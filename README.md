@@ -2,43 +2,38 @@
 
 This is the repository for my personal academic and research website, hosted on GitHub Pages and powered by Jekyll.
 
-## How to Add Explainer Posts
+## 🚀 Website Features
+- **VSCode-Style Layout:** 3-column architecture with a Top Header, Contextual Left Sidebar, and Global Right Table of Contents.
+- **Fuzzy Search:** Powerful client-side search across all posts and pages using `Fuse.js`.
+- **Math & Code:** Built-in MathJax 3 with copy-tex support and Highlight.js for code syntax.
+- **Interactive:** Full support for embedding interactive Plotly HTML charts.
 
-My posts are located in the `_posts/` directory. The website automatically parses Markdown files dropped into this directory and generates the `Writing & Notes` page.
+## 📝 How to Add Content
 
-### 1. File Naming Convention
-Every post file **must** begin with the date in `YYYY-MM-DD` format, followed by the title, and end in `.md`.
-*Example: `_posts/2026-05-23-my-new-post.md`*
+I have set up boilerplate templates in the `_templates/` directory to make adding content easy!
 
-### 2. YAML Front Matter
-At the very top of my `.md` file, I must include a metadata block (called Front Matter) bordered by `---`:
+### Adding a Blog Post (Writing & Notes)
+1. Copy `_templates/post_template.md` to the `_posts/` directory.
+2. Rename the file following the Jekyll convention: `YYYY-MM-DD-your-title.md` (e.g., `2026-05-23-my-new-post.md`).
+3. Update the YAML Front Matter at the top of the file with the correct title and date.
 
-```yaml
----
-layout: post
-title: "The Title of My Post"
-date: 2026-05-23
----
-```
+### Adding a Project Page
+1. Copy `_templates/project_template.md` to the root directory (or a subfolder).
+2. Rename it to `my_project.md` (or `.html`).
+3. Update the YAML Front Matter. The `category: projects` tag ensures it is recognized by the navigation logic.
+4. To link it in the Left Nav, edit `_layouts/default.html` and add an `<a>` tag under the Projects logic.
 
-### 3. Using Notion Exports
+### Using Notion Exports
 If I draft a post in Notion:
 1. Export the page as Markdown.
-2. Rename the exported `.md` file to match the `YYYY-MM-DD-title.md` format.
-3. Add the YAML Front Matter (as shown above) to the top of the file.
-4. If Notion exported an images folder, I need to move those images into the `images/` or `assets/` folder in the root directory, and update the paths in my markdown file to point to them (e.g. `![caption](/images/my_image.png)`).
+2. Rename the exported `.md` file to match the `YYYY-MM-DD-title.md` format and place it in `_posts/`.
+3. Copy the YAML Front Matter from `_templates/post_template.md` to the top of the file.
+4. Move exported images into `images/` or `assets/` and fix the markdown image links (e.g. `![caption](/images/my_image.png)`).
 
-### 4. Math and Code
-- **Math:** The site is configured with MathJax. I can write inline math like `$E=mc^2$` and block math with `$$ ... $$`.
-- **Code:** Standard Markdown triple backticks (```` ```python ````) will automatically receive syntax highlighting via highlight.js.
-
-### 5. Interactive Figures (Plotly)
-Since the site compiles to standard HTML, I can drop any interactive Javascript charts directly into my Markdown files. I can export interactive Plotly plots from Python as `.html` files and embed them in an `<iframe>`, or just copy-paste the raw Plotly JS into the Markdown file. See the example post in `_posts/` for a demonstration.
-
-## Local Development
+## 💻 Local Development
 To run this website locally and preview changes before pushing:
 
-1. Ensure I have the required gems installed:
+1. Ensure required gems are installed:
    ```bash
    bundle install
    ```
@@ -48,5 +43,5 @@ To run this website locally and preview changes before pushing:
    ```
 3. Open `http://localhost:4000` in the browser.
 
-## Documentation
-For more detailed information on my website architecture, styling, and how it is built, I can refer to the [Website Architecture Documentation](docs/website_architecture.md).
+## 📚 Documentation
+For more detailed information on the website architecture, CSS Grid layout, and Javascript integrations, refer to the [Website Architecture Documentation](docs/website_architecture.md).
