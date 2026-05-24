@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Welcome to my Research Notes and Blog"
+title: "Welcome to my Research and Learning Blog"
 date: 2026-05-23
 ---
 
