@@ -54,15 +54,18 @@
 <body>
 <div class="app-container">
 
-    <!-- ── Navigation ──────────────────────────────────────── -->
+    <!-- ── Top bar ───────────────────────────────────────────── -->
     <header class="top-header">
         <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
 
-        <nav class="header-nav" aria-label="Main navigation">
+        <!-- Mobile-only nav links (hidden on desktop where left sidebar takes over) -->
+        <nav class="header-nav mobile-nav" aria-label="Main navigation">
             <a href="{{ '/' | relative_url }}"
                class="header-link{% if page.url == '/' %} active{% endif %}">Home</a>
-            <a href="{{ '/posts' | relative_url }}"
-               class="header-link{% if page.url == '/posts.html' or page.layout == 'post' %} active{% endif %}">Writing</a>
+            <a href="{{ '/blog' | relative_url }}"
+               class="header-link{% if page.url == '/blog.html' or page.layout == 'post' %} active{% endif %}">Blog</a>
+            <a href="{{ '/projects' | relative_url }}"
+               class="header-link{% if page.url == '/projects.html' or page.category == 'project' %} active{% endif %}">Projects</a>
             <a href="{{ '/research' | relative_url }}"
                class="header-link{% if page.url == '/research.html' or page.category == 'research' %} active{% endif %}">Research</a>
         </nav>
@@ -83,10 +86,51 @@
         </div>
     </header>
 
-    <!-- ── Content ─────────────────────────────────────────── -->
+    <!-- ── Page body ─────────────────────────────────────────── -->
     <div class="layout-wrapper{% if page.layout == 'post' or page.toc %} has-toc{% endif %}">
 
+        <!-- Left sidebar — site nav (desktop only; mobile uses header-nav above) -->
+        <aside class="sidebar-left" aria-label="Site navigation">
+            <nav class="sidenav">
+                <a href="{{ '/' | relative_url }}"
+                   class="sidenav-link{% if page.url == '/' %} active{% endif %}">Home</a>
+                <a href="{{ '/blog' | relative_url }}"
+                   class="sidenav-link{% if page.url == '/blog.html' or page.layout == 'post' %} active{% endif %}">Blog</a>
+                <a href="{{ '/projects' | relative_url }}"
+                   class="sidenav-link{% if page.url == '/projects.html' or page.category == 'project' %} active{% endif %}">Projects</a>
+                <a href="{{ '/research' | relative_url }}"
+                   class="sidenav-link{% if page.url == '/research.html' or page.category == 'research' %} active{% endif %}">Research</a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
         <main class="main-content" id="main-content">
+
+            <!-- Breadcrumbs (hidden on home page) -->
+            {% unless page.url == '/' %}
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <a href="{{ '/' | relative_url }}">Home</a>
+                {% if page.layout == 'post' %}
+                    <span class="breadcrumb-sep">›</span>
+                    <a href="{{ '/blog' | relative_url }}">Blog</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">{{ page.title }}</span>
+                {% elsif page.url == '/blog.html' %}
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">Blog</span>
+                {% elsif page.url == '/projects.html' %}
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">Projects</span>
+                {% elsif page.url == '/research.html' %}
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">Research</span>
+                {% else %}
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">{{ page.title }}</span>
+                {% endif %}
+            </nav>
+            {% endunless %}
+
             {{ content }}
 
             <footer class="site-footer">
@@ -95,17 +139,18 @@
                 <p id="contact-footer"></p>
                 <script>
                     (function () {
-                        var e = "nraultwang", d = "berkeley.edu";
+                        var u = 'nraultwang', d = 'berkeley.edu';
                         var p = document.getElementById('contact-footer');
                         var a = document.createElement('a');
-                        a.href = 'mailto:' + e + '@' + d;
-                        a.textContent = e + ' [at] ' + d;
+                        a.href = 'mailto:' + u + '@' + d;
+                        a.textContent = u + ' [at] ' + d;
                         p.appendChild(a);
                     })();
                 </script>
             </footer>
         </main>
 
+        <!-- Right sidebar — Table of Contents (posts and toc:true pages only) -->
         {% if page.layout == 'post' or page.toc %}
         <aside class="sidebar-right" aria-label="Table of contents">
             <div class="toc-container">
@@ -140,50 +185,87 @@
 
 <!-- ── Scripts ────────────────────────────────────────────── -->
 
-<!-- ToC auto-generator -->
+<!-- ToC auto-generator + left-nav page-section dropdown -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var toc = document.getElementById('toc');
-    if (!toc) return;
-
     var content = document.getElementById('main-content');
     if (!content) return;
 
+    /* ── Collect headings ─────────────────────────────────── */
     var headings = Array.from(content.querySelectorAll('h2, h3')).filter(function (h) {
-        return !h.closest('.site-footer') && !h.closest('.post-header');
+        return !h.closest('.site-footer') && !h.closest('.post-header') && !h.closest('.breadcrumbs');
     });
 
-    if (headings.length === 0) {
-        var aside = document.querySelector('.sidebar-right');
-        if (aside) aside.style.display = 'none';
-        return;
-    }
-
-    var ul = document.createElement('ul');
-    var currentH2ul = null;
-
+    /* Assign IDs */
     headings.forEach(function (h, i) {
         if (!h.id) {
             h.id = h.textContent.toLowerCase()
                       .replace(/[^a-z0-9]+/g, '-')
                       .replace(/(^-|-$)/g, '') || ('sec-' + i);
         }
-        var li = document.createElement('li');
-        var a  = document.createElement('a');
-        a.href = '#' + h.id;
-        a.textContent = h.textContent;
-        li.appendChild(a);
-
-        if (h.tagName === 'H2') {
-            ul.appendChild(li);
-            currentH2ul = document.createElement('ul');
-            li.appendChild(currentH2ul);
-        } else {
-            (currentH2ul || ul).appendChild(li);
-        }
     });
 
-    toc.appendChild(ul);
+    /* ── Right ToC ────────────────────────────────────────── */
+    var toc = document.getElementById('toc');
+    if (toc) {
+        if (headings.length === 0) {
+            var rightAside = document.querySelector('.sidebar-right');
+            if (rightAside) rightAside.style.display = 'none';
+        } else {
+            var ul = document.createElement('ul');
+            var currentH2ul = null;
+            headings.forEach(function (h) {
+                var li = document.createElement('li');
+                var a  = document.createElement('a');
+                a.href = '#' + h.id;
+                a.textContent = h.textContent;
+                li.appendChild(a);
+                if (h.tagName === 'H2') {
+                    ul.appendChild(li);
+                    currentH2ul = document.createElement('ul');
+                    li.appendChild(currentH2ul);
+                } else {
+                    (currentH2ul || ul).appendChild(li);
+                }
+            });
+            toc.appendChild(ul);
+        }
+    }
+
+    /* ── Left nav: inject page sections under the active link ─ */
+    var h2s = headings.filter(function (h) { return h.tagName === 'H2'; });
+    if (h2s.length > 0) {
+        var activeLink = document.querySelector('.sidenav-link.active');
+        if (activeLink) {
+            var sub = document.createElement('ul');
+            sub.className = 'sidenav-sub';
+            h2s.forEach(function (h) {
+                var li  = document.createElement('li');
+                var a   = document.createElement('a');
+                a.href  = '#' + h.id;
+                a.className = 'sidenav-sub-link';
+                a.textContent = h.textContent;
+                li.appendChild(a);
+                sub.appendChild(li);
+            });
+            activeLink.insertAdjacentElement('afterend', sub);
+
+            /* Highlight active section on scroll */
+            var subLinks = Array.from(sub.querySelectorAll('.sidenav-sub-link'));
+            function updateActiveSection() {
+                var scrollY = window.scrollY + 80;
+                var active  = null;
+                h2s.forEach(function (h, i) {
+                    if (h.getBoundingClientRect().top + window.scrollY <= scrollY) active = i;
+                });
+                subLinks.forEach(function (a, i) {
+                    a.classList.toggle('active-section', i === active);
+                });
+            }
+            window.addEventListener('scroll', updateActiveSection, { passive: true });
+            updateActiveSection();
+        }
+    }
 });
 </script>
 
@@ -238,16 +320,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function (r) { return r.json(); })
         .then(function (data) {
             var fuse = new Fuse(data, {
-                keys: ['title', 'content'],
-                threshold: 0.4,
+                keys: [
+                    { name: 'title',   weight: 2 },
+                    { name: 'content', weight: 1 }
+                ],
+                threshold: 0.35,
                 ignoreLocation: true,
                 minMatchCharLength: 3,
                 includeScore: true,
-                includeMatches: true
+                includeMatches: true,
+                findAllMatches: true
             });
 
             input.addEventListener('input', function () {
-                var q = this.value;
+                var q = this.value.trim();
                 results.innerHTML = '';
                 if (q.length < 2) return;
 
@@ -255,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (hits.length === 0) {
                     var li = document.createElement('li');
                     li.style.padding = '14px 20px';
-                    li.innerHTML = '<span class="no-results">No results found</span>';
+                    li.innerHTML = '<span class="no-results">No results for "' + q + '"</span>';
                     results.appendChild(li);
                     return;
                 }
@@ -271,21 +357,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     titleEl.textContent = item.title;
                     a.appendChild(titleEl);
 
-                    /* Snippet extraction */
+                    /* Snippet: find the content match, extract context around it */
                     var snippet = '';
                     if (r.matches && r.matches.length) {
-                        var m = r.matches.find(function (x) { return x.key === 'content'; }) || r.matches[0];
-                        if (m && m.indices && m.indices.length) {
-                            var s   = m.indices[0][0];
-                            var txt = m.value || item[m.key] || '';
-                            var start = Math.max(0, s - 40);
-                            var end   = Math.min(txt.length, s + 80);
-                            snippet   = txt.substring(start, end).trim();
-                            if (start > 0)         snippet = '…' + snippet;
-                            if (end < txt.length)  snippet += '…';
+                        var cm = r.matches.find(function (x) { return x.key === 'content'; });
+                        if (cm && cm.indices && cm.indices.length && cm.value) {
+                            var txt    = cm.value;
+                            /* Use the widest matched region across all index pairs */
+                            var first  = cm.indices[0][0];
+                            var last   = cm.indices[cm.indices.length - 1][1];
+                            var start  = Math.max(0, first - 90);
+                            var end    = Math.min(txt.length, last + 120);
+                            snippet    = txt.substring(start, end).replace(/\s+/g, ' ').trim();
+                            if (start > 0)        snippet = '…' + snippet;
+                            if (end < txt.length) snippet += '…';
                         }
                     }
-                    if (!snippet && item.content) snippet = item.content.substring(0, 120).trim() + '…';
+                    /* Fallback: first 140 chars of content */
+                    if (!snippet && item.content) {
+                        snippet = item.content.substring(0, 140).replace(/\s+/g, ' ').trim() + '…';
+                    }
 
                     if (snippet) {
                         var snipEl = document.createElement('div');
@@ -302,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- Code copy buttons + figure utilities (loaded from assets/js/figures.js) -->
+<!-- Code copy buttons + figure utilities -->
 <script src="{{ '/assets/js/figures.js' | relative_url }}"></script>
 
 </body>

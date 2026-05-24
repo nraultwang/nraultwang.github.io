@@ -1,0 +1,11 @@
+{% comment %}
+Usage: {% include sidenote.html num=1 text="Your note here. Markdown-ish: **bold**, _italic_, links work if written as raw HTML." %}
+
+Renders a numbered superscript in the text, with the note floating in the right margin on
+wide screens (≥1100px viewport). On post pages (ToC occupies right rail) and on narrow
+screens, the note collapses to an inline block with a border-left.
+
+The `num` parameter sets the visible counter. Use sequential integers starting at 1.
+The `text` parameter accepts raw HTML — links, bold, etc. are fine.
+{% endcomment %}
+<span class="sidenote-ref">{{ include.num }}</span><span class="sidenote"><span class="sidenote-ref">{{ include.num }}</span> {{ include.text }}</span>

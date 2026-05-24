@@ -1,0 +1,117 @@
+---
+layout: default
+title: Projects
+toc: true
+---
+
+<h1>Projects</h1>
+
+<p>
+  Class projects and independent work outside my main research agenda: build-to-learn explorations,
+  course projects, and things I&rsquo;m proud of that don&rsquo;t fit neatly into a lab context.
+  Active research is on the <a href="{{ '/research' | relative_url }}">Research</a> page.
+</p>
+
+<h2>Hardware &amp; Architecture</h2>
+
+<ul class="item-list">
+
+  <li>
+    <div class="item-title">Apple-Sponsored RISC-V CPU Design Contest (1st Place)</div>
+    <div class="item-meta">1st of 18 teams &middot; Verilog RTL &middot; Xilinx Zynq-7000 &middot; Spring 2025 (EECS 151)</div>
+    <div class="item-desc">
+      Awarded 1st place in a Spring 2025 Apple-sponsored CPU design contest with teammate Neel Gajare.
+      Achieved the contest&rsquo;s best PPA metrics over two years: lowest resource utilization,
+      1.06 CPI, and 125&thinsp;MHz clock frequency.
+      Led microarchitecture and engineering workflow (Git feature-branching, regression testing) to
+      design a fully bypassed, 5-stage RISC-V pipeline in Verilog RTL, including speculative
+      execution via a branch target buffer. Synthesized on the PL fabric of a Xilinx Zynq-7000
+      (XC7Z020) and validated with a custom SystemVerilog verification suite.
+    </div>
+    <div class="item-tags">
+      <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" target="_blank" rel="noopener">[Optimization Write-Up]</a>
+      <a href="{{ '/apple_cpu.html' | relative_url }}">[Apple CPU Architecture Notes]</a>
+    </div>
+  </li>
+
+</ul>
+
+<h2>Computer Vision &amp; Computational Photography</h2>
+
+<p>Six projects from CS 180 (UC Berkeley, Fall 2024), each reproducing results from a key paper or method.</p>
+
+<ul class="item-list">
+
+  <li>
+    <div class="item-title">Neural Radiance Fields &amp; Facial Keypoint Detection</div>
+    <div class="item-meta">CS 180 Final Project &middot; Fall 2024</div>
+    <div class="item-desc">
+      Implemented NeRF from scratch (positional encoding, volume rendering, coarse-to-fine sampling)
+      and a convolutional facial keypoint detector trained on the IMM Face Database.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/final_proj_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">The Power of Diffusion Models</div>
+    <div class="item-meta">CS 180 Project 5 &middot; Fall 2024</div>
+    <div class="item-desc">
+      Explored denoising diffusion probabilistic models: sampling, DDIM, classifier-free guidance,
+      inpainting, and training a small UNet on MNIST.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/proj5_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Image Warping, Mosaicing &amp; Auto-Stitching</div>
+    <div class="item-meta">CS 180 Project 4 &middot; Fall 2024 &middot; Class Choice Award</div>
+    <div class="item-desc">
+      Homography estimation, image rectification, and panorama stitching via manual and
+      automatic feature-point correspondence. Implemented Harris corner detection,
+      ANMS, feature descriptor extraction, RANSAC, and the full auto-stitching pipeline.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/proj4ab_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Face Morphing &amp; Population Statistics</div>
+    <div class="item-meta">CS 180 Project 3 &middot; Fall 2024</div>
+    <div class="item-desc">
+      Triangulation-based face morphing, computation of mean faces from the Danes dataset,
+      and caricature generation via extrapolation.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/proj3_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Fun with Filters &amp; Frequencies</div>
+    <div class="item-meta">CS 180 Project 2 &middot; Fall 2024 &middot; Class Choice Award</div>
+    <div class="item-desc">
+      Gaussian and Laplacian stacks, hybrid images, and multiresolution blending.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/proj2_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+  <li>
+    <div class="item-title">Colorizing the Prokudin-Gorskii Photo Collection</div>
+    <div class="item-meta">CS 180 Project 1 &middot; Fall 2024</div>
+    <div class="item-desc">
+      Automatic alignment of three-channel glass-plate negatives using NCC/SSD
+      image metrics and image pyramid search.
+    </div>
+    <div class="item-tags">
+      <a href="{{ '/proj1_web/' | relative_url }}">[Write-Up ↗]</a>
+    </div>
+  </li>
+
+</ul>

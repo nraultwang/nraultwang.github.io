@@ -6,19 +6,26 @@ layout: null
 {% for post in site.posts %}
   {% unless first %},{% endunless %}
   {
-    "title"    : "{{ post.title | escape }}",
-    "url"      : "{{ site.baseurl }}{{ post.url }}",
-    "content"  : {{ post.content | strip_html | strip_newlines | jsonify }}
+    "title"   : {{ post.title | escape | jsonify }},
+    "url"     : "{{ site.baseurl }}{{ post.url }}",
+    "content" : {{ post.content | strip_html | split: "
+" | join: " " | truncate: 5000 | jsonify }}
   }
   {% assign first = false %}
 {% endfor %}
 {% for page in site.html_pages %}
-  {% if page.title or page.url == "/" %}
+  {% comment %}
+    Index only the 4 main site pages (not the huge Notion-exported project write-ups,
+    not the Google verification stubs, not the license page).
+  {% endcomment %}
+  {% assign indexable_urls = '/,/blog.html,/projects.html,/research.html' | split: ',' %}
+  {% if indexable_urls contains page.url %}
     {% unless first %},{% endunless %}
     {
-      "title"    : "{{ page.title | default: 'Home / Profile' | escape }}",
-      "url"      : "{{ site.baseurl }}{{ page.url }}",
-      "content"  : {{ page.content | strip_html | strip_newlines | jsonify }}
+      "title"   : {{ page.title | default: 'Home' | escape | jsonify }},
+      "url"     : "{{ site.baseurl }}{{ page.url }}",
+      "content" : {{ page.content | strip_html | split: "
+" | join: " " | truncate: 5000 | jsonify }}
     }
     {% assign first = false %}
   {% endif %}

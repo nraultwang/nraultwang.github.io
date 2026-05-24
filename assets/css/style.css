@@ -83,7 +83,7 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
 .site-title:hover { color: var(--link-color); text-decoration: none; }
 
 .header-nav {
-  display: flex;
+  display: none; /* hidden on desktop — left sidebar has these links */
   gap: 2px;
   flex-grow: 1;
 }
@@ -176,50 +176,93 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
 }
 
 /* ============================================================
-   Layout: single column, optional right ToC
+   Layout: centered content column with optional left nav + right ToC
+   ============================================================
+   The grid uses 1fr gutters on each side so the content column
+   stays centered in the viewport regardless of which sidebars are
+   visible — no horizontal jump at breakpoints.
+
+   Non-toc: [1fr] [sidebar 160px] [40px] [content 720px] [1fr]
+   has-toc:  [1fr] [sidebar 160px] [40px] [content 720px] [40px] [toc 200px] [1fr]
    ============================================================ */
 .layout-wrapper {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(16px, 1fr) 160px 40px var(--content-width) minmax(16px, 1fr);
+  align-items: start;
   width: 100%;
-  align-items: flex-start;
 }
 
-/* When a page has .has-toc (posts, toc:true pages) */
 .layout-wrapper.has-toc {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 56px;
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 0 28px;
-  width: 100%;
-  align-items: start;
+  grid-template-columns: minmax(16px, 1fr) 160px 40px var(--content-width) 40px 200px minmax(16px, 1fr);
 }
+
+/* Left sidebar */
+.sidebar-left {
+  grid-column: 2;
+  position: sticky;
+  top: calc(var(--nav-height) + 28px);
+  max-height: calc(100vh - var(--nav-height) - 56px);
+  overflow-y: auto;
+  padding-top: 64px;
+}
+
+/* Left nav links */
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidenav-link {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: color 0.15s, background-color 0.15s;
+}
+.sidenav-link:hover { color: var(--text-main); background-color: var(--bg-secondary); text-decoration: none; }
+.sidenav-link.active { color: var(--text-main); font-weight: 600; }
+
+/* Left nav sub-items (page headings, auto-injected by JS when on that page) */
+.sidenav-sub {
+  list-style: none;
+  padding: 4px 0 6px 10px;
+  margin: 0;
+}
+.sidenav-sub-link {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  line-height: 1.35;
+  transition: color 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidenav-sub-link:hover { color: var(--link-color); text-decoration: none; }
+.sidenav-sub-link.active-section { color: var(--text-main); font-weight: 500; }
 
 /* Main content column */
 .main-content {
+  grid-column: 4;
   width: 100%;
-  max-width: var(--content-width);
   padding: 64px var(--content-pad);
-  margin: 0 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
-}
-
-.layout-wrapper.has-toc .main-content {
-  margin: 0;
-  max-width: none;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 /* ============================================================
    Right sidebar — Table of Contents
    ============================================================ */
 .sidebar-right {
+  grid-column: 6;
   position: sticky;
   top: calc(var(--nav-height) + 28px);
   max-height: calc(100vh - var(--nav-height) - 56px);
@@ -348,16 +391,23 @@ figcaption {
   text-align: center;
 }
 
-/* Wide breakout — breaks beyond the content padding */
+/* Wide breakout — clearly wider than the text measure.
+   Extends var(--content-pad) past the column edge on each side.
+   At typical laptop widths the extension sits in the gutter between
+   the main column and the sidebars, so it never overlaps sidebar text. */
 figure.wide,
 .wide {
-  margin-left: calc(-1 * var(--content-pad));
-  margin-right: calc(-1 * var(--content-pad));
-}
-/* Full bleed — also beyond padding + extra */
-figure.full-bleed {
-  margin-left: calc(-1 * var(--content-pad) - 60px);
+  margin-left:  calc(-1 * var(--content-pad) - 60px);
   margin-right: calc(-1 * var(--content-pad) - 60px);
+  width: calc(100% + var(--content-pad) * 2 + 120px);
+  max-width: none;
+}
+/* Full bleed — significantly wider, good for panoramas */
+figure.full-bleed {
+  margin-left:  calc(-1 * var(--content-pad) - 120px);
+  margin-right: calc(-1 * var(--content-pad) - 120px);
+  width: calc(100% + var(--content-pad) * 2 + 240px);
+  max-width: none;
 }
 
 /* ============================================================
@@ -749,33 +799,120 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
 }
 
 /* ============================================================
+   Breadcrumbs
+   ============================================================ */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 2em;
+  margin-top: -8px;
+}
+.breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.breadcrumbs a:hover { color: var(--link-color); text-decoration: none; }
+.breadcrumb-sep { color: var(--border-color); font-size: 0.9em; }
+.breadcrumbs [aria-current="page"] { color: var(--text-light); }
+
+/* ============================================================
+   Sidenotes — numbered margin citations (via _includes/sidenote.html)
+   Like marginnote but with a superscript counter.
+   On posts (has-toc layout), collapses to inline just like marginnote.
+   ============================================================ */
+.sidenote-ref {
+  font-size: 0.65em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--link-color);
+  font-weight: 600;
+  margin-left: 1px;
+  cursor: default;
+}
+
+.sidenote {
+  float: right;
+  clear: right;
+  margin-right: -260px;
+  margin-left: 20px;
+  width: 190px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 0.2em;
+  margin-bottom: 1em;
+  padding-left: 0.6em;
+  border-left: 2px solid var(--border-color);
+}
+.sidenote .sidenote-ref {
+  float: left;
+  margin-right: 4px;
+  margin-left: 0;
+  font-size: 0.75em;
+  color: var(--link-color);
+}
+
+/* Collapse inline when ToC occupies right rail or viewport is too narrow */
+.layout-wrapper.has-toc .sidenote,
+.layout-wrapper.has-toc .marginnote {
+  float: none;
+  clear: none;
+  margin-right: 0;
+  margin-left: 0;
+  width: auto;
+}
+.layout-wrapper.has-toc .sidenote .sidenote-ref {
+  float: none;
+  margin-right: 0;
+}
+
+/* ============================================================
    Responsive
    ============================================================ */
+
+/* ≤1100px: margin notes + sidenotes collapse inline (gutter too narrow) */
 @media (max-width: 1100px) {
-  /* Margin notes collapse to inline below this width */
-  .marginnote {
-    float: none;
-    clear: none;
-    margin-right: 0;
-    margin-left: 0;
+  .marginnote,
+  .sidenote {
+    float: none; clear: none;
+    margin-right: 0; margin-left: 0;
     width: auto;
   }
+  .sidenote .sidenote-ref { float: none; margin-right: 0; }
+
+  /* Wide figures tamed so they don't bleed into sidebars */
+  figure.wide, .wide {
+    margin-left:  calc(-1 * var(--content-pad));
+    margin-right: calc(-1 * var(--content-pad));
+    width: calc(100% + var(--content-pad) * 2);
+  }
+  figure.full-bleed {
+    margin-left:  calc(-1 * var(--content-pad) - 40px);
+    margin-right: calc(-1 * var(--content-pad) - 40px);
+    width: calc(100% + var(--content-pad) * 2 + 80px);
+  }
 }
 
+/* ≤960px: both sidebars hidden; top nav links appear; content stays centered.
+   The grid collapses to [1fr] [content] [1fr] so the center position
+   doesn't jump relative to the viewport. */
 @media (max-width: 960px) {
+  .layout-wrapper,
   .layout-wrapper.has-toc {
-    display: block;
-    max-width: var(--content-width);
-    padding: 0;
-    margin: 0 auto;
+    grid-template-columns: minmax(16px, 1fr) minmax(0, var(--content-width)) minmax(16px, 1fr);
   }
-  .layout-wrapper.has-toc .main-content {
-    padding: 64px var(--content-pad);
-    max-width: none;
-  }
+  .sidebar-left  { display: none; }
   .sidebar-right { display: none; }
+  .main-content  { grid-column: 2; padding: 48px var(--content-pad); }
+
+  .header-nav.mobile-nav { display: flex; flex-grow: 1; }
 }
 
+/* ≤720px: tighten chrome */
 @media (max-width: 720px) {
   :root { --content-pad: 20px; }
   .top-header { padding: 0 16px; }
@@ -786,8 +923,13 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
 
   .profile-section { flex-direction: column; gap: 16px; }
   .post-list-date  { display: none; }
+
+  figure.wide, .wide, figure.full-bleed {
+    margin-left: 0; margin-right: 0; width: 100%;
+  }
 }
 
+/* ≤480px: scale down type */
 @media (max-width: 480px) {
   body { font-size: 16px; }
   h1 { font-size: 1.55rem; }

@@ -20,19 +20,34 @@ GitHub Pages builds Jekyll automatically on push to `main` — no CI/CD needed.
 
 ### Layout
 
-**Single reading column** (~720px, centered) with a slim sticky top nav and an optional auto-generated right ToC. No persistent left sidebar.
+Three-column grid with a sticky left nav, a centered reading column (~720px), and an optional right ToC rail.
 
 ```
 top-header (sticky, full-width)
-  site-title | nav links (Home · Writing · Research) | CV ↗ | search | dark mode
+  site-title | [mobile nav links] | CV ↗ | search | dark mode
 
-layout-wrapper (grid when has-toc, otherwise flex-center)
-  main.main-content (max-width: 720px, centered)
+layout-wrapper (CSS grid)
+  aside.sidebar-left (160px, sticky) ← persistent site nav; hidden <960px
+    Home / Blog / Projects / Research
+
+  main.main-content (max-width: 720px)
+    breadcrumbs
     {{ content }}
     footer
-  aside.sidebar-right (sticky, 220px; only on posts and toc:true pages)
-    auto-generated ToC (from h2/h3 tags)
+
+  aside.sidebar-right (220px, sticky)  ← only on posts and toc:true pages
+    auto-generated ToC (from h2/h3 headings)
 ```
+
+Grid template:
+- Default: `160px  1fr`  (sidebar-left + main)
+- `has-toc`: `160px  1fr  220px`  (sidebar-left + main + sidebar-right)
+
+Responsive breakpoints:
+- `≤1100px` — margin notes and sidenotes collapse inline (not enough gutter for floating)
+- `≤960px`  — grid collapses to single column; left sidebar hidden; top nav links appear
+- `≤720px`  — mobile padding, CV link hidden
+- `≤480px`  — base font shrinks
 
 The `has-toc` class is set by Liquid: `{% if page.layout == 'post' or page.toc %}`.
 
@@ -45,10 +60,11 @@ The `has-toc` class is set by Liquid: `{% if page.layout == 'post' or page.toc %
 | `assets/css/style.css` | All styling — CSS variables, typography, layout, components, dark mode, responsive |
 | `assets/js/figures.js` | Code-copy buttons injected into `<pre>` blocks |
 | `_config.yml` | Jekyll config: title, description, URL, `cv_url`, kramdown/MathJax |
-| `search.json` | Jekyll template → JSON array of all pages/posts for Fuse.js |
+| `search.json` | Jekyll template → JSON array; indexes posts + 4 main pages only (excludes proj*_web) |
 | `index.html` | Home page (lean: identity + trajectory + 3 highlights) |
-| `posts.html` | Writing feed (reverse-chron list) |
-| `research.html` | Full research record (projects, pubs, education, coursework) — `toc: true` |
+| `blog.html` | Blog feed (reverse-chron list) |
+| `projects.html` | Class/hobby projects (CS180, EECS151 CPU) — `toc: true` |
+| `research.html` | Active research: projects, pubs, education — `toc: true` |
 
 ### CSS design tokens (in `style.css :root`)
 
@@ -79,6 +95,7 @@ Every include is a one-liner in Markdown posts:
 {% include figure.html src="/path/to/img.png" caption="Caption." wide=true %}
 {% include callout.html title="Note" body=_body type="warning" %}
 {% include marginnote.html text="Appears in right gutter on wide screens." %}
+{% include sidenote.html num=1 text="Numbered citation; HTML allowed in text." %}
 {% include video.html src="/path/to/demo.mp4" caption="Caption." %}
 {% include plotly.html div_id="my-chart" height="420px" %}
 ```

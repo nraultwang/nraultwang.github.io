@@ -55,14 +55,14 @@ npm run lint               # ESLint check on assets/js/
 Standard figure (using the `_includes/figure.html` include):
 
 {% include figure.html
-   src="/images/nicolas_rault-wang.png"
-   caption="Standard figure with caption. Replace with your actual figure path." %}
+   src="/proj4ab_web/CS180%20Project%204%20Image%20Warping%20and%20Mosaicing%20%26%20Feat%2012c4d556e62b80a79e64c5a59c6e237a/4a-mosaic_etch_alley_short_0.png"
+   caption="Standard figure — Etch Alley mosaic from CS180 Project 4A (manual keypoint stitching)." %}
 
-Wide figure — breaks outside the text column:
+Wide figure — breaks noticeably past the text column. Great for panoramas:
 
 {% include figure.html
-   src="/images/nicolas_rault-wang.png"
-   caption="Wide figure. Good for panoramas and comparison grids."
+   src="/proj4ab_web/CS180%20Project%204%20Image%20Warping%20and%20Mosaicing%20%26%20Feat%2012c4d556e62b80a79e64c5a59c6e237a/4b-AUTO-mosaic_glade_lights_0%201.png"
+   caption="Wide figure — auto-stitched glade panorama from CS180 Project 4B (Harris corners + RANSAC homography)."
    wide=true %}
 
 You can also use raw HTML for full control:
@@ -103,6 +103,48 @@ Here is a sentence with a margin note alongside it.{% include marginnote.html te
 Another sentence, another note further down.{% include marginnote.html text="Use margin notes for brief asides, citations, or small clarifications that would interrupt flow if inlined." %}
 
 On post pages with `toc: true`, margin notes are always inline (the ToC occupies the right rail).
+
+---
+
+## Numbered sidenotes and inline citations
+
+Sidenotes are numbered references that float into the right margin — the Tufte-CSS pattern for
+inline citations. The number appears in the text body and at the start of the note.
+
+The matched filter{% include sidenote.html num=1 text="The matched filter (correlator receiver) is the optimal linear detector under AWGN: it maximizes the output SNR by correlating the received signal with a conjugate-flipped replica of the template. See Turin, 1960, <em>IRE Trans. Inf. Theory</em>." %} is the foundation of coherent radar and communication receivers. Applying it requires knowledge of the waveform{% include sidenote.html num=2 text="When the target has significant radial velocity, the replica must be Doppler-compensated. Pulse-Doppler radars address this by processing a bank of matched filters spanning the expected Doppler interval." %} at the receiver, which motivates waveform design as a sub-problem of radar systems engineering.
+
+**How to write one** — paste the include *immediately after* the word being cited, with no space before the tag:
+
+```liquid
+{% raw %}The matched filter{% include sidenote.html num=1 text="Turin, G. L. (1960). An introduction to matched filters. <em>IRE Trans. Inf. Theory</em>, 6(3), 311–329." %} maximizes SNR.{% endraw %}
+```
+
+**Linking a reference:** the `text` parameter accepts raw HTML, so you can link directly:
+
+```liquid
+{% raw %}...the ELBO objective{% include sidenote.html num=2 text="See <a href='https://arxiv.org/abs/1312.6114'>Kingma & Welling (2013)</a>, eq. 4." %} lower-bounds the log-likelihood.{% endraw %}
+```
+
+**With a literature note in the margin:**
+
+$$
+\text{SNR}_{\text{out}} = \frac{2E_s}{N_0}
+$$
+
+This bound{% include sidenote.html num=3 text="The bound is tight: a matched filter <em>achieves</em> SNR = 2E/N₀, not merely approaches it. The proof follows from Cauchy-Schwarz applied to the cross-correlation integral." %} is tight and achieved by the matched filter. Note that it depends only on the signal energy $E_s$ and noise spectral density $N_0$, not the waveform shape.
+
+**On this page**, sidenotes collapse inline because the right ToC rail is occupied. On a page without `toc: true`, they float into the margin at ≥1100px viewport width.
+
+### HTML comments (invisible notes to yourself)
+
+Drop invisible notes anywhere in a post — they appear in the Markdown source but not on the page:
+
+```html
+<!-- TODO: add a figure comparing matched filter output for different SNRs. -->
+<!-- NOTE: double-check the Doppler formula when target velocity > 30 m/s. -->
+```
+
+<!-- This is an example hidden comment — visible in source, invisible on page. -->
 
 ---
 

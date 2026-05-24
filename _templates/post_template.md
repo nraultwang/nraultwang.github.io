@@ -72,6 +72,24 @@ Variants: `type="warning"` (amber), `type="danger"` (red), `type="success"` (gre
 Here is a sentence with a side-note.{% include marginnote.html text="This will float into the
 right margin on screens wider than 1100px, and collapse to inline otherwise." %}
 
+## Numbered sidenote (inline citation — Tufte style)
+
+Write the sidenote **immediately after** the word being cited, no space before the tag:
+
+The matched filter{% include sidenote.html num=1 text="See <a href='URL'>Author et al., Year</a>. Brief description of what the citation adds." %} is the optimal linear detector.
+
+The same number appears in the text and at the start of the margin note.
+Use sequential integers (1, 2, 3 …) within a post.
+On pages with `toc: true`, the sidenote collapses inline (the right rail is taken by the ToC).
+
+## HTML comment (invisible in output, visible in source)
+
+<!-- This is an invisible comment. Good for TODO notes, draft sections, or disabling content. -->
+
+```html
+<!-- TODO: add figure showing the full pipeline. -->
+```
+
 ## Video (from an MP4 or converted GIF)
 
 {% include video.html src="/assets/posts/YYYY-MM-DD-your-title/demo.mp4"
