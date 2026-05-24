@@ -8,20 +8,19 @@ title: Home
   <div class="profile-bio">
     <h1 class="profile-name">Nicolas Rault-Wang</h1>
     <p class="profile-tagline">
-      BS Applied Math + CS, UC Berkeley (Space Sciences Laboratory).
-      Post-Baccalaureate Researcher, Caltech.
-      Incoming PhD student, MIT EECS, Fall 2026.
+      BA double major in Applied Math & CS, UC Berkeley ('25) &bull; Post-Bac Researcher, Caltech (Jan 2026 - present) &bull; Incoming PhD, MIT EECS (Fall 2026)
     </p>
     <p class="profile-statement">
-      I build machine-learning systems and computational methods for scientific instruments:
-      the pipelines, imaging, and models that turn raw sensor data into discovery.
-      My interests span <strong>computational imaging</strong>,
-      <strong>physical-layer and distributed systems</strong>,
-      and <strong>applied ML for the sciences</strong>.
-      I came to these problems at Berkeley's
-      <a href="https://www.ssl.berkeley.edu/" target="_blank" rel="noopener">Space Sciences Laboratory</a>,
-      designing terabyte-scale data pipelines and ML tools for wide-field optical SETI,
-      work that pulled me toward the signals and systems questions I&rsquo;ll pursue in my PhD.
+      I design and build the computational infrastructure that powers next-generation scientific instruments. 
+      My research focuses on the end-to-end pipeline of physical discovery: from 
+      <strong>physical-layer distributed systems</strong> and <strong>high-throughput data engines</strong> 
+      to <strong>computational imaging</strong> and <strong>physics-informed ML models</strong>. 
+    </p>
+    <p class="profile-statement">
+      An underlying theme of my work—developed across projects at Berkeley's Space Sciences Laboratory and Caltech—is 
+      the translation of raw, uncalibrated sensor streams into real-time scientific insight. Whether optimizing 
+      distributed arrays for optical SETI or modeling complex physical signals, I focus on the systems 
+      and algorithms that bridge bare metal to deep learning.
     </p>
     <div class="profile-links">
       <a href="{{ site.cv_url }}" target="_blank" rel="noopener">CV</a>
@@ -57,12 +56,26 @@ title: Home
   </li>
 
   <li>
+    <div class="item-title">High-speed Data Acquisition System</div>
+    <div class="item-meta">Systems &middot; C++ &middot; HASHPIPE &middot; gRPC &middot; UC Berkeley SSL</div>
+    <div class="item-desc">
+      Developed and maintained an ultra-high data-rate (100k frames/sec) C++ acquisition pipeline,
+      integrating an asynchronous gRPC API, leading several extensibility-focused refactors, and
+      establishing a self-hosted hardware-software GitHub Actions CI pipeline to validate fault-tolerance and
+      &gt;99.99% data integrity.
+    </div>
+    <div class="item-tags">
+      <a href="https://github.com/panoseti/panoseti/wiki/daq-system-overview" target="_blank" rel="noopener">[System Overview]</a>
+      <a href="https://github.com/panoseti/panoseti_grpc/tree/add-two-server-daq-data-v2" target="_blank" rel="noopener">[gRPC API]</a>
+    </div>
+  </li>
+
+  <li>
     <div class="item-title">Terabyte-scale Data Pipeline</div>
     <div class="item-meta">Distributed Systems &middot; BeeGFS &middot; Dask &middot; HPC &middot; UC Berkeley SSL</div>
     <div class="item-desc">
-      Co-designed and implemented a scalable data-reduction pipeline (TensorStore, Zarr, Dask)
-      for terabyte-scale datasets, leading technical prototyping from a self-administered 12&thinsp;TiB
-      BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
+      Co-designed and implemented a scalable data-reduction pipeline (Zarr, Ray, Nextflow)
+      for terabyte-scale datasets and real-time classification, leading technical prototyping from a self-administered 4-GPU cluster to San Diego Supercomputer Center facilities.
     </div>
     <div class="item-tags">
       <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" target="_blank" rel="noopener">[Cluster Setup]</a>

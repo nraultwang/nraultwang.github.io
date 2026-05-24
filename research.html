@@ -37,12 +37,12 @@ toc: true
     <div class="item-desc">
       Developed and maintained an ultra-high data-rate (100k frames/sec) C++ acquisition pipeline,
       integrating an asynchronous gRPC API, leading several extensibility-focused refactors, and
-      establishing a full GitHub Actions CI pipeline to validate fault-tolerance and
+      establishing a self-hosted hardware-software GitHub Actions CI pipeline to validate fault-tolerance and
       &gt;99.99% data integrity.
     </div>
     <div class="item-tags">
       <a href="https://github.com/panoseti/panoseti/wiki/daq-system-overview" target="_blank" rel="noopener">[System Overview]</a>
-      <a href="https://github.com/panoseti/panoseti_grpc" target="_blank" rel="noopener">[gRPC API]</a>
+      <a href="https://github.com/panoseti/panoseti_grpc/tree/add-two-server-daq-data-v2" target="_blank" rel="noopener">[gRPC API]</a>
     </div>
   </li>
 
@@ -50,9 +50,9 @@ toc: true
     <div class="item-title">Terabyte-scale Data Pipeline</div>
     <div class="item-meta">Distributed Systems &middot; BeeGFS &middot; Dask &middot; HPC &middot; UC Berkeley SSL</div>
     <div class="item-desc">
-      Co-designed and implemented a scalable data-reduction pipeline (TensorStore, Zarr, Dask)
-      for terabyte-scale datasets, leading technical prototyping from a self-administered 12&thinsp;TiB
-      BeeGFS cluster to San Diego Supercomputer Center HPC facilities.
+      Co-designed and implemented a scalable data-reduction pipeline (Zarr, Ray, Nextflow)
+      for terabyte-scale datasets and real-time classification, leading technical prototyping 
+      from a self-administered 4-GPU cluster to San Diego Supercomputer Center facilities.
     </div>
     <div class="item-tags">
       <a href="https://deeply-alpaca-50c.notion.site/BeeGFS-3-Server-Cluster-Prototyping-2684d556e62b80f8904bf7e895c49720?source=copy_link" target="_blank" rel="noopener">[Cluster Setup]</a>
