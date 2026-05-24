@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "Site Components — A Cheat Sheet"
+title: "Site Components - demo"
 date: 2026-05-23
 ---
 
-*Note to self: this post documents every interactive and visual component available on this site.
-Keep it up to date as you add new things. It's also the ground-truth example future AI sessions
-can copy from when extending the site.*
+*Note to self: this post documents the interactive and visual components available on this site.
+Keep it up to date as you add new things!*
 
 ---
 
