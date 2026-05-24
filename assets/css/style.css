@@ -16,9 +16,36 @@
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'Fira Code', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 
-  --content-width:   720px;
+  --content-width:   760px;
   --content-pad:     40px;
   --nav-height:      56px;
+
+  /* ── Grid ─────────────────────────────────────────────────────────────────────
+     The layout is a 5-column grid:
+       [1fr] [--sidebar-width] [--sidebar-gap] [--content-width] [1fr]
+     Fixed-cols sum = --sidebar-width + --sidebar-gap + --content-width.
+     Changing any of these three also requires updating the @media breakpoints
+     in the "Responsive" section below (see the derivation table there).        */
+  --sidebar-width:  160px;   /* left nav sidebar width                         */
+  --sidebar-gap:     80px;   /* gap between sidebar right edge and content      */
+  /* fixed-cols: 160 + 80 + 760 = 1000px                                       */
+
+  /* ── Floating annotations (sidenotes, marginnotes) ───────────────────────────
+     At wide viewports each note floats into the right 1fr gutter.
+     The note occupies (--note-width + --note-gap) px of that gutter.
+     margin-right = −(--note-width + --note-gap) pulls it out of the flow.
+     Changing these also changes bp-note-float (see Responsive section).        */
+  --note-width:     160px;   /* width of a floating note                       */
+  --note-gap:        20px;   /* space between content right edge and note       */
+  --note-popup-width: 240px; /* width of the hover-tooltip popup (bp < bp-note-float) */
+  /* note reach: 160 + 20 = 180px of right gutter needed                       */
+
+  /* ── Figure breakouts ────────────────────────────────────────────────────────
+     How far each figure variant extends beyond --content-pad on each side.
+     Wide figure total extra width  = 2 × --breakout-wide  = 120px.
+     Full-bleed total extra width   = 2 × --breakout-full  = 240px.             */
+  --breakout-wide:   60px;
+  --breakout-full:  120px;
 }
 
 [data-theme="dark"] {
@@ -105,6 +132,7 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  margin-left: auto; /* push search + dark-mode to the far right of the nav bar */
 }
 
 .cv-link {
@@ -176,24 +204,21 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
 }
 
 /* ============================================================
-   Layout: centered content column with optional left nav + right ToC
+   Layout: centered content column with left nav + right gutter for annotations
    ============================================================
-   The grid uses 1fr gutters on each side so the content column
-   stays centered in the viewport regardless of which sidebars are
-   visible — no horizontal jump at breakpoints.
+   Symmetric 1fr gutters keep content centered at all widths.
+   The right 1fr gutter is free for sidenotes/marginnotes at ≥1340px.
+   At ≤1000px: left sidebar hides and the grid collapses to a single column.
 
-   Non-toc: [1fr] [sidebar 160px] [40px] [content 720px] [1fr]
-   has-toc:  [1fr] [sidebar 160px] [40px] [content 720px] [40px] [toc 200px] [1fr]
+   Grid: [1fr] [--sidebar-width] [--sidebar-gap] [--content-width] [1fr]
+   All column sizes are CSS variables — change them in :root above.
+   The media breakpoints in the Responsive section are derived from these values.
    ============================================================ */
 .layout-wrapper {
   display: grid;
-  grid-template-columns: minmax(16px, 1fr) 160px 40px var(--content-width) minmax(16px, 1fr);
+  grid-template-columns: minmax(0, 1fr) var(--sidebar-width) var(--sidebar-gap) var(--content-width) minmax(0, 1fr);
   align-items: start;
   width: 100%;
-}
-
-.layout-wrapper.has-toc {
-  grid-template-columns: minmax(16px, 1fr) 160px 40px var(--content-width) 40px 200px minmax(16px, 1fr);
 }
 
 /* Left sidebar */
@@ -203,6 +228,7 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
   top: calc(var(--nav-height) + 28px);
   max-height: calc(100vh - var(--nav-height) - 56px);
   overflow-y: auto;
+  overflow-x: hidden;    /* prevent long section names from bleeding into the gap */
   padding-top: 64px;
 }
 
@@ -241,12 +267,11 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
   border-radius: 4px;
   line-height: 1.35;
   transition: color 0.15s;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* allow wrapping — overflow-x: hidden on .sidebar-left clips anything that does overflow */
 }
 .sidenav-sub-link:hover { color: var(--link-color); text-decoration: none; }
-.sidenav-sub-link.active-section { color: var(--text-main); font-weight: 500; }
+.sidenav-sub-link.active-section { color: var(--link-color); background-color: var(--bg-secondary); border-radius: 4px; }
+/* Note: no font-weight change on active — bold is physically wider and causes text reflow/jitter. */
 
 /* Main content column */
 .main-content {
@@ -259,43 +284,25 @@ a:hover { text-decoration: underline; color: var(--link-hover); }
 }
 
 /* ============================================================
-   Right sidebar — Table of Contents
+   Left sidebar — "On this page" ToC section (auto-injected by JS)
+   Appears below the site nav links when the page has h2 headings.
    ============================================================ */
-.sidebar-right {
-  grid-column: 6;
-  position: sticky;
-  top: calc(var(--nav-height) + 28px);
-  max-height: calc(100vh - var(--nav-height) - 56px);
-  overflow-y: auto;
-  padding-top: 64px;
+.sidenav-toc-container {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
 }
 
-.toc-heading {
+.sidenav-toc-label {
   display: block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0em;
   color: var(--text-light);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  padding: 0 10px;
+  font-style: italic;
 }
-
-#toc ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-#toc ul ul { padding-left: 14px; margin-top: 4px; }
-#toc li { margin-bottom: 5px; }
-#toc a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  display: block;
-  transition: color 0.15s;
-}
-#toc a:hover { color: var(--link-color); }
 
 /* ============================================================
    Typography
@@ -391,22 +398,21 @@ figcaption {
   text-align: center;
 }
 
-/* Wide breakout — clearly wider than the text measure.
-   Extends var(--content-pad) past the column edge on each side.
-   At typical laptop widths the extension sits in the gutter between
-   the main column and the sidebars, so it never overlaps sidebar text. */
+/* Wide breakout — extends --breakout-wide past the content-pad on each side.
+   At typical laptop widths the extension sits in the gap between content and sidebar.
+   Breakout amounts are CSS variables — adjust --breakout-wide / --breakout-full in :root. */
 figure.wide,
 .wide {
-  margin-left:  calc(-1 * var(--content-pad) - 60px);
-  margin-right: calc(-1 * var(--content-pad) - 60px);
-  width: calc(100% + var(--content-pad) * 2 + 120px);
+  margin-left:  calc(-1 * var(--content-pad) - var(--breakout-wide));
+  margin-right: calc(-1 * var(--content-pad) - var(--breakout-wide));
+  width: calc(100% + var(--content-pad) * 2 + var(--breakout-wide) * 2);
   max-width: none;
 }
 /* Full bleed — significantly wider, good for panoramas */
 figure.full-bleed {
-  margin-left:  calc(-1 * var(--content-pad) - 120px);
-  margin-right: calc(-1 * var(--content-pad) - 120px);
-  width: calc(100% + var(--content-pad) * 2 + 240px);
+  margin-left:  calc(-1 * var(--content-pad) - var(--breakout-full));
+  margin-right: calc(-1 * var(--content-pad) - var(--breakout-full));
+  width: calc(100% + var(--content-pad) * 2 + var(--breakout-full) * 2);
   max-width: none;
 }
 
@@ -452,10 +458,9 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
 /* ============================================================
    Margin notes (used via _includes/marginnote.html)
    Two modes:
-   - .margin-note  → simple inline aside (border-left, indented)
-   - .marginnote   → Tufte-style: floats into right gutter on wide screens,
-                     collapses to inline on narrow screens and on post pages
-                     (where the ToC occupies the right rail).
+   - .margin-note   → simple inline block-quote aside (border-left, indented)
+   - .marginnote    → Tufte-style: floats into right gutter at ≥1320px;
+                      appears as a hover popup below the † marker at ≤1320px.
    ============================================================ */
 .margin-note {
   font-size: 0.82rem;
@@ -466,16 +471,22 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   margin: 1em 0;
 }
 
-/* Tufte-style floating margin note — appears in right gutter on wide screens.
-   Math: content box = 720px. Float-right + margin-right: -260px shifts the
-   190px note ~70px past the content box right edge. Needs ~(720+340)/2 = 530px
-   of right-side space, so we collapse below 1100px viewport width. */
+/* Wrapper is a transparent pass-through at ≥1320px */
+.marginnote-wrap { display: inline; }
+
+/* The † marker is only shown at ≤1320px as a hover trigger */
+.marginnote-marker { display: none; }
+
+/* Tufte-style floating margin note — appears in right gutter at ≥1360px.
+   margin-right pulls the note out of the flow by (--note-width + --note-gap).
+   Right gutter at 1360px = (1360 − 1000) / 2 = 180px = note-width + note-gap, so it fits exactly.
+   (The 1360px breakpoint is derived from these variables — see the Responsive section.) */
 .marginnote {
   float: right;
   clear: right;
-  margin-right: -260px;
-  margin-left: 20px;
-  width: 190px;
+  margin-right: calc(-1 * (var(--note-width) + var(--note-gap)));
+  margin-left: 14px;
+  width: var(--note-width);
   font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.5;
@@ -483,15 +494,6 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   margin-bottom: 1em;
   padding-left: 0.6em;
   border-left: 2px solid var(--border-color);
-}
-
-/* On post pages (ToC occupies right rail) — render inline */
-.layout-wrapper.has-toc .marginnote {
-  float: none;
-  clear: none;
-  margin-right: 0;
-  margin-left: 0;
-  width: auto;
 }
 
 /* ============================================================
@@ -612,6 +614,30 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   font-size: 0.82rem;
   color: var(--link-color);
 }
+
+/* ============================================================
+   Project cards — thumbnail + text side-by-side (Projects page)
+   ============================================================ */
+.project-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0;
+}
+.project-card:first-child { border-top: 1px solid var(--border-color); }
+
+.project-thumb {
+  width: 110px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+}
+.project-card-body { flex: 1; min-width: 0; }
 
 /* ============================================================
    Research page — education block
@@ -821,9 +847,13 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
 
 /* ============================================================
    Sidenotes — numbered margin citations (via _includes/sidenote.html)
-   Like marginnote but with a superscript counter.
-   On posts (has-toc layout), collapses to inline just like marginnote.
+   Like marginnote but with a superscript counter instead of the † marker.
+   Floats right at ≥1320px; appears as hover popup below that breakpoint.
    ============================================================ */
+
+/* Sidenote wrapper — transparent at ≥1320px */
+.sidenote-wrap { display: inline; }
+
 .sidenote-ref {
   font-size: 0.65em;
   vertical-align: super;
@@ -837,9 +867,9 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
 .sidenote {
   float: right;
   clear: right;
-  margin-right: -260px;
-  margin-left: 20px;
-  width: 190px;
+  margin-right: calc(-1 * (var(--note-width) + var(--note-gap)));
+  margin-left: 12px;
+  width: var(--note-width);
   font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.5;
@@ -856,35 +886,111 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   color: var(--link-color);
 }
 
-/* Collapse inline when ToC occupies right rail or viewport is too narrow */
-.layout-wrapper.has-toc .sidenote,
-.layout-wrapper.has-toc .marginnote {
-  float: none;
-  clear: none;
-  margin-right: 0;
-  margin-left: 0;
-  width: auto;
-}
-.layout-wrapper.has-toc .sidenote .sidenote-ref {
-  float: none;
-  margin-right: 0;
-}
-
 /* ============================================================
    Responsive
+   ============================================================
+   CSS custom properties cannot be used inside @media conditions (a CSS spec
+   limitation — all browsers reject it). The breakpoints below are therefore
+   hardcoded, but every number is derived from the variables in :root.
+   When you change a layout variable, find and update the matching breakpoint here.
+
+   ┌──────────────────────────────────────────────────────────────────────────┐
+   │  Variable               Value   Role                                     │
+   ├──────────────────────────────────────────────────────────────────────────┤
+   │  --sidebar-width         160px  left nav sidebar                         │
+   │  --sidebar-gap            80px  gap between sidebar and content           │
+   │  --content-width         760px  reading column                            │
+   │  ─ fixed-cols sum ─     1000px  (sidebar-width + gap + content-width)    │
+   │  --note-width            160px  floating sidenote/marginnote width        │
+   │  --note-gap               20px  space between content edge and note       │
+   │  ─ note reach ─          180px  (note-width + note-gap)                  │
+   ├──────────────────────────────────────────────────────────────────────────┤
+   │  Breakpoint             Value   Derivation                               │
+   ├──────────────────────────────────────────────────────────────────────────┤
+   │  bp-note-float          1360px  fixed-cols + 2×note-reach                │
+   │                                 = 1000 + 2×180 = 1360                    │
+   │                                 Below this, notes → hover popup           │
+   │  bp-sidebar-hide        1040px  fixed-cols + 40px buffer = 1000+40       │
+   │                                 Below this, sidebar hides, mobile nav on  │
+   │  bp-mobile               720px  tighten chrome                           │
+   │  bp-xs                   480px  scale down type, stack cards              │
+   └──────────────────────────────────────────────────────────────────────────┘
    ============================================================ */
 
-/* ≤1100px: margin notes + sidenotes collapse inline (gutter too narrow) */
-@media (max-width: 1100px) {
-  .marginnote,
-  .sidenote {
-    float: none; clear: none;
-    margin-right: 0; margin-left: 0;
-    width: auto;
+/* bp-note-float — see derivation table above */
+@media (max-width: 1360px) {
+  /* — Marginnote: show the † trigger, display note as popup on hover — */
+  .marginnote-wrap {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
   }
-  .sidenote .sidenote-ref { float: none; margin-right: 0; }
+  .marginnote-marker {
+    display: inline-block;
+    color: var(--link-color);
+    font-size: 0.72em;
+    line-height: 1;
+    cursor: help;
+    padding: 0 1px;
+    font-weight: 600;
+    user-select: none;
+    vertical-align: super;
+  }
+  .marginnote {
+    display: none;
+    float: none; clear: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 6px);
+    width: var(--note-popup-width);
+    margin: 0;
+    padding: 10px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    z-index: 500;
+    white-space: normal;
+  }
+  .marginnote-wrap:hover .marginnote,
+  .marginnote-wrap:focus-within .marginnote { display: block; }
 
-  /* Wide figures tamed so they don't bleed into sidebars */
+  /* — Sidenote: display as popup on hover of the superscript ref — */
+  .sidenote-wrap {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+  }
+  .sidenote {
+    display: none;
+    float: none; clear: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 6px);
+    width: var(--note-popup-width);
+    margin: 0;
+    padding: 10px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    z-index: 500;
+  }
+  .sidenote .sidenote-ref { float: none; margin-right: 4px; margin-left: 0; }
+  .sidenote-wrap:hover .sidenote,
+  .sidenote-wrap:focus-within .sidenote { display: block; }
+
+  /* Wide figures tamed so they don't bleed into sidebars at this viewport range.
+     .wide collapses to content-pad only (no extra breakout).
+     .full-bleed keeps a modest 40px-per-side breakout (arbitrary design choice, not derived). */
   figure.wide, .wide {
     margin-left:  calc(-1 * var(--content-pad));
     margin-right: calc(-1 * var(--content-pad));
@@ -893,26 +999,22 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   figure.full-bleed {
     margin-left:  calc(-1 * var(--content-pad) - 40px);
     margin-right: calc(-1 * var(--content-pad) - 40px);
-    width: calc(100% + var(--content-pad) * 2 + 80px);
+    width: calc(100% + var(--content-pad) * 2 + 80px); /* 40px × 2 sides */
   }
 }
 
-/* ≤960px: both sidebars hidden; top nav links appear; content stays centered.
-   The grid collapses to [1fr] [content] [1fr] so the center position
-   doesn't jump relative to the viewport. */
-@media (max-width: 960px) {
-  .layout-wrapper,
-  .layout-wrapper.has-toc {
-    grid-template-columns: minmax(16px, 1fr) minmax(0, var(--content-width)) minmax(16px, 1fr);
+/* bp-sidebar-hide — see derivation table above */
+@media (max-width: 1040px) {
+  .layout-wrapper {
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--content-width)) minmax(0, 1fr);
   }
   .sidebar-left  { display: none; }
-  .sidebar-right { display: none; }
   .main-content  { grid-column: 2; padding: 48px var(--content-pad); }
 
   .header-nav.mobile-nav { display: flex; flex-grow: 1; }
 }
 
-/* ≤720px: tighten chrome */
+/* bp-mobile — see derivation table above */
 @media (max-width: 720px) {
   :root { --content-pad: 20px; }
   .top-header { padding: 0 16px; }
@@ -929,9 +1031,11 @@ th { background-color: var(--bg-secondary); font-weight: 600; }
   }
 }
 
-/* ≤480px: scale down type */
+/* bp-xs — see derivation table above */
 @media (max-width: 480px) {
   body { font-size: 16px; }
   h1 { font-size: 1.55rem; }
   h2 { font-size: 1.2rem; }
+  .project-card { flex-direction: column; gap: 12px; }
+  .project-thumb { width: 100%; height: 120px; }
 }

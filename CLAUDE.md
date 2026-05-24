@@ -20,36 +20,77 @@ GitHub Pages builds Jekyll automatically on push to `main` — no CI/CD needed.
 
 ### Layout
 
-Three-column grid with a sticky left nav, a centered reading column (~720px), and an optional right ToC rail.
+Two-column grid with a sticky left nav and a centered reading column. The right gutter is free for floating sidenotes and margin notes at wide viewports.
 
 ```
 top-header (sticky, full-width)
-  site-title | [mobile nav links] | CV ↗ | search | dark mode
+  site-title   [mobile nav links — hidden on desktop]   → CV ↗ | search | dark mode
 
-layout-wrapper (CSS grid)
-  aside.sidebar-left (160px, sticky) ← persistent site nav; hidden <960px
+layout-wrapper (CSS grid: [1fr] [--sidebar-width] [--sidebar-gap] [--content-width] [1fr])
+  aside.sidebar-left (sticky) ← site nav + "§" ToC; hidden ≤bp-sidebar-hide
     Home / Blog / Projects / Research
+    §
+    Section A          ← auto-injected by JS when page has h2 headings
+    ...
 
-  main.main-content (max-width: 720px)
+  main.main-content
     breadcrumbs
-    {{ content }}
+    {{ content }}        ← sidenotes/marginnotes float right at ≥1360px (bp-note-float)
     footer
-
-  aside.sidebar-right (220px, sticky)  ← only on posts and toc:true pages
-    auto-generated ToC (from h2/h3 headings)
 ```
 
-Grid template:
-- Default: `160px  1fr`  (sidebar-left + main)
-- `has-toc`: `160px  1fr  220px`  (sidebar-left + main + sidebar-right)
+### CSS design tokens
 
-Responsive breakpoints:
-- `≤1100px` — margin notes and sidenotes collapse inline (not enough gutter for floating)
-- `≤960px`  — grid collapses to single column; left sidebar hidden; top nav links appear
-- `≤720px`  — mobile padding, CV link hidden
-- `≤480px`  — base font shrinks
+All layout geometry lives in `:root` in `style.css`. **Change values there, not at call sites.**
 
-The `has-toc` class is set by Liquid: `{% if page.layout == 'post' or page.toc %}`.
+**Typography & chrome**
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `--font-body` | Inter | Body + UI font stack |
+| `--font-mono` | Fira Code | Code font |
+| `--nav-height` | 56px | Sticky top-nav height |
+| `--content-pad` | 40px (20px mobile) | Horizontal padding inside `.main-content` |
+
+**Grid layout** (fixed cols: sidebar-width + sidebar-gap + content-width)
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `--content-width` | 760px | Reading column width |
+| `--sidebar-width` | 160px | Left nav sidebar width |
+| `--sidebar-gap` | 80px | Gap between sidebar right edge and content |
+
+**Floating annotations** (sidenotes, marginnotes)
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `--note-width` | 160px | Width of a floating note in the right gutter |
+| `--note-gap` | 20px | Space between content right edge and note left edge |
+| `--note-popup-width` | 240px | Width of the hover-tooltip popup (narrow viewports) |
+
+`margin-right` on floating notes = `calc(-1 * (--note-width + --note-gap))` — pulls the note out of flow. Note reach = 160 + 20 = 180px of right gutter required.
+
+**Figure breakouts**
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `--breakout-wide` | 60px | Extra width per side for `figure.wide` |
+| `--breakout-full` | 120px | Extra width per side for `figure.full-bleed` |
+
+**Colors** — all in `[data-theme="dark"]` overrides; never hardcode colors outside `:root`.
+
+### Responsive breakpoints
+
+CSS custom properties **cannot be used inside `@media` conditions** (a CSS spec rule, not a browser bug — all browsers reject it identically). Breakpoints are therefore hardcoded, but each is derived from the variables above. The derivation table lives in `style.css` just before the `@media` blocks:
+
+| Name | Value | Formula |
+|---|---|---|
+| `bp-note-float` | 1360px | fixed-cols + 2 × (note-width + note-gap) = 1000 + 360 |
+| `bp-sidebar-hide` | 1040px | fixed-cols + 40px buffer = 1000 + 40 |
+| `bp-mobile` | 720px | tighten chrome |
+| `bp-xs` | 480px | scale type, stack cards |
+
+**If you change a grid variable, recalculate and update the `@media` breakpoints using the formulas above.**
 
 ### Key files
 
@@ -63,14 +104,14 @@ The `has-toc` class is set by Liquid: `{% if page.layout == 'post' or page.toc %
 | `search.json` | Jekyll template → JSON array; indexes posts + 4 main pages only (excludes proj*_web) |
 | `index.html` | Home page (lean: identity + trajectory + 3 highlights) |
 | `blog.html` | Blog feed (reverse-chron list) |
-| `projects.html` | Class/hobby projects (CS180, EECS151 CPU) — `toc: true` |
-| `research.html` | Active research: projects, pubs, education — `toc: true` |
+| `projects.html` | Class/hobby projects (CS180, EECS151 CPU) — visual cards with thumbnails |
+| `research.html` | Active research: projects, pubs, education |
 
 ### CSS design tokens (in `style.css :root`)
 
 | Variable | Purpose |
 |---|---|
-| `--content-width` | Max width of reading column (720px) |
+| `--content-width` | Max width of reading column (760px) |
 | `--content-pad` | Horizontal padding inside main-content (40px; 20px on mobile) |
 | `--nav-height` | Sticky nav height (56px) |
 | `--font-body` | Body + UI font (Inter) |
@@ -102,9 +143,9 @@ Every include is a one-liner in Markdown posts:
 
 See `_templates/post_template.md` for the full snippet cheat-sheet (copy-paste examples for every component, math, code, and raw JS).
 
-### Margin notes
+### Margin notes and sidenotes
 
-Floating margin notes (`{% include marginnote.html text="..." %}`) appear in the right gutter at ≥1100px viewport. On narrower screens and on post pages with a ToC (right rail occupied), they collapse to inline. The CSS class is `.marginnote`; the selector `.layout-wrapper.has-toc .marginnote` forces inline on posts.
+Floating margin notes (`{% include marginnote.html text="..." %}`) and numbered sidenotes (`{% include sidenote.html num=1 text="..." %}`) appear in the right gutter at ≥`bp-note-float` (1360px). Below that they become hover-popup tooltips — the `†` / superscript is the trigger. There is no right sidebar or `has-toc` variant — the right `1fr` gutter is always free for annotations.
 
 ### Figure width options
 
@@ -121,7 +162,7 @@ Or via the include: `wide=true` / `full_bleed=true`.
 ### New post
 
 1. Copy `_templates/post_template.md` → `_posts/YYYY-MM-DD-title.md`
-2. Fill front matter (title, date; `toc: true` optional)
+2. Fill front matter (title, date). The left sidebar automatically shows an "On this page" section when the post has h2 headings — no extra front matter needed.
 3. Write Markdown; use includes for figures/math/charts
 4. Put media in `assets/posts/YYYY-MM-DD-title/`
 

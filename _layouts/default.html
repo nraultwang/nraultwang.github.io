@@ -87,9 +87,9 @@
     </header>
 
     <!-- ── Page body ─────────────────────────────────────────── -->
-    <div class="layout-wrapper{% if page.layout == 'post' or page.toc %} has-toc{% endif %}">
+    <div class="layout-wrapper">
 
-        <!-- Left sidebar — site nav (desktop only; mobile uses header-nav above) -->
+        <!-- Left sidebar — site nav + page ToC (desktop only; mobile uses header-nav above) -->
         <aside class="sidebar-left" aria-label="Site navigation">
             <nav class="sidenav">
                 <a href="{{ '/' | relative_url }}"
@@ -101,6 +101,8 @@
                 <a href="{{ '/research' | relative_url }}"
                    class="sidenav-link{% if page.url == '/research.html' or page.category == 'research' %} active{% endif %}">Research</a>
             </nav>
+            <!-- "On this page" section — auto-populated by JS when page has h2 headings -->
+            <div id="sidenav-toc" class="sidenav-toc-container"></div>
         </aside>
 
         <!-- Main content -->
@@ -150,16 +152,6 @@
             </footer>
         </main>
 
-        <!-- Right sidebar — Table of Contents (posts and toc:true pages only) -->
-        {% if page.layout == 'post' or page.toc %}
-        <aside class="sidebar-right" aria-label="Table of contents">
-            <div class="toc-container">
-                <span class="toc-heading">On this page</span>
-                <nav id="toc" aria-label="Page sections"></nav>
-            </div>
-        </aside>
-        {% endif %}
-
     </div>
 
 </div><!-- .app-container -->
@@ -185,18 +177,18 @@
 
 <!-- ── Scripts ────────────────────────────────────────────── -->
 
-<!-- ToC auto-generator + left-nav page-section dropdown -->
+<!-- Page-section ToC — injects h2 headings into left sidebar "On this page" section -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var content = document.getElementById('main-content');
     if (!content) return;
 
-    /* ── Collect headings ─────────────────────────────────── */
+    /* ── Collect h2/h3 headings (skip footer, post-header, breadcrumbs) ── */
     var headings = Array.from(content.querySelectorAll('h2, h3')).filter(function (h) {
         return !h.closest('.site-footer') && !h.closest('.post-header') && !h.closest('.breadcrumbs');
     });
 
-    /* Assign IDs */
+    /* Assign stable IDs for anchor links */
     headings.forEach(function (h, i) {
         if (!h.id) {
             h.id = h.textContent.toLowerCase()
@@ -205,66 +197,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    /* ── Right ToC ────────────────────────────────────────── */
-    var toc = document.getElementById('toc');
-    if (toc) {
-        if (headings.length === 0) {
-            var rightAside = document.querySelector('.sidebar-right');
-            if (rightAside) rightAside.style.display = 'none';
-        } else {
-            var ul = document.createElement('ul');
-            var currentH2ul = null;
-            headings.forEach(function (h) {
-                var li = document.createElement('li');
-                var a  = document.createElement('a');
-                a.href = '#' + h.id;
-                a.textContent = h.textContent;
-                li.appendChild(a);
-                if (h.tagName === 'H2') {
-                    ul.appendChild(li);
-                    currentH2ul = document.createElement('ul');
-                    li.appendChild(currentH2ul);
-                } else {
-                    (currentH2ul || ul).appendChild(li);
-                }
-            });
-            toc.appendChild(ul);
-        }
-    }
-
-    /* ── Left nav: inject page sections under the active link ─ */
+    /* ── Populate left sidebar "On this page" section ──────── */
     var h2s = headings.filter(function (h) { return h.tagName === 'H2'; });
-    if (h2s.length > 0) {
-        var activeLink = document.querySelector('.sidenav-link.active');
-        if (activeLink) {
-            var sub = document.createElement('ul');
-            sub.className = 'sidenav-sub';
-            h2s.forEach(function (h) {
-                var li  = document.createElement('li');
-                var a   = document.createElement('a');
-                a.href  = '#' + h.id;
-                a.className = 'sidenav-sub-link';
-                a.textContent = h.textContent;
-                li.appendChild(a);
-                sub.appendChild(li);
-            });
-            activeLink.insertAdjacentElement('afterend', sub);
+    var tocContainer = document.getElementById('sidenav-toc');
+    if (h2s.length > 0 && tocContainer) {
+        var label = document.createElement('div');
+        label.className = 'sidenav-toc-label';
+        label.textContent = '§';
+        tocContainer.appendChild(label);
 
-            /* Highlight active section on scroll */
-            var subLinks = Array.from(sub.querySelectorAll('.sidenav-sub-link'));
-            function updateActiveSection() {
-                var scrollY = window.scrollY + 80;
-                var active  = null;
-                h2s.forEach(function (h, i) {
-                    if (h.getBoundingClientRect().top + window.scrollY <= scrollY) active = i;
-                });
-                subLinks.forEach(function (a, i) {
-                    a.classList.toggle('active-section', i === active);
-                });
-            }
-            window.addEventListener('scroll', updateActiveSection, { passive: true });
-            updateActiveSection();
+        var sub = document.createElement('ul');
+        sub.className = 'sidenav-sub';
+        h2s.forEach(function (h) {
+            var li = document.createElement('li');
+            var a  = document.createElement('a');
+            a.href      = '#' + h.id;
+            a.className = 'sidenav-sub-link';
+            a.textContent = h.textContent;
+            li.appendChild(a);
+            sub.appendChild(li);
+        });
+        tocContainer.appendChild(sub);
+
+        /* Highlight whichever section is currently in view */
+        var subLinks = Array.from(sub.querySelectorAll('.sidenav-sub-link'));
+        function updateActiveSection() {
+            var scrollY = window.scrollY + 80;
+            var active  = null;
+            h2s.forEach(function (h, i) {
+                if (h.getBoundingClientRect().top + window.scrollY <= scrollY) active = i;
+            });
+            subLinks.forEach(function (a, i) {
+                a.classList.toggle('active-section', i === active);
+            });
         }
+        window.addEventListener('scroll', updateActiveSection, { passive: true });
+        updateActiveSection();
     }
 });
 </script>
@@ -362,13 +330,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (r.matches && r.matches.length) {
                         var cm = r.matches.find(function (x) { return x.key === 'content'; });
                         if (cm && cm.indices && cm.indices.length && cm.value) {
-                            var txt    = cm.value;
-                            /* Use the widest matched region across all index pairs */
-                            var first  = cm.indices[0][0];
-                            var last   = cm.indices[cm.indices.length - 1][1];
-                            var start  = Math.max(0, first - 90);
-                            var end    = Math.min(txt.length, last + 120);
-                            snippet    = txt.substring(start, end).replace(/\s+/g, ' ').trim();
+                            var txt = cm.value;
+                            
+                            /* Find the longest contiguous match to ensure the snippet is centered around the most relevant word */
+                            var bestPair = cm.indices[0];
+                            var maxLen = 0;
+                            for (var i = 0; i < cm.indices.length; i++) {
+                                var len = cm.indices[i][1] - cm.indices[i][0];
+                                if (len > maxLen) {
+                                    maxLen = len;
+                                    bestPair = cm.indices[i];
+                                }
+                            }
+                            
+                            var first = bestPair[0];
+                            var last  = bestPair[1];
+                            var start = Math.max(0, first - 50);
+                            var end   = Math.min(txt.length, last + 70);
+                            
+                            snippet = txt.substring(start, end).replace(/\s+/g, ' ').trim();
                             if (start > 0)        snippet = '…' + snippet;
                             if (end < txt.length) snippet += '…';
                         }
@@ -379,9 +359,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     if (snippet) {
+                        /* Decode HTML entities (e.g. &lt;) then strip the resulting tags 
+                           to avoid showing raw HTML code blocks in the search previews */
+                        var tmp = document.createElement('div');
+                        tmp.innerHTML = snippet;
+                        var decoded = tmp.textContent || tmp.innerText || "";
+                        
+                        var tmp2 = document.createElement('div');
+                        tmp2.innerHTML = decoded;
+                        var stripped = tmp2.textContent || tmp2.innerText || "";
+
+                        var finalSnippet = stripped.trim() ? stripped : decoded;
+
+                        /* Add Scroll-to-Text Fragment so clicking jumps to the match */
+                        var fragmentTarget = finalSnippet.replace(/[…]/g, '').trim().substring(0, 50);
+                        if (fragmentTarget.length > 5) {
+                            a.href = item.url + "#:~:text=" + encodeURIComponent(fragmentTarget);
+                        }
+
                         var snipEl = document.createElement('div');
                         snipEl.className = 'search-result-snippet';
-                        snipEl.textContent = snippet;
+                        snipEl.textContent = finalSnippet;
                         a.appendChild(snipEl);
                     }
 

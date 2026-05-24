@@ -1,11 +1,17 @@
 {% comment %}
-Usage: {% include sidenote.html num=1 text="Your note here. Markdown-ish: **bold**, _italic_, links work if written as raw HTML." %}
+  Numbered sidenote / margin citation.
 
-Renders a numbered superscript in the text, with the note floating in the right margin on
-wide screens (≥1100px viewport). On post pages (ToC occupies right rail) and on narrow
-screens, the note collapses to an inline block with a border-left.
+  At ≥1320px: the note floats into the right gutter alongside the text.
+  At ≤1320px: the superscript number is the hover trigger; the note appears
+              as a popup tooltip when hovered or focused.
 
-The `num` parameter sets the visible counter. Use sequential integers starting at 1.
-The `text` parameter accepts raw HTML — links, bold, etc. are fine.
+  Usage:
+    {% include sidenote.html num=1 text="Your note here. HTML is fine." %}
+
+  Parameters:
+    num  — visible counter (use sequential integers starting at 1)
+    text — note content; raw HTML accepted (links, <em>, etc.)
+
+  Place the include tag immediately after the word being cited, with no space before it.
 {% endcomment %}
-<span class="sidenote-ref">{{ include.num }}</span><span class="sidenote"><span class="sidenote-ref">{{ include.num }}</span> {{ include.text }}</span>
+<span class="sidenote-wrap"><span class="sidenote-ref" tabindex="0">{{ include.num }}</span><span class="sidenote" role="note"><span class="sidenote-ref">{{ include.num }}</span> {{ include.text }}</span></span>

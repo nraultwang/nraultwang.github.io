@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Projects
-toc: true
 ---
 
 <h1>Projects</h1>
@@ -19,75 +18,105 @@ toc: true
 
 <ul class="item-list">
 
-  <li>
-    <div class="item-title">Neural Radiance Fields &amp; Facial Keypoint Detection</div>
-    <div class="item-meta">CS 180 Final Project &middot; Fall 2024</div>
-    <div class="item-desc">
-      Implemented NeRF from scratch (positional encoding, volume rendering, coarse-to-fine sampling)
-      and a convolutional facial keypoint detector trained on the IMM Face Database.
-    </div>
-    <div class="item-tags">
-      <a href="{{ '/final_proj_web/' | relative_url }}">[Write-Up ↗]</a>
-    </div>
-  </li>
-
-  <li>
-    <div class="item-title">The Power of Diffusion Models</div>
-    <div class="item-meta">CS 180 Project 5 &middot; Fall 2024</div>
-    <div class="item-desc">
-      Explored denoising diffusion probabilistic models: sampling, DDIM, classifier-free guidance,
-      inpainting, and training a small UNet on MNIST.
-    </div>
-    <div class="item-tags">
-      <a href="{{ '/proj5_web/' | relative_url }}">[Write-Up ↗]</a>
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/final_proj_web/CS180%20Final%20Projects%20Neural%20Radiance%20Fields%20%26%20Faci%201594d556e62b8055b3ccc03a935ebe29/1003ce17-384b-4024-802b-97fb741363d4.png"
+         alt="NeRF novel view synthesis render" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">Neural Radiance Fields &amp; Facial Keypoint Detection</div>
+      <div class="item-meta">CS 180 Final Project &middot; Fall 2024</div>
+      <div class="item-desc">
+        Implemented NeRF from scratch (positional encoding, volume rendering, coarse-to-fine sampling)
+        and a convolutional facial keypoint detector trained on the IMM Face Database.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/final_proj_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
     </div>
   </li>
 
-  <li>
-    <div class="item-title">Image Warping, Mosaicing &amp; Auto-Stitching</div>
-    <div class="item-meta">CS 180 Project 4 &middot; Fall 2024 &middot; Class Choice Award</div>
-    <div class="item-desc">
-      Homography estimation, image rectification, and panorama stitching via manual and
-      automatic feature-point correspondence. Implemented Harris corner detection,
-      ANMS, feature descriptor extraction, RANSAC, and the full auto-stitching pipeline.
-    </div>
-    <div class="item-tags">
-      <a href="{{ '/proj4ab_web/' | relative_url }}">[Write-Up ↗]</a>
-    </div>
-  </li>
-
-  <li>
-    <div class="item-title">Face Morphing &amp; Population Statistics</div>
-    <div class="item-meta">CS 180 Project 3 &middot; Fall 2024</div>
-    <div class="item-desc">
-      Triangulation-based face morphing, computation of mean faces from the Danes dataset,
-      and caricature generation via extrapolation.
-    </div>
-    <div class="item-tags">
-      <a href="{{ '/proj3_web/' | relative_url }}">[Write-Up ↗]</a>
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/proj5_web/CS180%20Project%205%20The%20Power%20of%20Diffusion%20Models!%2012f4d556e62b80a890d1c56db1b6caf4/Capture_decran_2024-11-06_a_01.14.51.png"
+         alt="Visual Anagram" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">The Power of Diffusion Models</div>
+      <div class="item-meta">CS 180 Project 5 &middot; Fall 2024</div>
+      <div class="item-desc">
+        Explored denoising diffusion probabilistic models: sampling, DDIM, classifier-free guidance,
+        inpainting, and training a small UNet on MNIST.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/proj5_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
     </div>
   </li>
 
-  <li>
-    <div class="item-title">Fun with Filters &amp; Frequencies</div>
-    <div class="item-meta">CS 180 Project 2 &middot; Fall 2024 &middot; Class Choice Award</div>
-    <div class="item-desc">
-      Gaussian and Laplacian stacks, hybrid images, and multiresolution blending.
-    </div>
-    <div class="item-tags">
-      <a href="{{ '/proj2_web/' | relative_url }}">[Write-Up ↗]</a>
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/proj4ab_web/CS180%20Project%204%20Image%20Warping%20and%20Mosaicing%20&%20Feat%2012c4d556e62b80a79e64c5a59c6e237a/4a-mosaic_doe_0.png"
+         alt="Doe at Night" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">Image Warping, Mosaicing &amp; Auto-Stitching</div>
+      <div class="item-meta">CS 180 Project 4 &middot; Fall 2024 &middot; Class Choice Award</div>
+      <div class="item-desc">
+        Homography estimation, image rectification, and panorama stitching via manual and
+        automatic feature-point correspondence. Implemented Harris corner detection,
+        ANMS, feature descriptor extraction, RANSAC, and the full auto-stitching pipeline.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/proj4ab_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
     </div>
   </li>
 
-  <li>
-    <div class="item-title">Colorizing the Prokudin-Gorskii Photo Collection</div>
-    <div class="item-meta">CS 180 Project 1 &middot; Fall 2024</div>
-    <div class="item-desc">
-      Automatic alignment of three-channel glass-plate negatives using NCC/SSD
-      image metrics and image pyramid search.
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/proj3_web/CS180%20Project%203%20Face%20Morphing%2010c4d556e62b80f0877cc4c1a20609c8/download-41.png"
+         alt="Face morphing" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">Face Morphing &amp; Population Statistics</div>
+      <div class="item-meta">CS 180 Project 3 &middot; Fall 2024</div>
+      <div class="item-desc">
+        Triangulation-based face morphing, computation of mean faces from the Danes dataset,
+        and caricature generation via extrapolation.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/proj3_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
     </div>
-    <div class="item-tags">
-      <a href="{{ '/proj1_web/' | relative_url }}">[Write-Up ↗]</a>
+  </li>
+
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/proj2_web/CS180%20Project%202%20Fun%20with%20Filters%20and%20Frequencies!%2050abe8af150441f3b87e2b73e64bbbc2/2-2hybrid_lowbarbiehighoppenheimer_blended%201.png"
+         alt="Barbenheimer" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">Fun with Filters &amp; Frequencies</div>
+      <div class="item-meta">CS 180 Project 2 &middot; Fall 2024 &middot; Class Choice Award</div>
+      <div class="item-desc">
+        Gaussian and Laplacian stacks, hybrid images, and multiresolution blending.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/proj2_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
+    </div>
+  </li>
+
+  <li class="project-card">
+    <img class="project-thumb"
+         src="/proj1_web/CS180%20Project%201%20Colorizing%20the%20Prokudin-Gorskii%20Ph%20a10daf860add478cb5b28dba731bafeb/church_broder.png"
+         alt="Colorized Prokudin-Gorskii glass-plate negative" loading="lazy" decoding="async">
+    <div class="project-card-body">
+      <div class="item-title">Colorizing the Prokudin-Gorskii Photo Collection</div>
+      <div class="item-meta">CS 180 Project 1 &middot; Fall 2024</div>
+      <div class="item-desc">
+        Automatic alignment of three-channel glass-plate negatives using NCC/SSD
+        image metrics and image pyramid search.
+      </div>
+      <div class="item-tags">
+        <a href="{{ '/proj1_web/' | relative_url }}">[Write-Up ↗]</a>
+      </div>
     </div>
   </li>
 
@@ -111,7 +140,6 @@ toc: true
     </div>
     <div class="item-tags">
       <a href="https://docs.google.com/document/d/1bd8B7AiVRqJF-ELN_Dtd7D44VfMZpjDKXUJDSB8RnkI/edit?usp=sharing" target="_blank" rel="noopener">[Optimization Write-Up]</a>
-      <!-- <a href="{{ '/apple_cpu.html' | relative_url }}">[Apple CPU Architecture Notes]</a> -->
     </div>
   </li>
 

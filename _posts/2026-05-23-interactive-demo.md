@@ -95,44 +95,52 @@ Success / tip variant.
 
 ---
 
-## Margin notes
+## Margin notes and hover tooltips
 
-Here is a sentence with a margin note alongside it.{% include marginnote.html text="I appear in the right margin on screens wider than 1100px, and collapse to an inline aside on smaller screens or on post pages with a ToC (where the right rail is occupied)." %}
+Margin notes come in two flavours depending on screen width:
 
-Another sentence, another note further down.{% include marginnote.html text="Use margin notes for brief asides, citations, or small clarifications that would interrupt flow if inlined." %}
+- **≥1320px viewport** — the note floats into the right gutter, Tufte-style.
+- **&lt;1320px viewport** — the note is hidden; a small `†` marker appears. Hover or focus it to reveal the note as a popup tooltip.
 
-On post pages with `toc: true`, margin notes are always inline (the ToC occupies the right rail).
+Try it here — hover the `†` symbol:
+
+This sentence discusses signal detection theory.{% include marginnote.html text="The Neyman–Pearson lemma establishes that the likelihood ratio test is the most powerful test for simple hypotheses. It underpins the design of optimal detectors in radar and communications." %} Optimal detectors exploit the structure of the noise distribution.{% include marginnote.html text="Under AWGN, the optimal receiver is the matched filter — it maximizes output SNR by correlating the observation with the expected signal waveform." %}
+
+```liquid
+{% raw %}...signal detection theory.{% include marginnote.html text="Note text here." %} Next sentence.{% endraw %}
+```
+
+No space before the tag. The `†` appears right after the word the note annotates.
 
 ---
 
-## Numbered sidenotes and inline citations
+## Numbered sidenotes and hover citations
 
-Sidenotes are numbered references that float into the right margin — the Tufte-CSS pattern for
-inline citations. The number appears in the text body and at the start of the note.
+Sidenotes are the numbered-citation version of margin notes. The superscript number is the hover trigger at narrow widths, and the note floats in the margin at wide widths.
 
-The matched filter{% include sidenote.html num=1 text="The matched filter (correlator receiver) is the optimal linear detector under AWGN: it maximizes the output SNR by correlating the received signal with a conjugate-flipped replica of the template. See Turin, 1960, <em>IRE Trans. Inf. Theory</em>." %} is the foundation of coherent radar and communication receivers. Applying it requires knowledge of the waveform{% include sidenote.html num=2 text="When the target has significant radial velocity, the replica must be Doppler-compensated. Pulse-Doppler radars address this by processing a bank of matched filters spanning the expected Doppler interval." %} at the receiver, which motivates waveform design as a sub-problem of radar systems engineering.
+The matched filter{% include sidenote.html num=1 text="The matched filter (correlator receiver) is the optimal linear detector under AWGN: it maximizes output SNR by correlating the received signal with a conjugate-flipped replica of the template. See Turin, 1960, <em>IRE Trans. Inf. Theory</em>." %} is the foundation of coherent radar and communication receivers. Applying it requires knowledge of the waveform{% include sidenote.html num=2 text="When the target has significant radial velocity, the replica must be Doppler-compensated. Pulse-Doppler radars do this by processing a bank of matched filters spanning the expected Doppler interval." %} at the receiver.
 
-**How to write one** — paste the include *immediately after* the word being cited, with no space before the tag:
+**How to write one:**
 
 ```liquid
-{% raw %}The matched filter{% include sidenote.html num=1 text="Turin, G. L. (1960). An introduction to matched filters. <em>IRE Trans. Inf. Theory</em>, 6(3), 311–329." %} maximizes SNR.{% endraw %}
+{% raw %}The matched filter{% include sidenote.html num=1 text="Turin (1960). <em>IRE Trans. Inf. Theory</em>, 6(3), 311–329." %} maximizes SNR.{% endraw %}
 ```
 
-**Linking a reference:** the `text` parameter accepts raw HTML, so you can link directly:
+**With a link in the note text** (`text` accepts raw HTML):
 
 ```liquid
 {% raw %}...the ELBO objective{% include sidenote.html num=2 text="See <a href='https://arxiv.org/abs/1312.6114'>Kingma & Welling (2013)</a>, eq. 4." %} lower-bounds the log-likelihood.{% endraw %}
 ```
 
-**With a literature note in the margin:**
+**With a literature note (math + sidenote combined):**
 
 $$
 \text{SNR}_{\text{out}} = \frac{2E_s}{N_0}
 $$
 
-This bound{% include sidenote.html num=3 text="The bound is tight: a matched filter <em>achieves</em> SNR = 2E/N₀, not merely approaches it. The proof follows from Cauchy-Schwarz applied to the cross-correlation integral." %} is tight and achieved by the matched filter. Note that it depends only on the signal energy $E_s$ and noise spectral density $N_0$, not the waveform shape.
+This bound{% include sidenote.html num=3 text="The bound is tight: a matched filter <em>achieves</em> SNR = 2E/N₀, not merely approaches it. The proof follows from Cauchy-Schwarz applied to the cross-correlation integral." %} is tight and achieved by the matched filter. It depends only on signal energy $E_s$ and noise spectral density $N_0$, not the waveform shape.
 
-**On this page**, sidenotes collapse inline because the right ToC rail is occupied. On a page without `toc: true`, they float into the margin at ≥1100px viewport width.
+At ≥1320px, sidenotes ¹ ² ³ float into the right gutter. Below that width, hover the superscript to reveal the note as a popup tooltip.
 
 ### HTML comments (invisible notes to yourself)
 
@@ -198,21 +206,37 @@ Use the slider to sweep frequency. Plotly charts are fully interactive: zoom, pa
 
 ---
 
-## Animated video (converted GIF)
+## Animated video (live example)
 
-For animated content, convert GIFs to MP4 first (≈10× smaller, no flicker):
+Videos are preferred over GIFs: ≈10× smaller and no dithering artifacts. The CS180 NeRF project used large animated GIFs; converting them to MP4 with ffmpeg cut the page weight dramatically.
+
+Here is one — a NeRF trained on the lego bulldozer scene, synthesizing novel views by rotating around the object:
+
+{% include video.html
+   src="/final_proj_web/CS180%20Final%20Projects%20Neural%20Radiance%20Fields%20%26%20Faci%201594d556e62b8055b3ccc03a935ebe29/download-22.mp4"
+   caption="NeRF — novel view synthesis rotating around the lego bulldozer scene (CS 180 Final Project)." %}
+
+And a wide variant, good for panoramic or wider renders:
+
+{% include video.html
+   src="/final_proj_web/CS180%20Final%20Projects%20Neural%20Radiance%20Fields%20%26%20Faci%201594d556e62b8055b3ccc03a935ebe29/download-15.mp4"
+   caption="NeRF volume renders — wider breakout for side-by-side comparison frames."
+   wide=true %}
+
+**How to convert and embed your own:**
 
 ```bash
+# Convert GIF → MP4 (preserves dimensions, web-ready)
 ffmpeg -i animation.gif -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" \
-       -c:v libx264 -pix_fmt yuv420p -movflags +faststart out.mp4
+       -c:v libx264 -pix_fmt yuv420p -movflags +faststart -crf 23 out.mp4
 ```
-
-Then embed with the video include:
 
 ```liquid
 {% raw %}{% include video.html src="/assets/posts/YYYY-MM-DD-title/demo.mp4"
-   caption="Optional caption." %}{% endraw %}
+   caption="Optional caption." wide=true %}{% endraw %}
 ```
+
+Put the `.mp4` in `assets/posts/YYYY-MM-DD-title/` alongside other post assets.
 
 ---
 

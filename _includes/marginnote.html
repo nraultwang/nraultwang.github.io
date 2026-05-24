@@ -1,7 +1,7 @@
 {% comment %}
-  Margin note — floats into the right gutter on wide screens (≥1100px),
-  collapses to an inline aside on narrow screens and on post pages (where the
-  ToC occupies the right rail).
+  Margin note — floats into the right gutter on wide screens (≥1320px viewport).
+  On narrower screens the note is hidden; hover or focus the † symbol to reveal it
+  as a popup tooltip.
 
   Usage:
     {% include marginnote.html text="This appears in the margin." %}
@@ -9,5 +9,4 @@
   Parameters:
     text — the note content (plain text or simple HTML; no block elements)
 {% endcomment %}
-
-<aside class="marginnote">{{ include.text }}</aside>
+<span class="marginnote-wrap"><span class="marginnote-marker" tabindex="0" role="note" aria-label="See note">†</span><span class="marginnote">{{ include.text }}</span></span>
